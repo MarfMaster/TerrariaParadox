@@ -1,0 +1,3 @@
+displayName = TERRARIA: PARADOX
+author = Komsmatik, Haven, Fusion and SlingMingo
+version = 0.0.1
