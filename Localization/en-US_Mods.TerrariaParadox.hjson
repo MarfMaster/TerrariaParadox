@@ -1,1 +1,10 @@
-
+Items: {
+	Weapons: {
+		Summon: {
+			Suspicious8Ball: {
+				DisplayName: Suspicious 8-Ball
+				Tooltip: Oh, That's Sus!
+			}
+		}
+	}
+}
