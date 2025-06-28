@@ -3,7 +3,11 @@ Items: {
 		Summon: {
 			Suspicious8Ball: {
 				DisplayName: Suspicious 8-Ball
-				Tooltip: Oh, That's Sus!
+				Tooltip:
+					'''
+					Summons a Wretched 8-Ball to fight for you.
+					An abstraction of light that will lead you to darkness.
+					'''
 			}
 		}
 	}

@@ -13,6 +13,7 @@ namespace TerrariaParadox.Items.Weapons.Summon
             Item.height = 32;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.noMelee = true;
+            Item.rare = ItemRarityID.LightRed;
 
             Item.DamageType = DamageClass.Summon;
             Item.mana = 17;
