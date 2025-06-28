@@ -1,2 +1,1 @@
-# TerrariaParadox
-
+# Terraria Paradox

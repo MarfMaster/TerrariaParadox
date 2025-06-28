@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace TerrariaParadox.MainMenu
 {
-    public class ParadoxMainMenu : ModMenu
+    public class ParadoxMainMenu:ModMenu
     {
         public override string DisplayName => "TERRARIA: PARADOX";
         
