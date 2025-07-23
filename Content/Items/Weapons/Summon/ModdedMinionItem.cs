@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Terraria.GameContent.Creative;
 using Terraria;
 using Terraria.ID;
@@ -24,7 +25,6 @@ namespace TerrariaParadox.Content.Items.Weapons.Summon
         /// How well this minion benefits from summon tag dmg. Default is 100 here, it gets divided when applied but should be a full number for any tooltips.
         /// </summary>
         public abstract float SummonTagDmgPercentage { get; }
-        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(SummonTagDmgPercentage);
         
         public override void SetStaticDefaults()
         {
@@ -62,6 +62,19 @@ namespace TerrariaParadox.Content.Items.Weapons.Summon
                 Main.projectile[p].originalDamage = Item.damage;
             }
             return false;
+        }
+        public virtual void CustomModifyTooltips(List<TooltipLine> tooltips) {}
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            if (SummonTagDmgPercentage != 100)
+            {
+                int ttindex = tooltips.FindLastIndex(t => t.Mod == "Terraria");
+                if (ttindex != -1)
+                {
+                    tooltips.Insert(ttindex + 1, new TooltipLine(Mod, "SummonTagDmgPercent", LangUtils.GetTextValue("CommonItemTooltip.Summon.TagDmgMult", (int)SummonTagDmgPercentage)));
+                }
+            }
+            CustomModifyTooltips(tooltips);
         }
     }
 }

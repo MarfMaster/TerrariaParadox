@@ -15,4 +15,9 @@ public class Suspicious8BallProjectile : ModdedMinionProjectile
     public override DamageClass ProjectileDamageType => DamageClass.Summon;
     public override float SummonTagDamagePercentage => Suspicious8Ball.SummonTagMult;
     public override int ShotProjectileType => 0;
+    public override void CustomSetDefaults()
+    {
+        Projectile.usesLocalNPCImmunity  = true;
+        Projectile.localNPCHitCooldown = 10;
+    }
 }
