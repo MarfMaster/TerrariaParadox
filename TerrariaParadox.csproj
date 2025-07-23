@@ -5,12 +5,9 @@
 
 	<!-- General -->
 	<PropertyGroup>
-		
+    <DotNetName Condition=" '$(OS)' == 'Unix' ">/usr/bin/dotnet</DotNetName>
 	</PropertyGroup>
 
 	<!-- References -->
-	<ItemGroup>
-		
-	</ItemGroup>
 
 </Project>

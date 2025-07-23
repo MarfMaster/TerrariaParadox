@@ -1,14 +1,30 @@
+CommonItemTooltip.Summon.TagDmgMult: This weapon scales with only {0}% Tag Damage
+
 Items: {
 	Weapons: {
 		Summon: {
-			Suspicious8Ball: {
-				DisplayName: Suspicious 8-Ball
-				Tooltip:
-					'''
-					Summons a Wretched 8-Ball to fight for you.
-					An abstraction of light that will lead you to darkness.
-					'''
+			Minions: {
+				Suspicious8Ball: {
+					DisplayName: Suspicious 8-Ball
+					Tooltip:
+						'''
+						Summons a Wretched 8-Ball to fight for you.
+						An abstraction of light that will lead you to darkness.
+						{$CommonItemTooltip.Summon.TagDmgMult}
+						'''
+				}
 			}
 		}
 	}
 }
+
+Buffs: {
+	Minions: {
+		Suspicious8BallBuff: {
+			DisplayName: Suspicious8 Ball Buff
+			Description: Mods.TerrariaParadox.Buffs.Minions.Suspicious8BallBuff.Description
+		}
+	}
+}
+
+Projectiles.Suspicious8BallProjectile.DisplayName: Suspicious8 Ball Projectile
