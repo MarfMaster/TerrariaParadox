@@ -2,7 +2,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TerrariaParadox.Content.Buffs.Minions;
-using TerrariaParadox.Content.Projectiles.Summon.Minions;
+using TerrariaParadox.Content.Projectiles.Weapons.Summon.Minions;
 
 namespace TerrariaParadox.Content.Items.Weapons.Summon.Minions
 {

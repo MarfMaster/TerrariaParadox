@@ -2,7 +2,7 @@ using Terraria.ModLoader;
 using TerrariaParadox.Content.Buffs.Minions;
 using TerrariaParadox.Content.Items.Weapons.Summon.Minions;
 
-namespace TerrariaParadox.Content.Projectiles.Summon.Minions;
+namespace TerrariaParadox.Content.Projectiles.Weapons.Summon.Minions;
 
 public class Suspicious8BallProjectile : ModdedMinionProjectile
 {

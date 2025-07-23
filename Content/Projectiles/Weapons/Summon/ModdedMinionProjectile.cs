@@ -5,7 +5,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TerrariaParadox.Content.Projectiles.Summon
+namespace TerrariaParadox.Content.Projectiles.Weapons.Summon
 {
     public abstract class ModdedMinionProjectile : ModProjectile
     {
