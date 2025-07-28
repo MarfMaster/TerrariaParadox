@@ -27,6 +27,26 @@ Items: {
 		DisplayName: Assecstone Block
 		Tooltip: ""
 	}
+
+	HostPickaxe: {
+		DisplayName: Host Pickaxe
+		Tooltip: ""
+	}
+
+	Leecharang: {
+		DisplayName: Leecharang
+		Tooltip: ""
+	}
+
+	LeechwoodSword: {
+		DisplayName: Leechwood Sword
+		Tooltip: ""
+	}
+
+	TarsalSaber: {
+		DisplayName: Tarsal Saber
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -38,4 +58,7 @@ Buffs: {
 	}
 }
 
-Projectiles.Suspicious8BallProjectile.DisplayName: Suspicious8 Ball Projectile
+Projectiles: {
+	Suspicious8BallProjectile.DisplayName: Suspicious8 Ball Projectile
+	TarsalSaberGnat.DisplayName: Tarsal Saber Gnat
+}

@@ -1,6 +1,5 @@
 using Terraria;
 using Terraria.ModLoader;
-using TerrariaParadox.Content.Projectiles.Summon.Minions;
 
 namespace TerrariaParadox.Content.Buffs;
 
