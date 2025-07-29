@@ -47,6 +47,21 @@ Items: {
 		DisplayName: Tarsal Saber
 		Tooltip: ""
 	}
+
+	ChitiniteOre: {
+		DisplayName: Chitinite Ore
+		Tooltip: ""
+	}
+
+	Lighter: {
+		DisplayName: Lighter
+		Tooltip: ""
+	}
+
+	LeechwoodBow: {
+		DisplayName: Leechwood Bow
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -56,9 +71,16 @@ Buffs: {
 			Description: Mods.TerrariaParadox.Buffs.Minions.Suspicious8BallBuff.Description
 		}
 	}
+
+	LeecharangBleed: {
+		DisplayName: Leecharang Bleed
+		Description: Mods.TerrariaParadox.Buffs.LeecharangBleed.Description
+	}
 }
 
 Projectiles: {
 	Suspicious8BallProjectile.DisplayName: Suspicious8 Ball Projectile
 	TarsalSaberGnat.DisplayName: Tarsal Saber Gnat
+	LeecharangProjectile.DisplayName: Leecharang Projectile
+	LighterSpark.DisplayName: Lighter Spark
 }

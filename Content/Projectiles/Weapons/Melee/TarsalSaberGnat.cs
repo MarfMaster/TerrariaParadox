@@ -5,9 +5,10 @@ using Terraria.ModLoader;
 
 namespace TerrariaParadox.Content.Projectiles.Weapons.Melee;
 
-public class TarsalSaberGnat : HomingProjectile
+public class TarsalSaberGnat : ModdedFriendlyHomingProjectile
 {
     public override int Frames => 2;
+    public override int AnimationDuration => 10;
     public override int Width => 10;
     public override int Height => 10;
     public override DamageClass DamageType => DamageClass.Melee;

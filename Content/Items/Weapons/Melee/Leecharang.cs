@@ -1,28 +1,34 @@
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TerrariaParadox.Content.Projectiles.Weapons.Melee.Boomerangs;
 
 namespace TerrariaParadox.Content.Items.Weapons.Melee;
 
-public class Leecharang : ModItem
+public class Leecharang : ModdedBasicItem
 {
-    public override void SetDefaults()
+    public override int Damage => 25;
+    public override int UseTime => 18;
+    public override int UseAnimation => 18;
+    public override float Knockback => 9;
+    public override DamageClass DamageType => DamageClass.MeleeNoSpeed;
+    public override int UseStyle => ItemUseStyleID.Swing;
+    public override bool DealsContactDamage => false;
+    public override int Width => 18;
+    public override int Height => 32;
+    public override int Rarity => ItemRarityID.Blue;
+    public override int Value => PriceByRarity.fromItem(Item);
+    public override SoundStyle UseSound => SoundID.Item7;
+    public override bool UseTurn => false;
+    public const float ShootSpeed = 12f / 2f;
+    public const int DebuffDotPerSecond = 5;
+    public const int DebuffDuration = 10 * 60;
+    public override void CustomSetDefaults()
     {
-        Item.rare = ItemRarityID.Blue;
-        Item.damage = 19;
-        Item.width = 18;
-        Item.height = 32;
-        Item.knockBack = 6f;
-        Item.DamageType = DamageClass.MeleeNoSpeed;
-        Item.useAnimation = 14;
-        Item.useTime = 14;
-        Item.UseSound = SoundID.Item1;
-        Item.useStyle = ItemUseStyleID.Swing;
-        Item.value = PriceByRarity.fromItem(Item);
         Item.noUseGraphic = true;
-        Item.noMelee = true;
-        Item.shootSpeed = 18;
-        Item.shoot = ProjectileID.WoodenBoomerang;
+        Item.shootSpeed = ShootSpeed;
+        Item.shoot = ModContent.ProjectileType<LeecharangProjectile>();
     }
     public override bool CanUseItem(Player player)
     {
