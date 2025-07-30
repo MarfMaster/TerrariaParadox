@@ -6,6 +6,7 @@ namespace TerrariaParadox.Content.Items.Weapons.Melee;
 
 public class LeechwoodSword : ModdedBasicItem
 {
+    public override string LocalizationCategory => "Items.Weapons.Melee";
     public override int Damage => 12;
     public override int UseTime => 18;
     public override int UseAnimation => 18;
@@ -19,4 +20,11 @@ public class LeechwoodSword : ModdedBasicItem
     public override int Value => PriceByRarity.fromItem(Item);
     public override SoundStyle UseSound => SoundID.Item1;
     public override bool UseTurn => true;
+    public override void AddRecipes()
+    {
+        CreateRecipe().
+            AddIngredient(ItemID.Wood, 7).
+            AddTile(TileID.Anvils).
+            Register();
+    }
 }

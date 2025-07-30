@@ -14,6 +14,37 @@ Items: {
 				}
 			}
 		}
+
+		Magic: {
+			Lighter: {
+				DisplayName: Lighter
+				Tooltip: ""
+			}
+		}
+
+		Melee: {
+			Leecharang: {
+				DisplayName: Leecharang
+				Tooltip: ""
+			}
+
+			LeechwoodSword: {
+				DisplayName: Leechwood Sword
+				Tooltip: ""
+			}
+
+			TarsalSaber: {
+				DisplayName: Tarsal Saber
+				Tooltip: ""
+			}
+		}
+
+		Ranged: {
+			LeechwoodBow: {
+				DisplayName: Leechwood Bow
+				Tooltip: ""
+			}
+		}
 	}
 
 	TreasureBags: {
@@ -23,44 +54,47 @@ Items: {
 		}
 	}
 
-	AssecstoneBlock: {
-		DisplayName: Assecstone Block
+	BioluminescentGoop: {
+		DisplayName: Bioluminescent Goop
 		Tooltip: ""
 	}
 
-	HostPickaxe: {
-		DisplayName: Host Pickaxe
-		Tooltip: ""
+	Tiles: {
+		Bars: {
+			ChitiniteBar: {
+				DisplayName: Chitinite Bar
+				Tooltip: ""
+			}
+		}
+
+		Blocks: {
+			AssecGrassBlockItem: {
+				DisplayName: Assec Grass Block Item
+				Tooltip: "TEST ITEM TO BE REMOVED"
+			}
+
+			AssecstoneBlock: {
+				DisplayName: Assecstone Block
+				Tooltip: ""
+			}
+
+			ChitiniteOre: {
+				DisplayName: Chitinite Ore
+				Tooltip: ""
+			}
+
+			BioluminescentBulbItem: {
+				DisplayName: Bioluminescent Bulb Item
+				Tooltip: "TEST ITEM TO BE REMOVED"
+			}
+		}
 	}
 
-	Leecharang: {
-		DisplayName: Leecharang
-		Tooltip: ""
-	}
-
-	LeechwoodSword: {
-		DisplayName: Leechwood Sword
-		Tooltip: ""
-	}
-
-	TarsalSaber: {
-		DisplayName: Tarsal Saber
-		Tooltip: ""
-	}
-
-	ChitiniteOre: {
-		DisplayName: Chitinite Ore
-		Tooltip: ""
-	}
-
-	Lighter: {
-		DisplayName: Lighter
-		Tooltip: ""
-	}
-
-	LeechwoodBow: {
-		DisplayName: Leechwood Bow
-		Tooltip: ""
+	Tools: {
+		HostPickaxe: {
+			DisplayName: Host Pickaxe
+			Tooltip: ""
+		}
 	}
 }
 
@@ -84,3 +118,5 @@ Projectiles: {
 	LeecharangProjectile.DisplayName: Leecharang Projectile
 	LighterSpark.DisplayName: Lighter Spark
 }
+
+Tiles.BioluminescentBulb.MapEntry: Bioluminescent Bulb

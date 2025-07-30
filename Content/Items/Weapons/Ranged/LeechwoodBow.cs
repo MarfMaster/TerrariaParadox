@@ -6,6 +6,7 @@ namespace TerrariaParadox.Content.Items.Weapons.Ranged;
 
 public class LeechwoodBow : ModdedBasicItem
 {
+    public override string LocalizationCategory => "Items.Weapons.Ranged";
     public override int Damage => 9;
     public override int UseTime => 25;
     public override int UseAnimation => 25;
@@ -24,5 +25,12 @@ public class LeechwoodBow : ModdedBasicItem
         Item.shoot = ProjectileID.PurificationPowder;
         Item.shootSpeed = 6.7f;
         Item.useAmmo = AmmoID.Arrow;
+    }
+    public override void AddRecipes()
+    {
+        CreateRecipe().
+            AddIngredient(ItemID.Wood, 10).
+            AddTile(TileID.Anvils).
+            Register();
     }
 }

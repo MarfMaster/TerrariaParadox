@@ -8,6 +8,7 @@ namespace TerrariaParadox.Content.Items.Weapons.Melee;
 
 public class Leecharang : ModdedBasicItem
 {
+    public override string LocalizationCategory => "Items.Weapons.Melee";
     public override int Damage => 25;
     public override int UseTime => 18;
     public override int UseAnimation => 18;

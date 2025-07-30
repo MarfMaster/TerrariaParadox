@@ -10,6 +10,7 @@ namespace TerrariaParadox.Content.Items.Weapons.Magic;
 
 public class Lighter : ModdedBasicItem
 {
+    public override string LocalizationCategory => "Items.Weapons.Magic";
     public override int Damage => 10;
     public override int UseTime => 24;
     public override int UseAnimation => 24;

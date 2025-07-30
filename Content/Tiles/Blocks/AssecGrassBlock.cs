@@ -7,7 +7,7 @@ using TerrariaParadox.Content.Dusts.Tiles.Blocks;
 
 namespace TerrariaParadox.Content.Tiles.Blocks;
 
-public class AssecGrassBlockTile : ModdedBlockTile
+public class AssecGrassBlock : ModdedBlockTile
 {
     public override bool SolidBlock => true;
     public override bool MergesWithDirt => true;
@@ -18,6 +18,5 @@ public class AssecGrassBlockTile : ModdedBlockTile
     public override int WaterfallStyleID => WaterStyleID.Corrupt;
     public override void CustomSetStaticDefaults()
     {
-        
     }
 }

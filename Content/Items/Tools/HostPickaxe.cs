@@ -1,11 +1,16 @@
+using System.Collections.Generic;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
+using TerrariaParadox.Content.Items.Materials;
+using TerrariaParadox.Content.Items.Tiles.Bars;
 
 namespace TerrariaParadox.Content.Items.Tools;
 
 public class HostPickaxe : ModdedBasicItem
 {
+    public override string LocalizationCategory => "Items.Tools";
     public override int Damage => 13;
     public override int UseTime => 13;
     public override int UseAnimation => 18;
@@ -24,5 +29,21 @@ public class HostPickaxe : ModdedBasicItem
     {
         Item.pick = 85;
         Item.attackSpeedOnlyAffectsWeaponAnimation = true;
+    }
+    public override void AddRecipes()
+    {
+        CreateRecipe().
+            AddIngredient(ModContent.ItemType<ChitiniteBar>(), 12).
+            AddIngredient(ModContent.ItemType<BioluminescentGoop>(), 6).
+            AddTile(TileID.Furnaces).
+            Register();
+    }        
+    public override void ModifyTooltips(List<TooltipLine> tooltips)
+    {
+        int ttindex = tooltips.FindLastIndex(t => t.Mod == "Terraria");
+        if (ttindex != -1)
+        {
+            tooltips.Insert(ttindex + 1, new TooltipLine(Mod, "PickaxePower", Language.GetTextValue("ItemTooltip.NightmarePickaxe")));
+        }
     }
 }
