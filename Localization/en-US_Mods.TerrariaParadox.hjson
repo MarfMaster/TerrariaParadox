@@ -70,7 +70,7 @@ Items: {
 		Blocks: {
 			AssecGrassBlockItem: {
 				DisplayName: Assec Grass Block Item
-				Tooltip: "TEST ITEM TO BE REMOVED"
+				Tooltip: TEST ITEM TO BE REMOVED
 			}
 
 			AssecstoneBlock: {
@@ -85,7 +85,14 @@ Items: {
 
 			BioluminescentBulbItem: {
 				DisplayName: Bioluminescent Bulb Item
-				Tooltip: "TEST ITEM TO BE REMOVED"
+				Tooltip: TEST ITEM TO BE REMOVED
+			}
+		}
+
+		Trophies: {
+			NyxarTrophy: {
+				DisplayName: Nyxar Trophy
+				Tooltip: ""
 			}
 		}
 	}
@@ -95,6 +102,11 @@ Items: {
 			DisplayName: Host Pickaxe
 			Tooltip: ""
 		}
+	}
+
+	NyxarMask: {
+		DisplayName: Nyxar Mask
+		Tooltip: ""
 	}
 }
 
