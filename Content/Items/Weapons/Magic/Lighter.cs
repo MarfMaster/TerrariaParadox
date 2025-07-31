@@ -36,9 +36,9 @@ public class Lighter : ModdedBasicItem
     public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
     {
         float numberProjectiles = 3;
-        float rotation = MathHelper.ToRadians(12);
+        float rotation = MathHelper.ToRadians(8);
 
-        //position += Vector2.Normalize(velocity) * 2f;
+        position += Vector2.Normalize(velocity) * 2f;
         for (int i = 0; i < numberProjectiles; i++) 
         {
             Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.

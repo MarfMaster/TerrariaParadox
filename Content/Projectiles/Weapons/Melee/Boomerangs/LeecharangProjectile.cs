@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TerrariaParadox.Content.Debuffs.DoT;
+using TerrariaParadox.Content.Dusts.Tiles.Blocks;
 using TerrariaParadox.Content.Items.Weapons.Melee;
 
 namespace TerrariaParadox.Content.Projectiles.Weapons.Melee.Boomerangs;
@@ -27,6 +28,12 @@ public class LeecharangProjectile : ModdedFriendlyProjectile
         AITimer1++;
 
         Projectile.rotation += AITimer1 * 0.15f;
+        
+        if (AITimer1 % 2 == 0)
+        {
+            Dust Boomer = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<AssecstoneDust>());
+            Boomer.noGravity = true;
+        }
         if (!Returning)
         {
             switch (AITimer1)

@@ -26,7 +26,7 @@ public class TarsalSaber : ModdedBasicItem
     public override SoundStyle UseSound => SoundID.Item1;
     public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
     {
-        Projectile.NewProjectile(Item.GetSource_FromThis(), target.Center, player.Center.DirectionTo(target.Center) * 0.05f, ModContent.ProjectileType<TarsalSaberGnat>(), damageDone / 3, Knockback, Main.myPlayer, player.GetTotalCritChance(DamageClass.Melee) + Item.crit);
+        Projectile.NewProjectile(Item.GetSource_FromThis(), target.Center, player.Center.DirectionTo(target.Center) * 5f, ModContent.ProjectileType<TarsalSaberGnat>(), damageDone / 2, Knockback, Main.myPlayer, player.GetTotalCritChance(DamageClass.Melee) + Item.crit);
     }
     public override void AddRecipes()
     {
