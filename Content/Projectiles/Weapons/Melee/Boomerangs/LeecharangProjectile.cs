@@ -19,30 +19,55 @@ public class LeecharangProjectile : ModdedFriendlyProjectile
     public override int Pierce => 1; //so it can return after having hit an enemy
     public override float RotationHelper => 0;
     public bool Returning = false;
+    public Vector2 InitialProjVelocity;
     public override void CustomAI()
     {
         Player player = Main.player[Projectile.owner];
+        
         AITimer1++;
-        switch (Returning)
+
+        Projectile.rotation += AITimer1 * 0.15f;
+        if (!Returning)
         {
-            case false:
+            switch (AITimer1)
             {
-                Projectile.rotation += AITimer1 * 0.15f;
-                if (AITimer1 >= 1 * 60)
+                case 1:
                 {
-                    Return();
+                    InitialProjVelocity = Projectile.velocity;
+                    break;
                 }
-                break;
+                case float Slowdown when (Slowdown >= 55 && Slowdown < 85): //make it slow down
+                {
+                    Projectile.velocity -= InitialProjVelocity / 30f;
+                    break;
+                }
+                case 85:
+                {
+                    Return(false);
+                    break;
+                }
             }
-            case true:
+        }
+        else
+        {
+            //Projectile.rotation -= AITimer1 * 0.15f;
+            switch (AITimer1)
             {
-                Projectile.velocity = (player.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * Leecharang.ShootSpeed * 1.25f;
-                Projectile.rotation -= AITimer1 * 0.15f;
-                if (Projectile.Hitbox.Intersects(player.Hitbox))
+                case float Speedup when (Speedup > 85 && Speedup <= 110): //make it speed up while going back towards the player
                 {
-                    Projectile.Kill();
+                    AITimer2++;
+                    Projectile.velocity = ((player.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * Leecharang.ShootSpeed * 1.25f) * (AITimer2 * 0.04f);
+                    break;
                 }
-                break;
+                case float accelerated when (accelerated > 110):
+                {
+                    Projectile.velocity = (player.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * Leecharang.ShootSpeed * 1.25f;
+                    break;
+                }
+            }
+            if (Projectile.Hitbox.Intersects(player.Hitbox))
+            {
+                Projectile.Kill();
             }
         }
     }
@@ -52,7 +77,7 @@ public class LeecharangProjectile : ModdedFriendlyProjectile
         target.AddBuff(ModContent.BuffType<LeecharangBleed>(), Leecharang.DebuffDuration);
         if (!Returning)
         {
-            Return();
+            Return(true);
         }
     }
 
@@ -60,13 +85,22 @@ public class LeecharangProjectile : ModdedFriendlyProjectile
     {
         if (!Returning)
         {
-            Return();
+            Return(true);
         }
         return false;
     }
-
-    private void Return()
+    /// <summary>
+    /// Puts the Boomerang into a returning state.
+    /// </summary>
+    /// <param name="HitCollision">
+    /// Whether Return was called by hitting a npc or tile. Set to true to make it return at full speed instantly.
+    /// </param>
+    private void Return(bool HitCollision)
     {
+        if (HitCollision)
+        {
+            AITimer1 = 111;
+        }
         Projectile.tileCollide = false;
         Projectile.penetrate = -1;
         Returning = true;

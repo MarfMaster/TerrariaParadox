@@ -7,7 +7,7 @@ using TerrariaParadox.Content.Dusts.Tiles.Blocks;
 
 namespace TerrariaParadox.Content.Tiles.Blocks;
 
-public class AssecGrassBlock : ModdedBlockTile
+public class InfestedGrassBlock : ModdedBlockTile
 {
     public override bool SolidBlock => true;
     public override bool MergesWithDirt => true;

@@ -68,11 +68,6 @@ Items: {
 		}
 
 		Blocks: {
-			AssecGrassBlockItem: {
-				DisplayName: Assec Grass Block Item
-				Tooltip: TEST ITEM TO BE REMOVED
-			}
-
 			AssecstoneBlock: {
 				DisplayName: Assecstone Block
 				Tooltip: ""
@@ -86,6 +81,11 @@ Items: {
 			BioluminescentBulbItem: {
 				DisplayName: Bioluminescent Bulb Item
 				Tooltip: TEST ITEM TO BE REMOVED
+			}
+
+			InfestedGrassBlockItem: {
+				DisplayName: Infested Grass Block Item
+				Tooltip: ""
 			}
 		}
 
@@ -109,8 +109,6 @@ Items: {
 		Tooltip: ""
 	}
 }
-
-Bestiary.Flatworm: Very aggressive worm very scary
 
 Buffs: {
 	Minions: {
@@ -140,3 +138,5 @@ NPCs: {
 	FlatwormHead.DisplayName: Flatworm Head
 	FlatwormTail.DisplayName: Flatworm Tail
 }
+
+Bestiary.Flatworm: Very aggressive worm very scary
