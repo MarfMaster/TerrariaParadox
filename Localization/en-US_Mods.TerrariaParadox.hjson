@@ -110,6 +110,8 @@ Items: {
 	}
 }
 
+Bestiary.Flatworm: Very aggressive worm very scary
+
 Buffs: {
 	Minions: {
 		Suspicious8BallBuff: {
@@ -132,3 +134,9 @@ Projectiles: {
 }
 
 Tiles.BioluminescentBulb.MapEntry: Bioluminescent Bulb
+
+NPCs: {
+	FlatwormBody.DisplayName: Flatworm Body
+	FlatwormHead.DisplayName: Flatworm Head
+	FlatwormTail.DisplayName: Flatworm Tail
+}
