@@ -14,7 +14,7 @@ public class AssecstoneBrickTile : ModdedBlockTile
     public override int OnMineDustType => ModContent.DustType<AssecstoneDust>();
     public override ushort VanillaFallbackTile => TileID.EbonstoneBrick;
     public override SoundStyle TileMineSound => SoundID.Tink;
-    public override Color MapColor => new Color(50, 50, 68);
+    public override Color MapColor => new Color(69, 79, 101);
     public override int WaterfallStyleID => WaterStyleID.Corrupt;
     public override void CustomSetStaticDefaults()
     {

@@ -5,6 +5,5 @@ namespace TerrariaParadox.Content.Items.Tiles.Blocks;
 
 public class MurkyIceBlock : ModdedBlockItem
 {
-    public override string Texture => "TerrariaParadox/Content/Items/Tiles/Blocks/AssecstoneBlock";
     public override int TileType => ModContent.TileType<MurkyIceBlockTile>();
 }

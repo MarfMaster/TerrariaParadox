@@ -141,6 +141,21 @@ Items: {
 				DisplayName: Assecstone Brick Wall
 				Tooltip: ""
 			}
+
+			AssecsandstoneWall: {
+				DisplayName: Assecsandstone Wall
+				Tooltip: ""
+			}
+
+			AssecstoneWall: {
+				DisplayName: Assecstone Wall
+				Tooltip: ""
+			}
+
+			HardenedAssecsandWall: {
+				DisplayName: Hardened Assecsand Wall
+				Tooltip: ""
+			}
 		}
 	}
 
