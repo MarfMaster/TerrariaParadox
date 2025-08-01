@@ -4,9 +4,8 @@ using Terraria.ModLoader;
 using TerrariaParadox.Content.Items.Tiles.Bars;
 
 namespace TerrariaParadox.Content.Items.Weapons.Ranged;
-[Autoload(false)]
 
-public class ChitiniteBow : ModdedBasicItem
+public class ZoonoticBow : ModdedBasicItem
 {
     public override string LocalizationCategory => "Items.Weapons.Ranged";
     public override int Damage => 20;
@@ -16,7 +15,7 @@ public class ChitiniteBow : ModdedBasicItem
     public override DamageClass DamageType => DamageClass.Ranged;
     public override int UseStyle => ItemUseStyleID.Shoot;
     public override bool DealsContactDamage => false;
-    public override int Width => 16;
+    public override int Width => 18;
     public override int Height => 32;
     public override int Rarity => ItemRarityID.Blue;
     public override int Value => PriceByRarity.fromItem(Item);

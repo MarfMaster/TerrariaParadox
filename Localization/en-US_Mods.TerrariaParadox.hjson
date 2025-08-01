@@ -44,6 +44,11 @@ Items: {
 				DisplayName: Leechwood Bow
 				Tooltip: ""
 			}
+
+			ZoonoticBow: {
+				DisplayName: Zoonotic Bow
+				Tooltip: ""
+			}
 		}
 	}
 
@@ -87,11 +92,53 @@ Items: {
 				DisplayName: Infested Grass Block Item
 				Tooltip: ""
 			}
+
+			AssecsandBlock: {
+				DisplayName: Assecsand Block
+				Tooltip: ""
+			}
+
+			AssecsandstoneBlock: {
+				DisplayName: Assecsandstone Block
+				Tooltip: ""
+			}
+
+			AssecstoneBrick: {
+				DisplayName: Assecstone Brick
+				Tooltip: ""
+			}
+
+			HardenedAssecsandBlock: {
+				DisplayName: Hardened Assecsand Block
+				Tooltip: ""
+			}
+
+			Leechwood: {
+				DisplayName: Leechwood
+				Tooltip: ""
+			}
+
+			MurkyIceBlock: {
+				DisplayName: Murky Ice Block
+				Tooltip: ""
+			}
+
+			OothecaAltarItem: {
+				DisplayName: Ootheca Altar Item
+				Tooltip: ""
+			}
 		}
 
 		Trophies: {
 			NyxarTrophy: {
 				DisplayName: Nyxar Trophy
+				Tooltip: ""
+			}
+		}
+
+		Walls: {
+			AssecstoneBrickWall: {
+				DisplayName: Assecstone Brick Wall
 				Tooltip: ""
 			}
 		}
@@ -131,7 +178,10 @@ Projectiles: {
 	LighterSpark.DisplayName: Lighter Spark
 }
 
-Tiles.BioluminescentBulb.MapEntry: Bioluminescent Bulb
+Tiles: {
+	BioluminescentBulb.MapEntry: Bioluminescent Bulb
+	OothecaAltar.MapEntry: Ootheca Altar
+}
 
 NPCs: {
 	FlatwormBody.DisplayName: Flatworm Body
