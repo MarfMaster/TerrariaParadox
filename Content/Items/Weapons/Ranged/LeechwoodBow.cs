@@ -1,6 +1,7 @@
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TerrariaParadox.Content.Items.Tiles.Blocks;
 
 namespace TerrariaParadox.Content.Items.Weapons.Ranged;
 
@@ -29,8 +30,8 @@ public class LeechwoodBow : ModdedBasicItem
     public override void AddRecipes()
     {
         CreateRecipe().
-            AddIngredient(ItemID.Wood, 10).
-            AddTile(TileID.Anvils).
+            AddIngredient(ModContent.ItemType<Leechwood>(), 10).
+            AddTile(TileID.WorkBenches).
             Register();
     }
 }

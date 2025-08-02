@@ -18,5 +18,6 @@ public class AssecstoneBrickTile : ModdedBlockTile
     public override int WaterfallStyleID => WaterStyleID.Corrupt;
     public override void CustomSetStaticDefaults()
     {
+        Main.tileBrick[Type] = true;
     }
 }

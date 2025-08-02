@@ -127,6 +127,11 @@ Items: {
 				DisplayName: Ootheca Altar Item
 				Tooltip: ""
 			}
+
+			InfestedJungleGrassBlockItem: {
+				DisplayName: Infested Jungle Grass Block Item
+				Tooltip: ""
+			}
 		}
 
 		Trophies: {
@@ -154,6 +159,11 @@ Items: {
 
 			HardenedAssecsandWall: {
 				DisplayName: Hardened Assecsand Wall
+				Tooltip: ""
+			}
+
+			LeechwoodWall: {
+				DisplayName: Leechwood Wall
 				Tooltip: ""
 			}
 		}
@@ -191,6 +201,8 @@ Projectiles: {
 	TarsalSaberGnat.DisplayName: Tarsal Saber Gnat
 	LeecharangProjectile.DisplayName: Leecharang Projectile
 	LighterSpark.DisplayName: Lighter Spark
+	AssecsandballGunProj.DisplayName: Assecsandball Gun Proj
+	AssecsandballProjectile.DisplayName: Assecsandball Projectile
 }
 
 Tiles: {
@@ -205,3 +217,10 @@ NPCs: {
 }
 
 Bestiary.Flatworm: Very aggressive worm very scary
+
+Biomes: {
+	SurfaceBiome: {
+		DisplayName: Surface Biome
+		TownNPCDialogueName: the Surface Biome
+	}
+}

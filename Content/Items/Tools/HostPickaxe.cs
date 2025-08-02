@@ -35,7 +35,7 @@ public class HostPickaxe : ModdedBasicItem
         CreateRecipe().
             AddIngredient(ModContent.ItemType<ChitiniteBar>(), 12).
             AddIngredient(ModContent.ItemType<BioluminescentGoop>(), 6).
-            AddTile(TileID.Furnaces).
+            AddTile(TileID.Anvils).
             Register();
     }        
     public override void ModifyTooltips(List<TooltipLine> tooltips)

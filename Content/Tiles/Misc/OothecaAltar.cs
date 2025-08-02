@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 using Terraria.ObjectData;
 using TerrariaParadox.Content.Dusts.Tiles.Blocks;
 
-namespace TerrariaParadox.Content.Tiles;
+namespace TerrariaParadox.Content.Tiles.Misc;
 
 public class OothecaAltar : ModTile
 {

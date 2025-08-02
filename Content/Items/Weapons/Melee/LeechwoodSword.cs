@@ -1,6 +1,7 @@
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TerrariaParadox.Content.Items.Tiles.Blocks;
 
 namespace TerrariaParadox.Content.Items.Weapons.Melee;
 
@@ -23,8 +24,8 @@ public class LeechwoodSword : ModdedBasicItem
     public override void AddRecipes()
     {
         CreateRecipe().
-            AddIngredient(ItemID.Wood, 7).
-            AddTile(TileID.Anvils).
+            AddIngredient(ModContent.ItemType<Leechwood>(), 7).
+            AddTile(TileID.WorkBenches).
             Register();
     }
 }

@@ -10,11 +10,13 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
+using TerrariaParadox.Content.Dusts.Tiles;
+using TerrariaParadox.Content.Dusts.Tiles.Misc;
 using TerrariaParadox.Content.Items.Weapons.Magic;
 using TerrariaParadox.Content.Items.Weapons.Melee;
 using TerrariaParadox.Content.Items.Weapons.Summon.Minions;
 
-namespace TerrariaParadox.Content.Tiles.Plants;
+namespace TerrariaParadox.Content.Tiles.Misc;
 
 public class BioluminescentBulb : ModTile
 {
@@ -33,6 +35,8 @@ public class BioluminescentBulb : ModTile
 			LocalizedText name = CreateMapEntryName();
 			AddMapEntry(new Color(64, 129, 119), name);
 
+			DustType = ModContent.DustType<BioluminescentBulbDust>();
+				
 			AnimationFrameHeight = 36;
 		}
 

@@ -19,5 +19,6 @@ public class AssecstoneBlockTile : ModdedBlockTile
     {
         MinPick = 65;
         MineResist = 2f;
+        TileID.Sets.Conversion.Stone[Type] = true;
     }
 }

@@ -67,6 +67,7 @@ Weapons/Tools:
 
 Misc Items:
 - Parasitic Powder
+- Parasitic Water(Unholy Water equivalent)
 - 2 Infested Fishes as materials for Wrath/Rage/Heartreach potions
 - 2 Infested Quest Fishes, Hardmode and Pre-Hardmode
 - Infested Meat
@@ -122,3 +123,6 @@ Furniture:
 - Leechwood Lantern
 - Leechwood Sink
 - Leechwood Table
+
+AltLibrary:
+- Make alternatives work with support from this library

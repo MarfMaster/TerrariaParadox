@@ -10,7 +10,7 @@ public class LeechwoodTile : ModdedBlockTile
 {
     public override bool SolidBlock => true;
     public override bool MergesWithDirt => true;
-    public override int OnMineDustType => ModContent.DustType<AssecstoneDust>();
+    public override int OnMineDustType => ModContent.DustType<LeechwoodDust>();
     public override ushort VanillaFallbackTile => TileID.Ebonwood;
     public override SoundStyle TileMineSound => SoundID.Dig;
     public override Color MapColor => new Color(37, 37, 50);

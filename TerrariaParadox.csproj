@@ -7,6 +7,14 @@
 	<PropertyGroup>
     <DotNetName Condition=" '$(OS)' == 'Unix' ">/usr/bin/dotnet</DotNetName>
 	</PropertyGroup>
+	<ItemGroup>
+	  <Folder Include="UI\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Reference Include="AltLibrary">
+	    <HintPath>..\ModAssemblies\AltLibrary_v2.1.0.7.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
 
 	<!-- References -->
 

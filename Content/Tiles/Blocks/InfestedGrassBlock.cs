@@ -18,5 +18,9 @@ public class InfestedGrassBlock : ModdedBlockTile
     public override int WaterfallStyleID => WaterStyleID.Corrupt;
     public override void CustomSetStaticDefaults()
     {
+        TileID.Sets.CanBeDugByShovel[Type] = true;
+        TileID.Sets.Grass[Type] = true;
+        TileID.Sets.Dirt[Type] = true;
+        TileID.Sets.Conversion.Grass[Type] = true;
     }
 }
