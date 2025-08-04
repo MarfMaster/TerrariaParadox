@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria.ModLoader;
 
-namespace TerrariaParadox.Systems
+namespace TerrariaParadox
 {
     public class ParadoxMainMenu : ModMenu
     {

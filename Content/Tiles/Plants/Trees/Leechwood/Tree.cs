@@ -22,7 +22,7 @@ public class Tree : ModTree
         BranchTexture = ModContent.Request<Texture2D>("TerrariaParadox/Content/Tiles/Plants/Trees/Leechwood/TreeBranches");
         TopTexture = ModContent.Request<Texture2D>( "TerrariaParadox/Content/Tiles/Plants/Trees/Leechwood/TreeTops");
 
-        GrowsOnTileId = [ModContent.TileType<InfestedGrassBlock>()];
+        GrowsOnTileId = [ModContent.TileType<FlippedGrassBlock>()];
     }
 
     public override Asset<Texture2D> GetTexture() => WoodTexture;

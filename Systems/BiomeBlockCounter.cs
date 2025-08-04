@@ -5,9 +5,9 @@ using Terraria;
 using Terraria.ModLoader;
 using TerrariaParadox.Content.Tiles.Blocks;
 
-namespace TerrariaParadox.Systems;
+namespace TerrariaParadox;
 
-public class FlipsideSystem : ModSystem
+public class BiomeBlockCounter : ModSystem
 {
     public int InfestedBlockCount;
 

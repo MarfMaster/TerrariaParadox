@@ -1,6 +1,6 @@
 using Terraria.ModLoader;
 
-namespace TerrariaParadox.Systems
+namespace TerrariaParadox
 {
     public class RecipeSystem : ModSystem
     {

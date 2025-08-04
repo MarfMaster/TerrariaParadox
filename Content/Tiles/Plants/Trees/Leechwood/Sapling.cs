@@ -29,7 +29,7 @@ public class Sapling : ModTile
 			TileObjectData.newTile.CoordinateHeights = [16, 18];
 			TileObjectData.newTile.CoordinateWidth = 16;
 			TileObjectData.newTile.CoordinatePadding = 2;
-			TileObjectData.newTile.AnchorValidTiles = [ModContent.TileType<InfestedGrassBlock>()];
+			TileObjectData.newTile.AnchorValidTiles = [ModContent.TileType<FlippedGrassBlock>()];
 			TileObjectData.newTile.StyleHorizontal = true;
 			TileObjectData.newTile.DrawFlipHorizontal = true;
 			TileObjectData.newTile.WaterPlacement = LiquidPlacement.NotAllowed;

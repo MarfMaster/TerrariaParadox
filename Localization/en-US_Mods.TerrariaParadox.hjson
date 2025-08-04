@@ -1,20 +1,183 @@
-CommonItemTooltip.Summon.TagDmgMult: This weapon scales with only {0}% Tag Damage
+Biomes: {
+	TheFlipside: {
+		AltBiomeMain: {
+			DisplayName: Alt Biome Main
+			Description: Alt Biome Main
+			GenPassName: Alt Biome Main
+			DryadTextDescriptor: Alt Biome Main
+		}
+
+		BiomeDesert: {
+			DisplayName: Biome Desert
+			TownNPCDialogueName: the Biome Desert
+		}
+
+		BiomeMainSurface: {
+			DisplayName: Biome Main Surface
+			TownNPCDialogueName: the Biome Main Surface
+		}
+
+		BiomeOcean: {
+			DisplayName: Biome Ocean
+			TownNPCDialogueName: the Biome Ocean
+		}
+
+		BiomeUnderground: {
+			DisplayName: Biome Underground
+			TownNPCDialogueName: the Biome Underground
+		}
+
+		BiomeUndergroundDesert: {
+			DisplayName: Biome Underground Desert
+			TownNPCDialogueName: the Biome Underground Desert
+		}
+
+		BiomeUndergroundIce: {
+			DisplayName: Biome Underground Ice
+			TownNPCDialogueName: the Biome Underground Ice
+		}
+	}
+}
 
 Items: {
-	Weapons: {
-		Summon: {
-			Minions: {
-				Suspicious8Ball: {
-					DisplayName: Suspicious 8-Ball
-					Tooltip:
-						'''
-						Summons a Wretched 8-Ball to fight for you.
-						An abstraction of light that will lead you to darkness.
-						'''
-				}
+	Armor: {
+		ChitiniteSetBonus: This armor set bonus hasn't been described yet.
+
+		ChitiniteBreastplate: {
+			DisplayName: Chitinite Breastplate
+			Tooltip: ""
+		}
+
+		ChitiniteGreaves: {
+			DisplayName: Chitinite Greaves
+			Tooltip: ""
+		}
+
+		ChitiniteHelmet: {
+			DisplayName: Chitinite Helmet
+			Tooltip: ""
+		}
+	}
+
+	BioluminescentGoop: {
+		DisplayName: Bioluminescent Goop
+		Tooltip: ""
+	}
+
+	Tiles: {
+		Bars: {
+			ChitiniteBar: {
+				DisplayName: Chitinite Bar
+				Tooltip: ""
 			}
 		}
 
+		Blocks: {
+			AssecsandBlock: {
+				DisplayName: Assecsand Block
+				Tooltip: ""
+			}
+
+			AssecsandstoneBlock: {
+				DisplayName: Assecsandstone Block
+				Tooltip: ""
+			}
+
+			AssecstoneBlock: {
+				DisplayName: Assecstone Block
+				Tooltip: ""
+			}
+
+			AssecstoneBrick: {
+				DisplayName: Assecstone Brick
+				Tooltip: ""
+			}
+
+			ChitiniteOre: {
+				DisplayName: Chitinite Ore
+				Tooltip: ""
+			}
+
+			HardenedAssecsandBlock: {
+				DisplayName: Hardened Assecsand Block
+				Tooltip: ""
+			}
+
+			Leechwood: {
+				DisplayName: Leechwood
+				Tooltip: ""
+			}
+
+			MurkyIceBlock: {
+				DisplayName: Murky Ice Block
+				Tooltip: ""
+			}
+		}
+
+		Trophies: {
+			NyxarTrophy: {
+				DisplayName: Nyxar Trophy
+				Tooltip: ""
+			}
+		}
+
+		Plants: {
+			FlippedSeeds: {
+				DisplayName: Flipped Seeds
+				Tooltip: ""
+			}
+		}
+
+		Walls: {
+			AssecsandstoneWall: {
+				DisplayName: Assecsandstone Wall
+				Tooltip: ""
+			}
+
+			AssecstoneBrickWall: {
+				DisplayName: Assecstone Brick Wall
+				Tooltip: ""
+			}
+
+			AssecstoneWall: {
+				DisplayName: Assecstone Wall
+				Tooltip: ""
+			}
+
+			HardenedAssecsandWall: {
+				DisplayName: Hardened Assecsand Wall
+				Tooltip: ""
+			}
+
+			LeechwoodWall: {
+				DisplayName: Leechwood Wall
+				Tooltip: ""
+			}
+		}
+	}
+
+	Tools: {
+		HostPickaxe: {
+			DisplayName: Host Pickaxe
+			Tooltip: ""
+		}
+	}
+
+	TreasureBags: {
+		NyxarBag: {
+			DisplayName: Nyxar Bag
+			Tooltip: ""
+		}
+	}
+
+	Vanity: {
+		NyxarMask: {
+			DisplayName: Nyxar Mask
+			Tooltip: ""
+		}
+	}
+
+	Weapons: {
 		Magic: {
 			Lighter: {
 				DisplayName: Lighter
@@ -50,136 +213,21 @@ Items: {
 				Tooltip: ""
 			}
 		}
-	}
 
-	TreasureBags: {
-		NyxarBag: {
-			DisplayName: Treasure Bag (Nyxar)
-			Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
-		}
-	}
-
-	BioluminescentGoop: {
-		DisplayName: Bioluminescent Goop
-		Tooltip: ""
-	}
-
-	Tiles: {
-		Bars: {
-			ChitiniteBar: {
-				DisplayName: Chitinite Bar
-				Tooltip: ""
-			}
-		}
-
-		Blocks: {
-			AssecstoneBlock: {
-				DisplayName: Assecstone Block
-				Tooltip: ""
-			}
-
-			ChitiniteOre: {
-				DisplayName: Chitinite Ore
-				Tooltip: ""
-			}
-
-			BioluminescentBulbItem: {
-				DisplayName: Bioluminescent Bulb Item
-				Tooltip: TEST ITEM TO BE REMOVED
-			}
-
-			InfestedGrassBlockItem: {
-				DisplayName: Infested Grass Block Item
-				Tooltip: ""
-			}
-
-			AssecsandBlock: {
-				DisplayName: Assecsand Block
-				Tooltip: ""
-			}
-
-			AssecsandstoneBlock: {
-				DisplayName: Assecsandstone Block
-				Tooltip: ""
-			}
-
-			AssecstoneBrick: {
-				DisplayName: Assecstone Brick
-				Tooltip: ""
-			}
-
-			HardenedAssecsandBlock: {
-				DisplayName: Hardened Assecsand Block
-				Tooltip: ""
-			}
-
-			Leechwood: {
-				DisplayName: Leechwood
-				Tooltip: ""
-			}
-
-			MurkyIceBlock: {
-				DisplayName: Murky Ice Block
-				Tooltip: ""
-			}
-
-			OothecaAltarItem: {
-				DisplayName: Ootheca Altar Item
-				Tooltip: ""
-			}
-
-			InfestedJungleGrassBlockItem: {
-				DisplayName: Infested Jungle Grass Block Item
-				Tooltip: ""
-			}
-		}
-
-		Trophies: {
-			NyxarTrophy: {
-				DisplayName: Nyxar Trophy
-				Tooltip: ""
-			}
-		}
-
-		Walls: {
-			AssecstoneBrickWall: {
-				DisplayName: Assecstone Brick Wall
-				Tooltip: ""
-			}
-
-			AssecsandstoneWall: {
-				DisplayName: Assecsandstone Wall
-				Tooltip: ""
-			}
-
-			AssecstoneWall: {
-				DisplayName: Assecstone Wall
-				Tooltip: ""
-			}
-
-			HardenedAssecsandWall: {
-				DisplayName: Hardened Assecsand Wall
-				Tooltip: ""
-			}
-
-			LeechwoodWall: {
-				DisplayName: Leechwood Wall
-				Tooltip: ""
+		Summon: {
+			Minions: {
+				Suspicious8Ball: {
+					DisplayName: Suspicious8 Ball
+					Tooltip: ""
+				}
 			}
 		}
 	}
+}
 
-	Tools: {
-		HostPickaxe: {
-			DisplayName: Host Pickaxe
-			Tooltip: ""
-		}
-	}
-
-	NyxarMask: {
-		DisplayName: Nyxar Mask
-		Tooltip: ""
-	}
+Tiles: {
+	BioluminescentBulb.MapEntry: Bioluminescent Bulb
+	OothecaAltar.MapEntry: Ootheca Altar
 }
 
 Buffs: {
@@ -196,31 +244,17 @@ Buffs: {
 	}
 }
 
-Projectiles: {
-	Suspicious8BallProjectile.DisplayName: Suspicious8 Ball Projectile
-	TarsalSaberGnat.DisplayName: Tarsal Saber Gnat
-	LeecharangProjectile.DisplayName: Leecharang Projectile
-	LighterSpark.DisplayName: Lighter Spark
-	AssecsandballGunProj.DisplayName: Assecsandball Gun Proj
-	AssecsandballProjectile.DisplayName: Assecsandball Projectile
-}
-
-Tiles: {
-	BioluminescentBulb.MapEntry: Bioluminescent Bulb
-	OothecaAltar.MapEntry: Ootheca Altar
-}
-
 NPCs: {
 	FlatwormBody.DisplayName: Flatworm Body
 	FlatwormHead.DisplayName: Flatworm Head
 	FlatwormTail.DisplayName: Flatworm Tail
 }
 
-Bestiary.Flatworm: Very aggressive worm very scary
-
-Biomes: {
-	SurfaceBiome: {
-		DisplayName: Surface Biome
-		TownNPCDialogueName: the Surface Biome
-	}
+Projectiles: {
+	AssecsandballGunProj.DisplayName: Assecsandball Gun Proj
+	AssecsandballProjectile.DisplayName: Assecsandball Projectile
+	LighterSpark.DisplayName: Lighter Spark
+	LeecharangProjectile.DisplayName: Leecharang Projectile
+	TarsalSaberGnat.DisplayName: Tarsal Saber Gnat
+	Suspicious8BallProjectile.DisplayName: Suspicious8 Ball Projectile
 }

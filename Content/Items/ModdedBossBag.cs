@@ -1,8 +1,12 @@
+using System.Collections.Generic;
+using Humanizer;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
+using Terraria.Localization;
+using Terraria.ModLoader.Core;
 
 namespace TerrariaParadox.Content.Items.TreasureBags;
 
@@ -10,12 +14,12 @@ public abstract class ModdedBossBag : ModItem
 {
     public override string LocalizationCategory => "Items.TreasureBags";
     public abstract bool PreHardmodeBossBag { get; }
+
     public override void SetStaticDefaults()
     {
         ItemID.Sets.BossBag[Type] = true;
         ItemID.Sets.PreHardmodeLikeBossBag[Type] = PreHardmodeBossBag;
     }
-    
     public override void SetDefaults()
     {
         Item.maxStack = Item.CommonMaxStack;

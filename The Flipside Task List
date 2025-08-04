@@ -126,3 +126,46 @@ Furniture:
 
 AltLibrary:
 - Make alternatives work with support from this library
+
+Worldgen:
+- Make Bioluminescent Bulbs accessible with a copper pick but make that very dangerous to do?
+- Dont Dig Up seed crash
+- Get fixed boi seed crash
+
+Tooltips:
+CommonItemTooltip.Summon.TagDmgMult: This weapon scales with only {0}% Tag Damage
+8Ball: Summons a Wretched 8-Ball to fight for you. An abstraction of light that will lead you to darkness.
+TreasureBags: {$CommonItemTooltip.RightClickToOpen}
+Bestiary.Flatworm: Very aggressive worm very scary
+FlipsideDescription: Creepy crawly parasites will assimilate your world!
+FlipsideGenPassName: Introducing nasty parasitic lifeforms
+FlipsideDryad: flipped
+		BiomeDesert: {
+			DisplayName: Flipped Desert
+			TownNPCDialogueName: the Flipped Desert
+		}
+
+		BiomeMainSurface: {
+			DisplayName: Flipside
+			TownNPCDialogueName: the Flipside
+		}
+
+		BiomeOcean: {
+			DisplayName: Flipped Ocean
+			TownNPCDialogueName: the Flipped Ocean
+		}
+
+		BiomeUnderground: {
+			DisplayName: Underground Flipside
+			TownNPCDialogueName: the Flipped Caverns
+		}
+
+		BiomeUndergroundDesert: {
+			DisplayName: Flipped Underground Desert
+			TownNPCDialogueName: the Flipped Underground Desert
+		}
+
+		BiomeUndergroundIce: {
+			DisplayName: Flipped Underground Ice
+			TownNPCDialogueName: the Flipped Underground Ice
+		}

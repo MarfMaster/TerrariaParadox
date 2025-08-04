@@ -3,16 +3,19 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Graphics.Capture;
 using Terraria.ModLoader;
-using TerrariaParadox.Systems;
 
 namespace TerrariaParadox.Content.Biomes.TheFlipside;
-
-	public class SurfaceBiome : ModBiome
+/// <summary>
+/// This is the main file of the biome, use this to combine it with any variations. It's also the surface variation.
+/// </summary>
+	public class BiomeMainSurface : ModBiome
 	{
+		public override string LocalizationCategory => "Biomes.TheFlipside";
 		// Select all the scenery
 		public override ModWaterStyle WaterStyle => base.WaterStyle; //ModContent.GetInstance<ExampleWaterStyle>(); // Sets a water style for when inside this biome
 		public override ModSurfaceBackgroundStyle SurfaceBackgroundStyle => ModContent.GetInstance<SurfaceBackgroundStyle>();
-		public override CaptureBiome.TileColorStyle TileColorStyle => CaptureBiome.TileColorStyle.Crimson;
+		public override ModUndergroundBackgroundStyle UndergroundBackgroundStyle => ModContent.GetInstance<UndergroundBackgroundStyle>();
+		public override CaptureBiome.TileColorStyle TileColorStyle => CaptureBiome.TileColorStyle.Corrupt;
 
 		// Select Music
 		//public override int Music => MusicLoader.GetMusicSlot(Mod, "Assets/Music/MysteriousMystery");
@@ -24,22 +27,16 @@ namespace TerrariaParadox.Content.Biomes.TheFlipside;
 		public override string BestiaryIcon => base.BestiaryIcon;
 		public override string BackgroundPath => base.BackgroundPath;
 		public override Color? BackgroundColor => base.BackgroundColor;
-		public override string MapBackground => "TerrariaParadox/Content/Biomes/TheFlipside/SurfaceBiome_MapBackground";
+		public override string MapBackground => BackgroundPath;
 
 		// Calculate when the biome is active.
 		public override bool IsBiomeActive(Player player) 
 		{
-			// First, we will use the exampleBlockCount from our added ModSystem for our first custom condition
-			bool b1 = ModContent.GetInstance<FlipsideSystem>().InfestedBlockCount >= 40;
+			bool infestedBlockCount = ModContent.GetInstance<BiomeBlockCounter>().InfestedBlockCount >= 300;
 
-			// Second, we will limit this biome to the inner horizontal third of the map as our second custom condition
-			bool b2 = Math.Abs(player.position.ToTileCoordinates().X - Main.maxTilesX / 2) < Main.maxTilesX / 6;
-
-			// Finally, we will limit the height at which this biome can be active to above ground (ie sky and surface). Most (if not all) surface biomes will use this condition.
-			bool b3 = player.ZoneSkyHeight || player.ZoneOverworldHeight;
-			return b1 && b2 && b3;
+			bool isAboveground = player.ZoneSkyHeight || player.ZoneOverworldHeight;
+			return infestedBlockCount && isAboveground;
 		}
 
-		// Declare biome priority. The default is BiomeLow so this is only necessary if it needs a higher priority.
 		public override SceneEffectPriority Priority => SceneEffectPriority.BiomeHigh;
 	}
