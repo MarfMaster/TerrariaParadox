@@ -1,61 +1,70 @@
+CommonItemTooltip: {
+	Summon.TagDmgMult: This weapon scales with only {0}% Tag Damage
+
+	Generic: {
+		AttackSpeed: "{0}% increased attack speed"
+		IncreasedDefense: Increases defense by {0}
+	}
+}
+
 Biomes: {
 	TheFlipside: {
 		AltBiomeMain: {
-			DisplayName: Alt Biome Main
-			Description: Alt Biome Main
-			GenPassName: Alt Biome Main
-			DryadTextDescriptor: Alt Biome Main
+			DisplayName: Flipside
+			Description: Creepy crawly parasites will assimilate your world!
+			GenPassName: Introducing nasty parasitic lifeforms
+			DryadTextDescriptor: flipped
 		}
 
 		BiomeDesert: {
-			DisplayName: Biome Desert
-			TownNPCDialogueName: the Biome Desert
+			DisplayName: Flipped Desert
+			TownNPCDialogueName: the Flipped Desert
 		}
 
 		BiomeMainSurface: {
-			DisplayName: Biome Main Surface
-			TownNPCDialogueName: the Biome Main Surface
+			DisplayName: Flipside
+			TownNPCDialogueName: the Flipside
 		}
 
 		BiomeOcean: {
-			DisplayName: Biome Ocean
-			TownNPCDialogueName: the Biome Ocean
+			DisplayName: Flipped Ocean
+			TownNPCDialogueName: the Flipped Ocean
 		}
 
 		BiomeUnderground: {
-			DisplayName: Biome Underground
-			TownNPCDialogueName: the Biome Underground
+			DisplayName: Underground Flipside
+			TownNPCDialogueName: the Flipped Caverns
 		}
 
 		BiomeUndergroundDesert: {
-			DisplayName: Biome Underground Desert
-			TownNPCDialogueName: the Biome Underground Desert
+			DisplayName: Flipped Underground Desert
+			TownNPCDialogueName: the Flipped Underground Desert
 		}
 
 		BiomeUndergroundIce: {
-			DisplayName: Biome Underground Ice
-			TownNPCDialogueName: the Biome Underground Ice
+			DisplayName: Flipped Underground Ice
+			TownNPCDialogueName: the Flipped Underground Ice
 		}
 	}
 }
 
 Items: {
 	Armor: {
-		ChitiniteSetBonus: This armor set bonus hasn't been described yet.
+		ChitiniteSetBonus: "{$CommonItemTooltip.Generic.IncreasedDefense}"
 
 		ChitiniteBreastplate: {
 			DisplayName: Chitinite Breastplate
-			Tooltip: ""
+			Tooltip: "{$CommonItemTooltip.Generic.AttackSpeed}"
 		}
 
 		ChitiniteGreaves: {
 			DisplayName: Chitinite Greaves
-			Tooltip: ""
+			Tooltip: "{$CommonItemTooltip.Generic.AttackSpeed}"
 		}
 
 		ChitiniteHelmet: {
 			DisplayName: Chitinite Helmet
-			Tooltip: ""
+			Tooltip: "{$CommonItemTooltip.Generic.AttackSpeed}"
 		}
 	}
 
@@ -166,7 +175,7 @@ Items: {
 	TreasureBags: {
 		NyxarBag: {
 			DisplayName: Nyxar Bag
-			Tooltip: ""
+			Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 		}
 	}
 
@@ -218,7 +227,11 @@ Items: {
 			Minions: {
 				Suspicious8Ball: {
 					DisplayName: Suspicious8 Ball
-					Tooltip: ""
+					Tooltip:
+						'''
+						Summons a Wretched 8-Ball to fight for you. 
+						An abstraction of light that will lead you to darkness.
+						'''
 				}
 			}
 		}
@@ -228,6 +241,7 @@ Items: {
 Tiles: {
 	BioluminescentBulb.MapEntry: Bioluminescent Bulb
 	OothecaAltar.MapEntry: Ootheca Altar
+	ChitiniteOreTile.MapEntry: Chitinite Ore Tile
 }
 
 Buffs: {
@@ -245,9 +259,12 @@ Buffs: {
 }
 
 NPCs: {
-	FlatwormBody.DisplayName: Flatworm Body
-	FlatwormHead.DisplayName: Flatworm Head
-	FlatwormTail.DisplayName: Flatworm Tail
+	Flatworm: {
+		DisplayName: Flatworm
+		Bestiary: Very aggressive worm very scary
+		FlatwormBody.DisplayName: Flatworm Body
+		FlatwormTail.DisplayName: Flatworm Tail
+	}
 }
 
 Projectiles: {

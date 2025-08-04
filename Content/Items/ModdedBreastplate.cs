@@ -14,5 +14,14 @@ public abstract class ModdedBreastplate : ModItem
         Item.rare = Rarity;
         Item.value = Value;
     }
-    public override string LocalizationCategory => "Items.Armor";
+    public override string LocalizationCategory => "Items.Armor";    
+    /// <summary>
+    /// Override this to add any effects to this armor piece that get applied to the player when equipped. 
+    /// </summary>
+    /// <param name="player"></param>
+    public virtual void EquipEffects(Player player) {}
+    public override void UpdateEquip(Player player)
+    {
+        EquipEffects(player);
+    }
 }

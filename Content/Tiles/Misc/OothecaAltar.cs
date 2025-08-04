@@ -46,6 +46,14 @@ public class OothecaAltar : ModTile
         }
         return base.KillSound(i, j, fail);
     }
+
+    public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
+    {
+        r = 0.18f;
+        g = 0.18f;
+        b = 0.54f;
+    }
+
     public override bool CanKillTile(int i, int j, ref bool blockDamaged)
     {
         Vector2 TileCoordinates = new Vector2(i, j).ToWorldCoordinates();

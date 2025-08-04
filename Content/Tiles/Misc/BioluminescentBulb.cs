@@ -40,34 +40,20 @@ public class BioluminescentBulb : ModTile
 			AnimationFrameHeight = 36;
 		}
 
-		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b) 
+		private const float Red = 0.15f;
+		private const float Green = 0.85f;
+		private const float Blue = 0.58f;
+		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
 		{
-			r = 0.93f;
-			g = 0.11f;
-			b = 0.12f;
+			//Main.NewText(CurrentFrameCounter);
+			float lightLevel = (0.003f * CurrentFrameCounter);
+			r = Red * lightLevel;
+			g = Green * lightLevel;
+			b = Blue * lightLevel;
 		}
 
 		public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset) 
 		{
-			// Tweak the frame drawn by x position so tiles next to each other are off-sync and look much more interesting
-			int uniqueAnimationFrame = Main.tileFrame[Type] + i;
-
-			if (i % 2 == 0)
-			{
-				uniqueAnimationFrame += 3;
-			}
-			if (i % 3 == 0)
-			{
-				uniqueAnimationFrame += 3;
-				
-			}
-
-			if (i % 4 == 0)
-			{
-				uniqueAnimationFrame += 3;
-			}
-			
-			uniqueAnimationFrame %= Frames;
 		}
 
 		// This method allows you to change the sound a tile makes when hit
@@ -102,18 +88,36 @@ public class BioluminescentBulb : ModTile
 			}
 		}
 
-		public int FrameTime = 12;
+		public int FrameTime = 50;
 		public int Frames = 5;
-		public override void AnimateTile(ref int frame, ref int frameCounter) 
+		public bool FrameOrder = false;
+		public float CurrentFrameCounter = 1;
+		public override void AnimateTile(ref int frame, ref int frameCounter)
 		{
-			frameCounter++;
-			if (frameCounter >= FrameTime) 
+			if (!FrameOrder)
 			{
-				frameCounter = 0;
-				if (++frame >= Frames) 
+				frameCounter++;
+				if (frameCounter >= FrameTime) 
 				{
-					frame = 0;
+					frameCounter = 1;
+					if (++frame == Frames - 1)
+					{
+						FrameOrder = true;
+					}
 				}
 			}
+			else
+			{
+				frameCounter--;
+				if (frameCounter <= 1) 
+				{
+					frameCounter = FrameTime - 1;
+					if (--frame == 0)
+					{
+						FrameOrder = false;
+					}
+				}
+			}
+			CurrentFrameCounter = (float)(frameCounter + (frame * FrameTime));
 		}
 }

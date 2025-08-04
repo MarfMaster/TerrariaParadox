@@ -14,10 +14,12 @@ public class FlippedJungleGrassBlock : ModdedBlockTile
     public override bool SolidBlock => true;
     public override bool MergesWithDirt => true;
     public override int OnMineDustType => DustID.Dirt;
-    public override ushort VanillaFallbackTile => TileID.CorruptJungleGrass;
+    public override ushort VanillaFallbackTileAndMerge => TileID.Mud;
     public override SoundStyle TileMineSound => SoundID.Dig;
     public override Color MapColor => new Color(69, 79, 101);
     public override int WaterfallStyleID => WaterStyleID.Corrupt;
+    public override bool MergesWithItself => false;
+    public override bool NameShowsOnMapHover => false;
     public override void CustomSetStaticDefaults()
     {
         TileID.Sets.CanBeDugByShovel[Type] = true;

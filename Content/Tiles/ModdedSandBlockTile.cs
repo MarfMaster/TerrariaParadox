@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TerrariaParadox.Content.Projectiles.Tiles.Sandball;
+using TerrariaParadox.Content.Tiles.Blocks;
 
 namespace TerrariaParadox.Content.Tiles;
 
@@ -21,6 +22,8 @@ public abstract class ModdedSandBlockTile : ModdedBlockTile
         TileID.Sets.Falling[Type] = true;
         TileID.Sets.Suffocate[Type] = true;
         TileID.Sets.FallingBlockProjectile[Type] = new TileID.Sets.FallingBlockProjectileInfo(SandballProjectileType);
+        TileID.Sets.isDesertBiomeSand[Type] = true;
+        TileID.Sets.SandBiome[Type] = 1;
         
         TileID.Sets.CanBeClearedDuringOreRunner[Type] = true;
         TileID.Sets.GeneralPlacementTiles[Type] = false;

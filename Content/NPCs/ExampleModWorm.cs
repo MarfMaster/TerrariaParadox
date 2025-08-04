@@ -4,7 +4,9 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
+using TerrariaParadox.Content.NPCs.Hostile.Worms;
 
 namespace TerrariaParadox.Content.NPCs
 {
@@ -29,6 +31,7 @@ namespace TerrariaParadox.Content.NPCs
 	/// </summary>
 	public abstract class ExampleModWorm : ModNPC
 	{
+		public string NameLocalizationKey;
 		/*  ai[] usage:
 		 *  
 		 *  ai[0] = "follower" segment, the segment that's following this segment
@@ -125,6 +128,7 @@ namespace TerrariaParadox.Content.NPCs
 	/// </summary>
 	public abstract class WormHead : ExampleModWorm
 	{
+		public override string Texture => base.Texture + "Head";
 		public sealed override WormSegmentType SegmentType => WormSegmentType.Head;
 
 		/// <summary>
@@ -566,6 +570,17 @@ namespace TerrariaParadox.Content.NPCs
 
 	public abstract class WormBody : ExampleModWorm
 	{
+		public override string LocalizationCategory => base.LocalizationCategory + "." + Name.Replace("Body", "");		
+		public virtual void CustomSetDefaults() {}
+		public override void SetDefaults()
+		{
+			NameLocalizationKey = LocalizationCategory + "." + "DisplayName";
+			CustomSetDefaults();
+		}
+		public override void ModifyTypeName(ref string typeName)
+		{
+			typeName = LangUtils.GetTextValue(NameLocalizationKey);
+		}
 		public sealed override WormSegmentType SegmentType => WormSegmentType.Body;
 
 		internal override void BodyTailAI() 
@@ -620,7 +635,18 @@ namespace TerrariaParadox.Content.NPCs
 
 	// Since the body and tail segments share the same AI
 	public abstract class WormTail : ExampleModWorm
-	{
+	{		
+		public override string LocalizationCategory => base.LocalizationCategory + "." + Name.Replace("Tail", "");
+		public virtual void CustomSetDefaults() {}
+		public override void SetDefaults()
+		{
+			NameLocalizationKey = LocalizationCategory + "." + "DisplayName";
+			CustomSetDefaults();
+		}
+		public override void ModifyTypeName(ref string typeName)
+		{
+			typeName = LangUtils.GetTextValue(NameLocalizationKey);
+		}
 		public sealed override WormSegmentType SegmentType => WormSegmentType.Tail;
 
 		internal override void BodyTailAI() 

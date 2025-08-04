@@ -8,7 +8,7 @@ namespace TerrariaParadox.Content.Tiles.Walls;
 public class HardenedAssecsandWallTile : ModdedWallTile
 {
     public override bool PlayerPlaced => true;
-    public override int OnMineDustType => ModContent.DustType<AssecstoneDust>();
+    public override int OnMineDustType => ModContent.DustType<HardenedAssecsandDust>();
     public override ushort VanillaFallbackTile => WallID.CorruptHardenedSandEcho;
     public override Color MapColor => new Color(55, 62, 71);
 }

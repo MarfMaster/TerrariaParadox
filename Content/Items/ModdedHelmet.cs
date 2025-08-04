@@ -26,6 +26,10 @@ public abstract class ModdedHelmet : ModItem
 
     public override string LocalizationCategory => "Items.Armor";
     public static string SetBonusTextLocation;
+    public abstract float SetBonusStat0 { get; }
+    public abstract float SetBonusStat1 { get; }
+    public abstract float SetBonusStat2 { get; }
+    public abstract float SetBonusStat3 { get; }
 
     public override void SetStaticDefaults()
     {
@@ -42,7 +46,15 @@ public abstract class ModdedHelmet : ModItem
         Item.rare = Rarity;
         Item.value = Value;
     }
-
+    /// <summary>
+    /// Override this to add any effects to this armor piece that get applied to the player when equipped. 
+    /// </summary>
+    /// <param name="player"></param>
+    public virtual void EquipEffects(Player player) {}
+    public override void UpdateEquip(Player player)
+    {
+        EquipEffects(player);
+    }
     public override bool IsArmorSet(Item head, Item body, Item legs)
     {
         if (HasArmorSetBonusName == null)
@@ -66,7 +78,7 @@ public abstract class ModdedHelmet : ModItem
     public virtual void ArmorSetBonus(Player player) {}
     public override void UpdateArmorSet(Player player)
     {
-        player.setBonus = LangUtils.GetTextValue(SetBonusTextLocation);
+        player.setBonus = LangUtils.GetTextValue(SetBonusTextLocation, SetBonusStat0, SetBonusStat1, SetBonusStat2, SetBonusStat3);
         ArmorSetBonus(player);
     }
 }

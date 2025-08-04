@@ -5,18 +5,18 @@ Solid Blocks:
 - Assecsand Block~~
 - Hardened Assecsand Block~~
 - Assecsandstone Block~~
-- Infested Grass Block~~
-- Infested Jungle Grass Block
+- Flipped Grass Block~~
+- Flipped Jungle Grass Block~~
 - Leechwood~~
 - Chitinite Ore~~
 - Chitinite Brick
 
 Background walls:
-- Infested Grass Wall
+- Flipped Grass Wall
 - Assecstone Wall~~
 - Assecstone Brick Wall~~
 - Chitinite Brick Wall
-- Leechwood Wall
+- Leechwood Wall~~
 - Leechwood Fence
 - Infested Growth/Crust Wall
 - Infested Mass/Scab Wall
@@ -27,22 +27,22 @@ Background walls:
 
 Plants(misc tiles/items):
 - Leechwood Tree(special tile)~~
-- Leechwood Palm Tree(special tile)~~
+- Leechwood Palm Tree(special tile)
 - Leechwood Sapling(special tile)~~
 - 2 Leechwood Tree fruits(simple consumable item)
 - Parasitic Mushroom(simple tile and item)
-- Infested Cactus(tile)
+- Flipped Cactus(tile)~~
 
 Misc Tiles:
 - Ootheca Altar~~
 - Biome Torch
 - Ichor equivalent Torch
-- 2 Infested Crates(hardmode and pre-hardmode)
+- 2 Flipped Crates(hardmode and pre-hardmode)
 - Bioluminescent Bulb~~
-- Hardmode Dungeon Biome Chest (Infested Chest?)
+- Hardmode Dungeon Biome Chest (Flipped Chest?)
 - Nyxar Trophy~~
 - Nyxar Relic
-- An infested painting? Can be multiple if you like
+- A flipped painting? Can be multiple if you like
 - 2 Music Boxes, Surface and Underground
 
 Weapons/Tools: 
@@ -70,7 +70,7 @@ Misc Items:
 - Parasitic Water(Unholy Water equivalent)
 - 2 Infested Fishes as materials for Wrath/Rage/Heartreach potions
 - 2 Infested Quest Fishes, Hardmode and Pre-Hardmode
-- Infested Meat
+- Flipped Meat
 - Bioluminescent Goop~~
 - Ichor counterpart
 - Hardmode Biome Chest Key
@@ -78,7 +78,7 @@ Misc Items:
 
 Equipment like armor and accessories:
 - Leechwood armor set
-- Chitinite armor set
+- Chitinite armor set~~
 - Bioluminescent Bulb light pet
 - Bioluminescent Bulb Accessory
 - Mob Drop pet
@@ -96,10 +96,11 @@ Enemies(non-bosses need banners too):
 - Assimilated Demon Eye
 - Swarm
 - Flatworm~~
-- Infested Mummy
-- Infested Goldfish
-- Infested Ghoul(underground desert)
-- Infested Sandshark(sandstorm)
+- Flipped Mummy
+- Flipped Goldfish
+- Flipped Penguin
+- Flipped Ghoul(underground desert)
+- Flipped Sandshark(sandstorm)
 - Nyxar(boss)
 
 Furniture: 
@@ -126,46 +127,15 @@ Furniture:
 
 AltLibrary:
 - Make alternatives work with support from this library
+- Add evil jungle grass support to the lib?: setting evil jungle grass doesn't allow it to spread to mud blocks in pre-hardmode(corrupt grass spreads only to mud in pre-hardmode, can't take over jungle grass)
+                                           --->make evil jungle grass spread to empty mud blocks in pre-hardmode
+                                             in hardmode evil jungle grass can infect jungle grass very slowly, but still can't spread to mud 
+                                           --->make evil jungle grass spread faster in hardmode
+                                             a corrupt grass block can also spread to empty mud, turning it into corrupt jungle grass, while normal grass can't spread to mud and create normal jungle grass
+                                           --->make evil grass spread to empty mud blocks at all times
 
 Worldgen:
+- Generate flipped caverns into the underground but flipped upside-down based on steves idea and force the players gravity to flip when entering the underground flipside
 - Make Bioluminescent Bulbs accessible with a copper pick but make that very dangerous to do?
 - Dont Dig Up seed crash
 - Get fixed boi seed crash
-
-Tooltips:
-CommonItemTooltip.Summon.TagDmgMult: This weapon scales with only {0}% Tag Damage
-8Ball: Summons a Wretched 8-Ball to fight for you. An abstraction of light that will lead you to darkness.
-TreasureBags: {$CommonItemTooltip.RightClickToOpen}
-Bestiary.Flatworm: Very aggressive worm very scary
-FlipsideDescription: Creepy crawly parasites will assimilate your world!
-FlipsideGenPassName: Introducing nasty parasitic lifeforms
-FlipsideDryad: flipped
-		BiomeDesert: {
-			DisplayName: Flipped Desert
-			TownNPCDialogueName: the Flipped Desert
-		}
-
-		BiomeMainSurface: {
-			DisplayName: Flipside
-			TownNPCDialogueName: the Flipside
-		}
-
-		BiomeOcean: {
-			DisplayName: Flipped Ocean
-			TownNPCDialogueName: the Flipped Ocean
-		}
-
-		BiomeUnderground: {
-			DisplayName: Underground Flipside
-			TownNPCDialogueName: the Flipped Caverns
-		}
-
-		BiomeUndergroundDesert: {
-			DisplayName: Flipped Underground Desert
-			TownNPCDialogueName: the Flipped Underground Desert
-		}
-
-		BiomeUndergroundIce: {
-			DisplayName: Flipped Underground Ice
-			TownNPCDialogueName: the Flipped Underground Ice
-		}

@@ -4,13 +4,15 @@ using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using TerrariaParadox.Content.NPCs;
+using TerrariaParadox.Content.Tiles.Plants.Cactus;
 
 namespace TerrariaParadox.Content.NPCs.Hostile.Worms
 {
 	// These three class showcase usage of the WormHead, WormBody and WormTail classes from Worm.cs
-	internal class FlatwormHead : WormHead
+	internal class Flatworm : WormHead
 	{
 		public override int BodyType => ModContent.NPCType<FlatwormBody>();
 		public override int TailType => ModContent.NPCType<FlatwormTail>();
@@ -29,9 +31,10 @@ namespace TerrariaParadox.Content.NPCs.Hostile.Worms
 
 		public override void SetStaticDefaults() 
 		{
+			
 			var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers() 
 			{ // Influences how the NPC looks in the Bestiary
-				CustomTexturePath = "TerrariaParadox/Content/NPCs/Hostile/Worms/FlatwormHead", // If the NPC is multiple parts like a worm, a custom texture for the Bestiary is encouraged.
+				CustomTexturePath = "TerrariaParadox/Content/NPCs/Hostile/Worms/FlatwormBestiary", // If the NPC is multiple parts like a worm, a custom texture for the Bestiary is encouraged.
 				Position = new Vector2(40f, 24f),
 				PortraitPositionXOverride = 0f,
 				PortraitPositionYOverride = 12f
@@ -39,7 +42,7 @@ namespace TerrariaParadox.Content.NPCs.Hostile.Worms
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
 		}
 
-		public override void SetDefaults() 
+		public override void SetDefaults()
 		{
 			NPC.width = 14;
 			NPC.height = 18;
@@ -62,17 +65,18 @@ namespace TerrariaParadox.Content.NPCs.Hostile.Worms
 			BannerItem = ItemID.WormBanner;
 			//ItemID.Sets.KillsToBanner[BannerItem] = 25; default 50
 		}
+		
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
 		{
 			// We can use AddRange instead of calling Add multiple times in order to add multiple items at once
 			bestiaryEntry.Info.AddRange([
 				// Sets the spawning conditions of this NPC that is listed in the bestiary.
-				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Underground,
-				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Caverns,
+				ModContent.GetInstance<Biomes.TheFlipside.BiomeMainSurface>().ModBiomeBestiaryInfoElement,
+				ModContent.GetInstance<Biomes.TheFlipside.BiomeUnderground>().ModBiomeBestiaryInfoElement,
 
 				// Sets the description of this NPC that is listed in the bestiary.
-				new FlavorTextBestiaryInfoElement("Mods.TerrariaParadox.Bestiary.Flatworm")
+				new FlavorTextBestiaryInfoElement( "Mods.TerrariaParadox." + LocalizationCategory + "." + Name + ".Bestiary")
 			]);
 		}
 
@@ -136,24 +140,25 @@ namespace TerrariaParadox.Content.NPCs.Hostile.Worms
 
 	internal class FlatwormBody : WormBody
 	{
+
 		public override void SetStaticDefaults() 
 		{
 			NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers() {
 				Hide = true // Hides this NPC from the Bestiary, useful for multi-part NPCs whom you only want one entry.
 			};
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
-			NPCID.Sets.RespawnEnemyID[NPC.type] = ModContent.NPCType<FlatwormHead>();
+			NPCID.Sets.RespawnEnemyID[NPC.type] = ModContent.NPCType<Flatworm>();
 		}
 
-		public override void SetDefaults() 
+		public override void CustomSetDefaults() 
 		{
 			NPC.width = 14;
 			NPC.height = 22;
 			NPC.aiStyle = -1;
 			NPC.netAlways = true;
-			NPC.damage = FlatwormHead.BodyDmg;
-			NPC.defense = FlatwormHead.BodyDef;
-			NPC.lifeMax = FlatwormHead.Health;
+			NPC.damage = Flatworm.BodyDmg;
+			NPC.defense = Flatworm.BodyDef;
+			NPC.lifeMax = Flatworm.Health;
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.noGravity = true;
@@ -161,16 +166,16 @@ namespace TerrariaParadox.Content.NPCs.Hostile.Worms
 			NPC.knockBackResist = 0f;
 			NPC.behindTiles = true;
 			//NPC.scale = 0.9f;
-			NPC.value = FlatwormHead.Value;
+			NPC.value = Flatworm.Value;
 			NPC.dontCountMe = true;
 
 			// Extra body parts should use the same Banner value as the main ModNPC.
-			Banner = ModContent.NPCType<FlatwormHead>();
+			Banner = ModContent.NPCType<Flatworm>();
 		}
 
 		public override void Init() 
 		{
-			FlatwormHead.CommonWormInit(this);
+			Flatworm.CommonWormInit(this);
 		}
 	}
 
@@ -183,18 +188,18 @@ namespace TerrariaParadox.Content.NPCs.Hostile.Worms
 				Hide = true // Hides this NPC from the Bestiary, useful for multi-part NPCs whom you only want one entry.
 			};
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
-			NPCID.Sets.RespawnEnemyID[NPC.type] = ModContent.NPCType<FlatwormHead>();
+			NPCID.Sets.RespawnEnemyID[NPC.type] = ModContent.NPCType<Flatworm>();
 		}
 
-		public override void SetDefaults() 
+		public override void CustomSetDefaults() 
 		{
 			NPC.width = 14;
 			NPC.height = 32;
 			NPC.aiStyle = -1;
 			NPC.netAlways = true;
-			NPC.damage = FlatwormHead.TailDmg;
-			NPC.defense = FlatwormHead.TailDef;
-			NPC.lifeMax = FlatwormHead.Health;
+			NPC.damage = Flatworm.TailDmg;
+			NPC.defense = Flatworm.TailDef;
+			NPC.lifeMax = Flatworm.Health;
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.noGravity = true;
@@ -202,16 +207,16 @@ namespace TerrariaParadox.Content.NPCs.Hostile.Worms
 			NPC.knockBackResist = 0f;
 			NPC.behindTiles = true;
 			//NPC.scale = 0.9f;
-			NPC.value = FlatwormHead.Value;
+			NPC.value = Flatworm.Value;
 			NPC.dontCountMe = true;
 
 			// Extra body parts should use the same Banner value as the main ModNPC.
-			Banner = ModContent.NPCType<FlatwormHead>();
+			Banner = ModContent.NPCType<Flatworm>();
 		}
 
 		public override void Init() 
 		{
-			FlatwormHead.CommonWormInit(this);
+			Flatworm.CommonWormInit(this);
 		}
 	}
 }

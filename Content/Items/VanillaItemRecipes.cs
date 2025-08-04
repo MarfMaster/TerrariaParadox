@@ -11,7 +11,7 @@ public class VanillaItemRecipes : GlobalItem
 {
     public override void AddRecipes()
     {
-        Recipe Magiluminescence = Recipe.Create(ItemID.Magiluminescence)
+        /*Recipe Magiluminescence = Recipe.Create(ItemID.Magiluminescence) //Added by AltLib already
             .AddIngredient(ModContent.ItemType<ChitiniteBar>(), 12)
             .AddIngredient(ItemID.Topaz, 5)
             .AddTile(TileID.Anvils);
@@ -56,6 +56,6 @@ public class VanillaItemRecipes : GlobalItem
             .AddIngredient(ItemID.Obsidian, 20)
             .AddIngredient(ModContent.ItemType<BioluminescentGoop>(), 5)
             .AddTile(TileID.Hellforge);
-        ObsidianPants.Register();
+        ObsidianPants.Register();*/
     }
 }

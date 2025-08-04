@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TerrariaParadox.Content.Tiles.Blocks;
@@ -12,7 +14,6 @@ namespace TerrariaParadox
 	// Please read https://github.com/tModLoader/tModLoader/wiki/Basic-tModLoader-Modding-Guide#mod-skeleton-contents for more information about the various files in a mod.
 	public partial class TerrariaParadox : Mod
 	{
-		public static TerrariaParadox instance;
 
 		static int[] wallHammerRequirement;
 		public static int[] WallHammerRequirement
@@ -23,10 +24,6 @@ namespace TerrariaParadox
 		public static bool[] TileTransformsOnKill
 		{
 			get => tileTransformsOnKill;
-		}
-		public TerrariaParadox()
-		{
-			instance = this;
 		}
 			public static List<int> InfestedBlocks;
 		
@@ -44,7 +41,6 @@ namespace TerrariaParadox
 			#region Unload
 			public override void Unload()
 			{
-				instance = null;
 				UnpopulateArrays();
 			}
 			#endregion

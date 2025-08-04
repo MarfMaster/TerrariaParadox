@@ -5,10 +5,10 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TerrariaParadox.Content.Tiles.Blocks;
 
 namespace TerrariaParadox.Content.Tiles.Plants.Trees.Leechwood.Palm
 {
-	[Autoload(false)]
 	public class Tree : ModPalmTree
 	{
 		private Asset<Texture2D> WoodTexture;
@@ -21,7 +21,7 @@ namespace TerrariaParadox.Content.Tiles.Plants.Trees.Leechwood.Palm
 			OasisTopsTexture = ModContent.Request<Texture2D>("TerrariaParadox/Content/Tiles/Plants/Trees/Leechwood/Palm/OasisTreeTops");
 			BeachTopsTexture = ModContent.Request<Texture2D>("TerrariaParadox/Content/Tiles/Plants/Trees/Leechwood/Palm/BeachTreeTops");
 			
-			GrowsOnTileId = [TileID.Gold]; //would be assec sand
+			GrowsOnTileId = [ModContent.TileType<AssecsandBlockTile>()]; //would be assec sand
 		}
 		public override Asset<Texture2D> GetTexture() => WoodTexture;
 		
@@ -41,7 +41,7 @@ namespace TerrariaParadox.Content.Tiles.Plants.Trees.Leechwood.Palm
 		}
 		public override int DropWood()
 		{
-			return ItemID.Wood;
+			return ModContent.ItemType<Items.Tiles.Blocks.Leechwood>();
 		}
     
 		public override bool Shake(int x, int y, ref bool createLeaves) 

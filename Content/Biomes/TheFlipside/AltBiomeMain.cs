@@ -10,6 +10,7 @@ using Terraria.ModLoader;
 using TerrariaParadox.Content.Items.Materials;
 using TerrariaParadox.Content.Items.Tiles.Bars;
 using TerrariaParadox.Content.Items.Tiles.Blocks;
+using TerrariaParadox.Content.Items.Tiles.Plants;
 using TerrariaParadox.Content.Items.Weapons.Melee;
 using TerrariaParadox.Content.Tiles.Blocks;
 using TerrariaParadox.Content.Tiles.Misc;
@@ -20,14 +21,13 @@ namespace TerrariaParadox.Content.Biomes.TheFlipside;
 public class AltBiomeMain : AltBiome
 {
     public override string WorldIcon => "TerrariaParadox/Textures/UI/World/SaveFlipsideIcon";
-    public override string IconSmall => "TerrariaParadox/Content/Biomes/TheFlipside/SurfaceBiome_Icon";
+    public override string IconSmall => "TerrariaParadox/Content/Biomes/TheFlipside/BiomeMainSurface_Icon";
     public override string OuterTexture => "TerrariaParadox/Textures/UI/World/GenFlipsideProgressBar";
     public override Color OuterColor => new Color(35, 198, 138);
     public override IShoppingBiome Biome => ModContent.GetInstance<TheFlipside.BiomeMainSurface>();
 
     public override string LocalizationCategory => "Biomes.TheFlipside";
     public override Color NameColor => OuterColor;
-
     public override void SetStaticDefaults()
     {
         BiomeType = BiomeType.Evil;
@@ -36,30 +36,33 @@ public class AltBiomeMain : AltBiome
         AddTileConversion(ModContent.TileType<FlippedJungleGrassBlock>(), TileID.JungleGrass);
         AddTileConversion(ModContent.TileType<AssecstoneBlockTile>(), TileID.Stone);
         AddTileConversion(ModContent.TileType<AssecsandBlockTile>(), TileID.Sand);
-        AddTileConversion(ModContent.TileType<AssecstoneBlockTile>(), TileID.Sandstone);
+        AddTileConversion(ModContent.TileType<AssecsandstoneBlockTile>(), TileID.Sandstone);
         AddTileConversion(ModContent.TileType<HardenedAssecsandBlockTile>(), TileID.HardenedSand);
         AddTileConversion(ModContent.TileType<MurkyIceBlockTile>(), TileID.IceBlock);
 
         GERunnerConversion.Add(TileID.Silt, ModContent.TileType<AssecsandBlockTile>());
         
-        BiomeFlesh = TileID.SilverBrick;
-        BiomeFleshWall = WallID.SilverBrick;
+        //BiomeFlesh = TileID.SilverBrick;
+        //BiomeFleshWall = WallID.SilverBrick;
         
-        FleshDoorTile = TileID.ClosedDoor;
-        FleshChairTile = TileID.Chairs;
-        FleshTableTile = TileID.Tables;
-        FleshChestTile = TileID.Containers;
-        FleshDoorTileStyle = 7;
-        FleshChairTileStyle = 7;
-        FleshTableTileStyle = 7;
-        FleshChestTileStyle = 7;
+        //FleshDoorTile = TileID.ClosedDoor;
+        //FleshChairTile = TileID.Chairs;
+        //FleshTableTile = TileID.Tables;
+        //FleshChestTile = TileID.Containers;
+        //FleshDoorTileStyle = 7;
+        //FleshChairTileStyle = 7;
+        //FleshTableTileStyle = 7;
+        //FleshChestTileStyle = 7;
         
-        FountainTile = TileID.WaterFountain;
-        FountainTileStyle = 1;
+        //FountainTile = TileID.WaterFountain;
+        //FountainTileStyle = 1;
         //FountainTile = TileID.WaterFountain;
         //Fountain = TileID.WaterFountain;
-        
-        //SeedType = ModContent.ItemType<Defiled_Grass_Seeds>();
+
+        BiomeGrass = ModContent.TileType<FlippedGrassBlock>();
+        BiomeJungleGrass  = ModContent.TileType<FlippedJungleGrassBlock>();
+        //BiomeThornBush = ModContent.TileType<AssecsandBlockTile>();
+        SeedType = ModContent.ItemType<FlippedSeeds>();
         BiomeOre = ModContent.TileType<ChitiniteOreTile>();
         BiomeOreItem = ModContent.ItemType<ChitiniteBar>();
         //BiomeOreBrick = ModContent.TileType<Lost_Brick>();
