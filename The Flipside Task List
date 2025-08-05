@@ -12,7 +12,7 @@ Solid Blocks:
 - Chitinite Brick
 
 Background walls:
-- Flipped Grass Wall
+- Flipped Grass Wall~~
 - Assecstone Wall~~
 - Assecstone Brick Wall~~
 - Chitinite Brick Wall
@@ -27,16 +27,18 @@ Background walls:
 
 Plants(misc tiles/items):
 - Leechwood Tree(special tile)~~
-- Leechwood Palm Tree(special tile)
+- Leechwood Palm Tree(special tile)~~
 - Leechwood Sapling(special tile)~~
 - 2 Leechwood Tree fruits(simple consumable item)
-- Parasitic Mushroom(simple tile and item)
+- Parasitic Mushroom(simple tile and item)~~
 - Flipped Cactus(tile)~~
 
 Misc Tiles:
 - Ootheca Altar~~
-- Biome Torch
-- Ichor equivalent Torch
+- Flipside Pots
+- Flipped Torch
+- Stickler Torch
+- Flipped Campfire
 - 2 Flipped Crates(hardmode and pre-hardmode)
 - Bioluminescent Bulb~~
 - Hardmode Dungeon Biome Chest (Flipped Chest?)
@@ -66,13 +68,16 @@ Weapons/Tools:
 - Hardmode Biome Chest Melee Weapon
 
 Misc Items:
-- Parasitic Powder
-- Parasitic Water(Unholy Water equivalent)
+- Flask of Stickling~~
+- Assimilated Powder~~
+- Parasitic Water(Unholy Water equivalent)~~
+- Murky Solution~~
+- Flipped Seeds~~
 - 2 Infested Fishes as materials for Wrath/Rage/Heartreach potions
 - 2 Infested Quest Fishes, Hardmode and Pre-Hardmode
 - Flipped Meat
 - Bioluminescent Goop~~
-- Ichor counterpart
+- Stickler~~
 - Hardmode Biome Chest Key
 - Nyxar Treasure Bag~~
 
@@ -89,23 +94,25 @@ Misc Visuals:
 - Infested Water Style
 - Surface Backgrounds
 - Underground Backgrounds
+- Flipped Grass grasses
 - random rubble for the biome
 
 Enemies(non-bosses need banners too):
-- Walking Hive
-- Assimilated Demon Eye
-- Swarm
+- Walking Hive~~
+- Assimilated Demon Eye~~
+- Swarm~~
 - Flatworm~~
-- Flipped Mummy
-- Flipped Goldfish
-- Flipped Penguin
-- Flipped Ghoul(underground desert)
-- Flipped Sandshark(sandstorm)
+- Assimilated Mummy
+- Assimilated Goldfish~~
+- Assimilated Bunny~~
+- Assimilated Penguin
+- Assimilated Ghoul(underground desert)
+- Assimilated Sandshark(sandstorm)
 - Nyxar(boss)
 
 Furniture: 
 - Leechwood Platform
-- Leechwood Work Bench
+- Leechwood Workbench~~
 - Leechwood Bathtub
 - Leechwood Chandelier
 - Leechwood Bed
@@ -117,13 +124,13 @@ Furniture:
 - Leechwood Toilet
 - Leechwood Candelabra
 - Leechwood Candle
-- Leechwood Chair
+- Leechwood Chair~~
 - Leechwood Chest
-- Leechwood Door
+- Leechwood Door~~
 - Leechwood Lamp
 - Leechwood Lantern
 - Leechwood Sink
-- Leechwood Table
+- Leechwood Table~~
 
 AltLibrary:
 - Make alternatives work with support from this library
