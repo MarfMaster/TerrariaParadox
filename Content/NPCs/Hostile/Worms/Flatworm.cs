@@ -6,6 +6,8 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using TerrariaParadox.Content.Debuffs;
+using TerrariaParadox.Content.Debuffs.DoT;
 using TerrariaParadox.Content.NPCs;
 using TerrariaParadox.Content.Tiles.Plants.Cactus;
 
@@ -113,6 +115,7 @@ namespace TerrariaParadox.Content.NPCs.Hostile.Worms
 			attackCounter = reader.ReadInt32();
 		}
 
+
 		/*public override void AI() 
 		{
 			if (Main.netMode != NetmodeID.MultiplayerClient) 
@@ -136,6 +139,9 @@ namespace TerrariaParadox.Content.NPCs.Hostile.Worms
 				}
 			}
 		}*/
+		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
+		{
+		}
 	}
 
 	internal class FlatwormBody : WormBody

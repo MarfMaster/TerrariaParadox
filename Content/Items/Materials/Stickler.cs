@@ -3,11 +3,8 @@ using Terraria.ModLoader;
 
 namespace TerrariaParadox.Content.Items.Materials;
 
-public class Stickler : ModItem
+public class Stickler : ModdedMaterial
 {
-    public override void SetDefaults()
-    {
-        Item.rare = ItemRarityID.Orange;
-        Item.value = PriceByRarity.fromItem(Item) / 35;
-    }
+    public override int Rarity => ItemRarityID.Orange;
+    public override int Value => 1000;
 }

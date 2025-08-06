@@ -4,6 +4,7 @@ CommonItemTooltip: {
 	Generic: {
 		AttackSpeed: "{0}% increased attack speed"
 		IncreasedDefense: Increases defense by {0}
+		DecreasedDamage: Decreases damage dealt by {0}%
 	}
 }
 
@@ -66,11 +67,6 @@ Items: {
 			DisplayName: Chitinite Helmet
 			Tooltip: "{$CommonItemTooltip.Generic.AttackSpeed}"
 		}
-	}
-
-	BioluminescentGoop: {
-		DisplayName: Bioluminescent Goop
-		Tooltip: ""
 	}
 
 	Tiles: {
@@ -236,12 +232,39 @@ Items: {
 			}
 		}
 	}
-}
 
-Tiles: {
-	BioluminescentBulb.MapEntry: Bioluminescent Bulb
-	OothecaAltar.MapEntry: Ootheca Altar
-	ChitiniteOreTile.MapEntry: Chitinite Ore Tile
+	Materials: {
+		AssimilatedFlesh: {
+			DisplayName: Assimilated Flesh
+			Tooltip: ""
+		}
+
+		BioluminescentGoop: {
+			DisplayName: Bioluminescent Goop
+			Tooltip: ""
+		}
+
+		Stickler: {
+			DisplayName: Stickler
+			Tooltip: ""
+		}
+	}
+
+	Debug: {
+		DamageDebugTome: {
+			DisplayName: Damage Debug Tome
+			Tooltip: Disables damage spread
+		}
+	}
+
+	Consumables: {
+		Buffs: {
+			FlaskOfStickling: {
+				DisplayName: Flask Of Stickling
+				Tooltip: Melee and Whip attacks infect enemies with Sticklers
+			}
+		}
+	}
 }
 
 Buffs: {
@@ -252,9 +275,21 @@ Buffs: {
 		}
 	}
 
+	WeaponImbueStickling: {
+		DisplayName: Weapon Imbue: Stickling
+		Description: Melee attacks infect enemies with Sticklers
+	}
+}
+
+Debuffs: {
 	LeecharangBleed: {
 		DisplayName: Leecharang Bleed
-		Description: Mods.TerrariaParadox.Buffs.LeecharangBleed.Description
+		Description: Mods.TerrariaParadox.Debuffs.LeecharangBleed.Description
+	}
+
+	Stickled: {
+		DisplayName: Stickled
+		Description: "{$CommonItemTooltip.Generic.DecreasedDamage}"
 	}
 }
 
@@ -265,6 +300,12 @@ NPCs: {
 		FlatwormBody.DisplayName: Flatworm Body
 		FlatwormTail.DisplayName: Flatworm Tail
 	}
+}
+
+Tiles: {
+	BioluminescentBulb.MapEntry: Bioluminescent Bulb
+	OothecaAltar.MapEntry: Ootheca Altar
+	ChitiniteOreTile.MapEntry: Chitinite Ore Tile
 }
 
 Projectiles: {

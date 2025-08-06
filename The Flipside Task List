@@ -100,15 +100,16 @@ Misc Visuals:
 Enemies(non-bosses need banners too):
 - Walking Hive~~
 - Assimilated Demon Eye~~
-- Swarm~~
+- Swarm~~: make the swarm take damage from bug nets
 - Flatworm~~
 - Assimilated Mummy
 - Assimilated Goldfish~~
 - Assimilated Bunny~~
 - Assimilated Penguin
+- Nyxar(boss)
 - Assimilated Ghoul(underground desert)
 - Assimilated Sandshark(sandstorm)
-- Nyxar(boss)
+- Assimilated Mimic
 
 Furniture: 
 - Leechwood Platform
@@ -132,6 +133,11 @@ Furniture:
 - Leechwood Sink
 - Leechwood Table~~
 
+Code Tasks:
+- Add visuals to Flask of Stickling and Stickled Debuff
+- Pull all vanilla DoT debuffs dmg numbers into a custom function so we can make their dmg numbers stack visually instead of only showing the dmg of one
+- Make Leecharang bleed debuff stack on hit up to 5 or so times, increasing the dot for each stack. 
+- Introduce Parasyte "gun" as a held projectile that charges up to fling a bullet automatically, pulling the arm backwards first and then throwing quickly, make it autofire compatible, make it draw the texture of the used bulled via player.pickammo(gives ammo itemid) and then calling upon the ingame texture with that id
 AltLibrary:
 - Make alternatives work with support from this library
 - Add evil jungle grass support to the lib?: setting evil jungle grass doesn't allow it to spread to mud blocks in pre-hardmode(corrupt grass spreads only to mud in pre-hardmode, can't take over jungle grass)

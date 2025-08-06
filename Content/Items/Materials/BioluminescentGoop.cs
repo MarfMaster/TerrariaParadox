@@ -3,11 +3,8 @@ using Terraria.ModLoader;
 
 namespace TerrariaParadox.Content.Items.Materials;
 
-public class BioluminescentGoop : ModItem
+public class BioluminescentGoop : ModdedMaterial
 {
-    public override void SetDefaults()
-    {
-        Item.rare = ItemRarityID.Blue;
-        Item.value = PriceByRarity.fromItem(Item) / 35;
-    }
+    public override int Rarity => ItemRarityID.Blue;
+    public override int Value => 200;
 }
