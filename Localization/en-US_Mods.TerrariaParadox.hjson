@@ -131,6 +131,11 @@ Items: {
 				DisplayName: Flipped Seeds
 				Tooltip: ""
 			}
+
+			FlippedHerbSeeds: {
+				DisplayName: Flipped Herb Seeds
+				Tooltip: ""
+			}
 		}
 
 		Walls: {
@@ -168,6 +173,21 @@ Items: {
 
 			LeechwoodChest: {
 				DisplayName: Leechwood Chest
+				Tooltip: ""
+			}
+
+			LeechwoodDoor: {
+				DisplayName: Leechwood Door
+				Tooltip: ""
+			}
+
+			LeechwoodTable: {
+				DisplayName: Leechwood Table
+				Tooltip: ""
+			}
+
+			LeechwoodWorkbench: {
+				DisplayName: Leechwood Workbench
 				Tooltip: ""
 			}
 		}
@@ -289,6 +309,16 @@ Items: {
 			DisplayName: Egg Cluster
 			Tooltip: ""
 		}
+
+		ParasiticMushroom: {
+			DisplayName: Parasitic Mushroom
+			Tooltip: ""
+		}
+
+		FlippedHerb: {
+			DisplayName: Flipped Herb
+			Tooltip: ""
+		}
 	}
 
 	Debug: {
@@ -339,6 +369,8 @@ Tiles: {
 	OothecaAltar.MapEntry: Ootheca Altar
 	ChitiniteOreTile.MapEntry: Chitinite Ore Tile
 	ChestTile.MapEntry0: Leechwood Chest
+	FlippedHerb.MapEntry: Flipped Herb
+	FlippedHerbTile.MapEntry: Flipped Herb Tile
 }
 
 Projectiles: {

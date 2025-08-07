@@ -31,6 +31,8 @@ Plants(misc tiles/items):
 - Leechwood Sapling(special tile)~~
 - 2 Leechwood Tree fruits(simple consumable item)
 - Parasitic Mushroom(simple tile and item)~~
+- Flipped Herb
+- Flipped Herb Planter Box
 - Flipped Cactus(tile)~~
 
 Misc Tiles:
@@ -135,6 +137,7 @@ Furniture:
 
 Code Tasks:
 - Add visuals to Flask of Stickling and Stickled Debuff
+- Add flipped vines to flipped grass blocks
 - Pull all vanilla DoT debuffs dmg numbers into a custom function so we can make their dmg numbers stack visually instead of only showing the dmg of one
 - Make Leecharang bleed debuff stack on hit up to 5 or so times, increasing the dot for each stack. 
 - Introduce Parasyte "gun" as a held projectile that charges up to fling a bullet automatically, pulling the arm backwards first and then throwing quickly, make it autofire compatible, make it draw the texture of the used bulled via player.pickammo(gives ammo itemid) and then calling upon the ingame texture with that id
@@ -149,6 +152,8 @@ AltLibrary:
 
 Worldgen:
 - Generate flipped caverns into the underground but flipped upside-down based on steves idea and force the players gravity to flip when entering the underground flipside
-- Make Bioluminescent Bulbs accessible with a copper pick but make that very dangerous to do?
+- Make Bioluminescent Bulbs accessible with a copper pick but make that very dangerous to do? Add chat message to breaking them, add boss spawning progress counter(nyxar should spawn every 4th bulb)
+- Introduce Parasyte "gun": I'll keep the upper arm still and rotate the upper arm texture to make it look like it's charging and then throwing
+- Generate Flipped Pots and give them the correct loot xd
 - Dont Dig Up seed crash
 - Get fixed boi seed crash

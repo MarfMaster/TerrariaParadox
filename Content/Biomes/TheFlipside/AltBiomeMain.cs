@@ -14,6 +14,7 @@ using TerrariaParadox.Content.Items.Tiles.Plants;
 using TerrariaParadox.Content.Items.Weapons.Melee;
 using TerrariaParadox.Content.Tiles.Blocks;
 using TerrariaParadox.Content.Tiles.Misc;
+using TerrariaParadox.Content.Tiles.Plants;
 using TerrariaParadox.Content.Tiles.Walls;
 
 namespace TerrariaParadox.Content.Biomes.TheFlipside;
@@ -92,7 +93,8 @@ public class AltBiomeMain : AltBiome
             WallID.Cave8Unsafe
         );
         
-        AddWallConversions<HardenedAssecsandWallTileUnsafe>(
+        AddWallConversions<HardenedAssecsandWallTileUnsafe>
+        (
             WallID.HardenedSand
         );
         
@@ -114,11 +116,11 @@ public class AltBiomeMain : AltBiome
         get 
         {
             AltMaterialContext context = new AltMaterialContext();
-            //context.SetEvilHerb(ModContent.ItemType<Wilting_Rose_Item>());
+            context.SetEvilHerb(ModContent.ItemType<FlippedHerb>());
             context.SetEvilBar(ModContent.ItemType<ChitiniteBar>());
             context.SetEvilOre(ModContent.ItemType<ChitiniteOre>());
-            context.SetVileInnard(ModContent.ItemType<EggCluster>()); //Pre-Hardmode material rotten chunk
-            context.SetVileComponent(ModContent.ItemType<Stickler>()); //Hardmode material cursed flame
+            context.SetVileInnard(ModContent.ItemType<EggCluster>());
+            context.SetVileComponent(ModContent.ItemType<Stickler>());
             context.SetEvilBossDrop(ModContent.ItemType<BioluminescentGoop>());
             context.SetEvilSword(ModContent.ItemType<TarsalSaber>());
             return context;

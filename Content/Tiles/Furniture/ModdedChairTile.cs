@@ -17,6 +17,7 @@ public abstract class ModdedChairTile : ModTile
 {
 		public abstract int OnMineDustType { get; }
 		public abstract int ItemType { get; }
+		public abstract Color MapColor { get; }
 		
 		public const int MaterialAmount = 4;
 		public const int NextStyleHeight = 40; // Calculated by adding all CoordinateHeights + CoordinatePaddingFix.Y applied to all of them + 2
@@ -37,7 +38,7 @@ public abstract class ModdedChairTile : ModTile
 			AdjTiles = [TileID.Chairs];
 			VanillaFallbackOnModDeletion = TileID.Chairs;
 
-			AddMapEntry(new Color(37, 37, 50), Language.GetText("MapObject.Chair"));
+			AddMapEntry(MapColor, Language.GetText("MapObject.Chair"));
 
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2);
 			TileObjectData.newTile.CoordinateHeights = [16, 18];

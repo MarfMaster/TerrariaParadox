@@ -23,6 +23,8 @@ public class ChitiniteOreTile : ModdedBlockTile
         Main.tileLighted[Type] = true;
         Main.tileMerge[ModContent.TileType<AssecstoneBlockTile>()][Type] = true;
         Main.tileMerge[Type][ModContent.TileType<AssecstoneBlockTile>()] = true;
+        Main.tileMerge[TileID.Mud][Type] = true;
+        Main.tileMerge[Type][TileID.Mud] = true;
     }
 
     public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)

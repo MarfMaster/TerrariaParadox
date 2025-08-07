@@ -5,7 +5,9 @@ using Terraria.Audio;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ObjectData;
 using TerrariaParadox.Content.Dusts.Tiles.Blocks;
+using TerrariaParadox.Content.Tiles.Plants;
 
 namespace TerrariaParadox.Content.Tiles.Blocks;
 
@@ -22,11 +24,13 @@ public class FlippedJungleGrassBlock : ModdedBlockTile
     public override bool NameShowsOnMapHover => false;
     public override void CustomSetStaticDefaults()
     {
+        Main.tileBrick[Type] = true;
         TileID.Sets.CanBeDugByShovel[Type] = true;
         TileID.Sets.CanBeClearedDuringGeneration[Type] = true;
         TileID.Sets.GrassSpecial[Type] = true;
         TileID.Sets.Conversion.JungleGrass[Type] = true;
         TileID.Sets.NeedsGrassFraming[Type] = true;
+        TileID.Sets.NeedsGrassFramingDirt[Type] = 1;
         TileID.Sets.ChecksForMerge[Type] = true;
         Main.tileMerge[Type] = Main.tileMerge[TileID.JungleGrass];
         Main.tileMerge[Type][TileID.Dirt] = true;
@@ -58,11 +62,19 @@ public class FlippedJungleGrassBlock : ModdedBlockTile
         Tile above = Framing.GetTileSafely(i, j - 1);
         if (!above.HasTile && Main.tile[i, j].BlockType == BlockType.Solid) 
         {
-            /*if (Main.rand.NextBool(250)) {
-                above.ResetToType((ushort)ModContent.TileType<Acetabularia>());
-            } else {
-                above.ResetToType((ushort)ModContent.TileType<Riven_Foliage>());
-            }*/
+            if (Main.rand.NextBool(ParasiticMushroomTile.ChanceToGrow))
+            {
+                above.ResetToType((ushort)ModContent.TileType<ParasiticMushroomTile>());
+            }
+            else if (Main.rand.NextBool(FlippedHerbTile.GrowChance))
+            {
+                above.ResetToType((ushort)ModContent.TileType<FlippedHerbTile>());
+            }
+            else
+            {
+                above.ResetToType((ushort)ModContent.TileType<FlippedGrassPlants>());
+                above.TileFrameX = (short)(Main.rand.Next(0, FlippedGrassPlants.Frames - 1) * 18);
+            }
             WorldGen.TileFrame(i, j - 1);
         }
     }

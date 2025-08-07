@@ -69,9 +69,19 @@ public class BioluminescentBulb : ModTile
 			return base.KillSound(i, j, fail);
 		}
 
+		public override void KillMultiTile(int i, int j, int frameX, int frameY)
+		{
+			if (!WorldGen.shadowOrbSmashed)
+			{
+				WorldGen.shadowOrbSmashed = true;
+			}
+
+			WorldGen.shadowOrbCount++;
+		}
+
 		public override IEnumerable<Item> GetItemDrops(int i, int j)
 		{
-			int Random = Main.rand.Next(1, 7);
+			int Random = !Condition.SmashedShadowOrb.IsMet() ? 2 : Main.rand.Next(1, 7);
 			Dictionary<int, int> DropsList = new Dictionary<int, int>()
 			{
 				{1, ModContent.ItemType<Leecharang>()},

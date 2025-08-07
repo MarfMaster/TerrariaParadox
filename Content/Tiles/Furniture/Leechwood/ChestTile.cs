@@ -1,3 +1,4 @@
+using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 using TerrariaParadox.Content.Dusts.Tiles.Blocks;
 using TerrariaParadox.Content.Items.Tiles.Furniture;
@@ -8,6 +9,7 @@ public class ChestTile : ModdedChestTile
 {
     public override int OnMineDustType => ModContent.DustType<LeechwoodDust>();
     public override int ChestItemType => ModContent.ItemType<LeechwoodChest>();
+    public override Color MapColor => new Color(37, 37, 50);
     public override bool CanBeLocked => false;
     public override int KeyItemType { get; }
     public override bool CanLockUnlockedChest()

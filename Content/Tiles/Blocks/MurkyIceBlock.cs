@@ -4,6 +4,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TerrariaParadox.Content.Dusts.Tiles.Blocks;
+using TerrariaParadox.Content.Tiles.Misc;
 
 namespace TerrariaParadox.Content.Tiles.Blocks;
 public class MurkyIceBlockTile : ModdedBlockTile
@@ -29,5 +30,32 @@ public class MurkyIceBlockTile : ModdedBlockTile
         Main.tileMerge[TileID.SnowBlock][Type] = true;
         Main.tileMerge[TileID.Slush][Type] = true;
         Main.tileMerge[Type][TileID.Slush] = true;
+    }
+
+    public override void RandomUpdate(int i, int j)
+    {
+        Vector2 worldCoordinates = new Vector2(i, j).ToWorldCoordinates();
+        if (worldCoordinates.Y > Main.worldSurface) //below underground layer
+        {
+            int frameX = Main.rand.Next(0, 3); //generate a random tileframe for alternate styles
+            Tile below = Framing.GetTileSafely(i, j + 1);
+            Tile below2 = Framing.GetTileSafely(i, j + 2);
+            if (!below.HasTile && Main.tile[i, j].BlockType == BlockType.Solid)
+            {
+                if (Main.rand.NextBool(MurkyIcicles1x1Natural.GrowChance))
+                {
+                    below.ResetToType((ushort)ModContent.TileType<MurkyIcicles1x1Natural>());
+                    below.TileFrameX = (short)(frameX * 18);
+                }
+                else if (Main.rand.NextBool(MurkyIcicles1x2Natural.GrowChance) && !below2.HasTile)
+                {
+                    WorldGen.Place1x2Top(i, j + 1, (ushort)ModContent.TileType<MurkyIcicles1x2Natural>(), 0);
+                    below.TileFrameX = (short)(frameX * 18);
+                    below2.TileFrameX = (short)(frameX * 18);
+                }
+
+                WorldGen.TileFrame(i, j + 1);
+            }
+        }
     }
 }

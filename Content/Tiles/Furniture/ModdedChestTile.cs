@@ -24,6 +24,7 @@ namespace TerrariaParadox.Content.Tiles.Furniture;
 		/// <summary>
 		/// Whether the chest can be locked and unlocked. Requires at least 2 sets of chest animations: locked and unlocked.
 		/// </summary>
+		public abstract Color MapColor { get; }
 		public abstract bool CanBeLocked { get; }
 		public abstract int KeyItemType { get; }
 
@@ -52,10 +53,10 @@ namespace TerrariaParadox.Content.Tiles.Furniture;
 
 			// Other tiles with just one map entry use CreateMapEntryName() to use the default translationkey, "MapEntry"
 			// Since ExampleChest needs multiple, we register our own MapEntry keys
-			AddMapEntry(new Color(200, 200, 200), this.GetLocalization("MapEntry0"), MapChestName);
+			AddMapEntry(MapColor, this.GetLocalization("MapEntry0"), MapChestName);
 			if (CanBeLocked)
 			{
-				AddMapEntry(new Color(0, 141, 63), this.GetLocalization("MapEntry1"), MapChestName);
+				AddMapEntry(MapColor, this.GetLocalization("MapEntry1"), MapChestName);
 			}
 
 			// Style 1 is ExampleChest when locked. We want that tile style to drop the ExampleChest item as well. Use the Chest Lock item to lock this chest.
