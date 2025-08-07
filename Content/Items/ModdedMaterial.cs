@@ -1,5 +1,6 @@
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria;
 
 namespace TerrariaParadox.Content.Items;
 
@@ -12,5 +13,6 @@ public abstract class ModdedMaterial : ModItem
     {
         Item.rare = Rarity;
         Item.value = Value;
+        Item.maxStack = Item.CommonMaxStack;
     }
 }

@@ -20,7 +20,8 @@ namespace TerrariaParadox.Content.Tiles.Misc;
 
 public class BioluminescentBulb : ModTile
 {
-		public override void SetStaticDefaults() 
+
+	public override void SetStaticDefaults() 
 		{
 			Main.tileLighted[Type] = true;
 			Main.tileFrameImportant[Type] = true;

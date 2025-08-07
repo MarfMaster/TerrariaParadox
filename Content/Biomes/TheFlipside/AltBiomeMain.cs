@@ -117,7 +117,7 @@ public class AltBiomeMain : AltBiome
             //context.SetEvilHerb(ModContent.ItemType<Wilting_Rose_Item>());
             context.SetEvilBar(ModContent.ItemType<ChitiniteBar>());
             context.SetEvilOre(ModContent.ItemType<ChitiniteOre>());
-            context.SetVileInnard(ModContent.ItemType<AssimilatedFlesh>()); //Pre-Hardmode material rotten chunk
+            context.SetVileInnard(ModContent.ItemType<EggCluster>()); //Pre-Hardmode material rotten chunk
             context.SetVileComponent(ModContent.ItemType<Stickler>()); //Hardmode material cursed flame
             context.SetEvilBossDrop(ModContent.ItemType<BioluminescentGoop>());
             context.SetEvilSword(ModContent.ItemType<TarsalSaber>());

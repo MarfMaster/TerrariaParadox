@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -21,6 +22,14 @@ public partial class ParadoxNPC : GlobalNPC
             int DoTPerS = Leecharang.DebuffDotPerSecond;
             npc.lifeRegen -= DoTPerS * 2;
             damage += DoTPerS;
+        }
+    }
+
+    public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
+    {
+        if (spawnInfo.Player.InModBiome<Content.Biomes.TheFlipside.BiomeMainSurface>())
+        {
+            pool.Remove(0);
         }
     }
 }

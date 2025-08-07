@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TerrariaParadox.Content.Items.Consumables.Buffs;
 using TerrariaParadox.Content.Tiles.Blocks;
 
 namespace TerrariaParadox.Content.Tiles.Plants.Trees.Leechwood.Palm
@@ -46,7 +47,21 @@ namespace TerrariaParadox.Content.Tiles.Plants.Trees.Leechwood.Palm
     
 		public override bool Shake(int x, int y, ref bool createLeaves) 
 		{
-			Item.NewItem(WorldGen.GetItemSource_FromTreeShake(x, y), new Vector2(x, y) * 16, ItemID.Spaghetti);
+			if (Main.rand.NextBool(6))
+			{
+				if (Main.rand.NextBool(2))
+				{
+					Item.NewItem(WorldGen.GetItemSource_FromTreeShake(x, y), new Vector2(x, y) * 16, ModContent.ItemType<Moonana>());
+				}
+				else
+				{
+					Item.NewItem(WorldGen.GetItemSource_FromTreeShake(x, y), new Vector2(x, y) * 16, ModContent.ItemType<Akebi>());
+				}
+			}
+			if (Main.rand.NextBool(3))
+			{
+				createLeaves = true;
+			}
 			return true;
 		}
 		

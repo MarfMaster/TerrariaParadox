@@ -159,6 +159,18 @@ Items: {
 				Tooltip: ""
 			}
 		}
+
+		Furniture: {
+			LeechwoodChair: {
+				DisplayName: Leechwood Chair
+				Tooltip: ""
+			}
+
+			LeechwoodChest: {
+				DisplayName: Leechwood Chest
+				Tooltip: ""
+			}
+		}
 	}
 
 	Tools: {
@@ -233,6 +245,30 @@ Items: {
 		}
 	}
 
+	Consumables: {
+		Buffs: {
+			FlaskOfStickling: {
+				DisplayName: Flask Of Stickling
+				Tooltip: Melee and Whip attacks infect enemies with Sticklers
+			}
+
+			Akebi: {
+				DisplayName: Akebi
+				Tooltip: "{$CommonItemTooltip.MinorStats}"
+			}
+
+			Moonana: {
+				DisplayName: Moonana
+				Tooltip: "{$CommonItemTooltip.MinorStats}"
+			}
+
+			ShotOfSludge: {
+				DisplayName: Shot of Sludge
+				Tooltip: "{$CommonItemTooltip.MinorStats}"
+			}
+		}
+	}
+
 	Materials: {
 		AssimilatedFlesh: {
 			DisplayName: Assimilated Flesh
@@ -248,21 +284,17 @@ Items: {
 			DisplayName: Stickler
 			Tooltip: ""
 		}
+
+		EggCluster: {
+			DisplayName: Egg Cluster
+			Tooltip: ""
+		}
 	}
 
 	Debug: {
 		DamageDebugTome: {
 			DisplayName: Damage Debug Tome
 			Tooltip: Disables damage spread
-		}
-	}
-
-	Consumables: {
-		Buffs: {
-			FlaskOfStickling: {
-				DisplayName: Flask Of Stickling
-				Tooltip: Melee and Whip attacks infect enemies with Sticklers
-			}
 		}
 	}
 }
@@ -306,6 +338,7 @@ Tiles: {
 	BioluminescentBulb.MapEntry: Bioluminescent Bulb
 	OothecaAltar.MapEntry: Ootheca Altar
 	ChitiniteOreTile.MapEntry: Chitinite Ore Tile
+	ChestTile.MapEntry0: Leechwood Chest
 }
 
 Projectiles: {

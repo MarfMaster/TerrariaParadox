@@ -1,13 +1,16 @@
 using Microsoft.Xna.Framework;
 using System.IO;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.ModLoader.Utilities;
 using TerrariaParadox.Content.Debuffs;
 using TerrariaParadox.Content.Debuffs.DoT;
+using TerrariaParadox.Content.Items.Materials;
 using TerrariaParadox.Content.NPCs;
 using TerrariaParadox.Content.Tiles.Plants.Cactus;
 
@@ -85,6 +88,17 @@ namespace TerrariaParadox.Content.NPCs.Hostile.Worms
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
 			npcLoot.Add(ItemDropRule.Common(ItemID.WormTooth, 1, 5, 10));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EggCluster>(), 2, 2, 4));
+		}
+
+		public override float SpawnChance(NPCSpawnInfo spawnInfo)
+		{
+			float chance = 0f;
+			if (spawnInfo.Player.InModBiome(ModContent.GetInstance<Biomes.TheFlipside.BiomeMainSurface>()))// && !NPC.AnyNPCs(Type))so it can spawn one at a time
+			{
+				chance = 0.33f;
+			}
+			return chance;
 		}
 
 		public override void Init() 
@@ -114,7 +128,6 @@ namespace TerrariaParadox.Content.NPCs.Hostile.Worms
 		{
 			attackCounter = reader.ReadInt32();
 		}
-
 
 		/*public override void AI() 
 		{
