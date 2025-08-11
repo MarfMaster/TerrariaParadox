@@ -24,6 +24,10 @@ public partial class ParadoxPlayer : ModPlayer
         }
     }
 
+    public override void OnHurt(Player.HurtInfo info)
+    {
+    }
+
     public override void PostUpdateBuffs()
     {
         if (Player.InModBiome(ModContent.GetInstance<Content.Biomes.TheFlipside.BiomeUnderground>()))

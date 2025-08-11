@@ -40,6 +40,7 @@ public class AltBiomeMain : AltBiome
         AddTileConversion(ModContent.TileType<AssecsandstoneBlockTile>(), TileID.Sandstone);
         AddTileConversion(ModContent.TileType<HardenedAssecsandBlockTile>(), TileID.HardenedSand);
         AddTileConversion(ModContent.TileType<MurkyIceBlockTile>(), TileID.IceBlock);
+        AddTileConversion(ModContent.TileType<FlippedThorns>(), TileID.JungleThorns);
 
         GERunnerConversion.Add(TileID.Silt, ModContent.TileType<AssecsandBlockTile>());
         

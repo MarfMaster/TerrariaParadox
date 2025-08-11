@@ -163,6 +163,11 @@ Items: {
 				DisplayName: Leechwood Wall
 				Tooltip: ""
 			}
+
+			FlippedGrassWall: {
+				Tooltip: ""
+				DisplayName: Flipped Grass Wall
+			}
 		}
 
 		Furniture: {
@@ -189,6 +194,18 @@ Items: {
 			LeechwoodWorkbench: {
 				DisplayName: Leechwood Workbench
 				Tooltip: ""
+			}
+		}
+
+		Banners: {
+			SwarmBanner: {
+				Tooltip: ""
+				DisplayName: Swarm Banner
+			}
+
+			FlatwormBanner: {
+				Tooltip: ""
+				DisplayName: Flatworm Banner
 			}
 		}
 	}
@@ -383,6 +400,8 @@ NPCs: {
 		FlatwormBody.DisplayName: Flatworm Body
 		FlatwormTail.DisplayName: Flatworm Tail
 	}
+
+	Swarm.DisplayName: Swarm
 }
 
 Tiles: {
@@ -392,6 +411,7 @@ Tiles: {
 	ChestTile.MapEntry0: Leechwood Chest
 	FlippedHerb.MapEntry: Flipped Herb
 	FlippedHerbTile.MapEntry: Flipped Herb Tile
+	FlippedThorns.MapEntry: Flipped Thorns
 }
 
 Projectiles: {

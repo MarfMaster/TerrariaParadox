@@ -1,6 +1,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
+using TerrariaParadox.Content.Items.Materials;
 using TerrariaParadox.Content.Projectiles.Consumables;
 
 namespace TerrariaParadox.Content.Items.Consumables;
@@ -23,5 +24,13 @@ public class ParasiticPowder : ModItem
         Item.useTime = 15;
         Item.noMelee = true;
         Item.value = 100;
+    }
+
+    public override void AddRecipes()
+    {
+        CreateRecipe(5).
+            AddIngredient(ModContent.ItemType<ParasiticMushroom>()).
+            AddTile(TileID.Bottles).
+            Register();
     }
 }

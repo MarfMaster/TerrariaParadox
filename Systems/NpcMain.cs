@@ -10,7 +10,7 @@ public partial class ParadoxNPC : GlobalNPC
 {
     public override void ModifyHitPlayer(NPC npc, Player target, ref Player.HurtModifiers modifiers)
     {
-        if (Stickled || npc.type == NPCID.SkeletonArcher)
+        if (Stickled)
         {
             modifiers.IncomingDamageMultiplier *= 10f - (Content.Debuffs.Stickled.DamageReduction / 100f);
         }

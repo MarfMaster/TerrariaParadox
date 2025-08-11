@@ -2,12 +2,23 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TerrariaParadox.Content.Tiles.Blocks;
+using TerrariaParadox.Content.Tiles.Plants;
 using TerrariaParadox.Content.Tiles.Walls;
 
 namespace TerrariaParadox.Content.Biomes.TheFlipside;
 
 public class Flipping : ModBiomeConversion
 {
+	public static int Assecsand;
+	public static int AssecSandstone;
+	public static int HardenedAssecsand;
+	public static int FlippedGrass;
+	public static int FlippedJungleGrass;
+	public static int MurkyIce;
+	public static int Assecstone;
+	public static int FlippedThorn;
+	
+	
 	public static int AssecstoneWall;
 	public static int AssecstoneWallUnsafe;
 	public static int FlippedWall1;
@@ -26,14 +37,6 @@ public class Flipping : ModBiomeConversion
 	public static int HardenedAssecsandWallUnsafe;
 	public static int MurkyIceWall;
 	public static int MurkyIceWallUnsafe;
-
-	public static int Assecsand;
-	public static int AssecSandstone;
-	public static int HardenedAssecsand;
-	public static int FlippedGrass;
-	public static int FlippedJungleGrass;
-	public static int MurkyIce;
-	public static int Assecstone;
 	
 	public override void PostSetupContent()
 	{
@@ -45,6 +48,7 @@ public class Flipping : ModBiomeConversion
 		FlippedJungleGrass = ModContent.TileType<FlippedJungleGrassBlock>();
 		MurkyIce = ModContent.TileType<MurkyIceBlockTile>();
 		Assecstone = ModContent.TileType<AssecstoneBlockTile>();
+		FlippedThorn = ModContent.TileType<FlippedThorns>();
 		
 		
 		AssecstoneWall = ModContent.WallType<AssecstoneWallTile>();
@@ -105,6 +109,11 @@ public class Flipping : ModBiomeConversion
 				case int stone when TileID.Sets.Conversion.Stone[i]:
 				{
 					TileLoader.RegisterConversion(i, Type, ConvertStone);
+					break;
+				}
+				case int thorns when TileID.Sets.Conversion.Thorn[i]:
+				{
+					TileLoader.RegisterConversion(i, Type, ConvertThorn);
 					break;
 				}
 			}
@@ -174,6 +183,11 @@ public class Flipping : ModBiomeConversion
 		FindAndConvertTree(i, j, tileTypeAbove);*/
 
 		WorldGen.ConvertTile(i, j, Assecstone, true);
+		return false;
+	}	
+	public bool ConvertThorn(int i, int j, int type, int conversionType)
+	{
+		WorldGen.ConvertTile(i, j, FlippedThorn, true);
 		return false;
 	}
 

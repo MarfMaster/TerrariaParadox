@@ -11,6 +11,7 @@ using Terraria.ModLoader.Utilities;
 using TerrariaParadox.Content.Debuffs;
 using TerrariaParadox.Content.Debuffs.DoT;
 using TerrariaParadox.Content.Items.Materials;
+using TerrariaParadox.Content.Items.Tiles.Banners;
 using TerrariaParadox.Content.NPCs;
 using TerrariaParadox.Content.Tiles.Plants.Cactus;
 
@@ -62,16 +63,27 @@ namespace TerrariaParadox.Content.NPCs.Hostile.Worms
 			NPC.noTileCollide = true;
 			NPC.knockBackResist = 0f;
 			NPC.behindTiles = true;
-			//NPC.scale = 0.9f;
 			NPC.value = Value;
 
 			Banner = Type;
 			// These lines are only needed in the main body part.
-			BannerItem = ItemID.WormBanner;
+			BannerItem = ModContent.ItemType<FlatwormBanner>();
 			//ItemID.Sets.KillsToBanner[BannerItem] = 25; default 50
 		}
-		
-
+		public override float SpawnChance(NPCSpawnInfo spawnInfo)
+		{
+			float chance = 0f;
+			if (spawnInfo.Player.InModBiome(ModContent.GetInstance<Biomes.TheFlipside.BiomeMainSurface>()))// && !NPC.AnyNPCs(Type))so it can spawn one at a time
+			{
+				chance = 0.33f;
+			}
+			return chance;
+		}
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
+		{
+			npcLoot.Add(ItemDropRule.Common(ItemID.WormTooth, 1, 5, 10));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EggCluster>(), 2, 2, 4));
+		}
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) 
 		{
 			// We can use AddRange instead of calling Add multiple times in order to add multiple items at once
@@ -85,21 +97,7 @@ namespace TerrariaParadox.Content.NPCs.Hostile.Worms
 			]);
 		}
 
-		public override void ModifyNPCLoot(NPCLoot npcLoot)
-		{
-			npcLoot.Add(ItemDropRule.Common(ItemID.WormTooth, 1, 5, 10));
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EggCluster>(), 2, 2, 4));
-		}
 
-		public override float SpawnChance(NPCSpawnInfo spawnInfo)
-		{
-			float chance = 0f;
-			if (spawnInfo.Player.InModBiome(ModContent.GetInstance<Biomes.TheFlipside.BiomeMainSurface>()))// && !NPC.AnyNPCs(Type))so it can spawn one at a time
-			{
-				chance = 0.33f;
-			}
-			return chance;
-		}
 
 		public override void Init() 
 		{

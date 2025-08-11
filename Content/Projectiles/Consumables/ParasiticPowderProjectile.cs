@@ -29,6 +29,11 @@ public class ParasiticPowderProjectile : ModProjectile
         Projectile.ignoreWater = true;
     }
 
+    public override bool? CanCutTiles()
+    {
+	    return false;
+    }
+
     public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
     {
 	    bool crimson = Projectile.type == 463;
