@@ -82,6 +82,10 @@ public class LeecharangProjectile : ModdedFriendlyProjectile
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
         target.AddBuff(ModContent.BuffType<LeecharangBleed>(), Leecharang.DebuffDuration);
+        if (target.GetGlobalNPC<ParadoxNPC>().LeecharangBleedStacks < Leecharang.DebuffMaxStacks)
+        {
+            target.GetGlobalNPC<ParadoxNPC>().LeecharangBleedStacks++;
+        }
         if (!Returning)
         {
             Return(true);

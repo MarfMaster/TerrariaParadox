@@ -8,6 +8,8 @@ namespace TerrariaParadox.Content.Items.Consumables.Buffs;
 
 public class FlaskOfStickling : ModdedBuffItem
 {
+    public override int Width => 22;
+    public override int Height => 30;
     public override int BuffType => ModContent.BuffType<WeaponImbueStickling>();
     public override int BuffTime => 20 * 60 * 60;
     public override int ItemUseStyle => ItemUseStyleID.DrinkLiquid;

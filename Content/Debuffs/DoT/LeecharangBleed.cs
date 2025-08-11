@@ -9,5 +9,9 @@ public class LeecharangBleed : ModBuff
     public override void Update(NPC npc, ref int buffIndex)
     {
         npc.GetGlobalNPC<ParadoxNPC>().LeecharangBleed = true;
+        if (npc.buffTime[buffIndex] == 1) //buff is about to run out
+        {
+            npc.GetGlobalNPC<ParadoxNPC>().LeecharangBleedStacks = 0;
+        }
     }
 }

@@ -23,7 +23,8 @@ public class Leecharang : ModdedBasicItem
     public override SoundStyle UseSound => SoundID.Item7;
     public override bool UseTurn => false;
     public const float ShootSpeed = 12f / 2f;
-    public const int DebuffDotPerSecond = 5;
+    public const int DebuffDotPerSecond = 2;
+    public const int DebuffMaxStacks = 5;
     public const int DebuffDuration = 10 * 60;
     public override void CustomSetDefaults()
     {

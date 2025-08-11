@@ -136,24 +136,23 @@ Furniture:
 - Leechwood Table~~
 
 Code Tasks:
-- Add visuals to Flask of Stickling and Stickled Debuff
-- Add flipped vines to flipped grass blocks
-- Pull all vanilla DoT debuffs dmg numbers into a custom function so we can make their dmg numbers stack visually instead of only showing the dmg of one
-- Make Leecharang bleed debuff stack on hit up to 5 or so times, increasing the dot for each stack. 
-- Introduce Parasyte "gun" as a held projectile that charges up to fling a bullet automatically, pulling the arm backwards first and then throwing quickly, make it autofire compatible, make it draw the texture of the used bulled via player.pickammo(gives ammo itemid) and then calling upon the ingame texture with that id
-AltLibrary:
-- Make alternatives work with support from this library
-- Add evil jungle grass support to the lib?: setting evil jungle grass doesn't allow it to spread to mud blocks in pre-hardmode(corrupt grass spreads only to mud in pre-hardmode, can't take over jungle grass)
-                                           --->make evil jungle grass spread to empty mud blocks in pre-hardmode
-                                             in hardmode evil jungle grass can infect jungle grass very slowly, but still can't spread to mud 
-                                           --->make evil jungle grass spread faster in hardmode
-                                             a corrupt grass block can also spread to empty mud, turning it into corrupt jungle grass, while normal grass can't spread to mud and create normal jungle grass
-                                           --->make evil grass spread to empty mud blocks at all times
+- Add visuals to Flask of Stickling and Stickled Debuff, need dust for this
+- Add flipped vines to flipped grass blocks, need dust too
+- Add IsFood set to food items and ask for 2 extra sprites for each(see examplefooditem)
+- Need dust for murky solution and need projectile sprite
+- Introduce Parasyte "gun": Wait for animation
+- Need dust for flipped grass wall, murky solution, murky water, parasitic powder
+- Need murky ice wall
+- Add flipped thorns
+- Add flipped planter box
+- Add walking hive
+- Add assimilated demon eye
+- Add Swarm
+- Add Nyxar(prolly after having designed the worldgenned biome though)
 
 Worldgen:
 - Generate flipped caverns into the underground but flipped upside-down based on steves idea and force the players gravity to flip when entering the underground flipside
 - Make Bioluminescent Bulbs accessible with a copper pick but make that very dangerous to do? Add chat message to breaking them, add boss spawning progress counter(nyxar should spawn every 4th bulb)
-- Introduce Parasyte "gun": I'll keep the upper arm still and rotate the upper arm texture to make it look like it's charging and then throwing
 - Generate Flipped Pots and give them the correct loot xd
 - Dont Dig Up seed crash
 - Get fixed boi seed crash

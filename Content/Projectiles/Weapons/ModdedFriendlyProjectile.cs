@@ -50,10 +50,11 @@ public abstract class ModdedFriendlyProjectile : ModProjectile
         get => Projectile.ai[2];
         set => Projectile.ai[2] = value;
     }
+    public virtual void CustomSetStaticDefaults() {}
     public override void SetStaticDefaults()
     {
-        ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         Main.projFrames[Projectile.type] = Frames;
+        CustomSetStaticDefaults();
     }
     public virtual void CustomSetDefaults() {}
     public override void SetDefaults()

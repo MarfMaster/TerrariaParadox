@@ -80,6 +80,11 @@ public class AltBiomeMain : AltBiome
         //BloodPenguin = ModContent.NPCType<Bile_Thrower>();
         //BloodGoldfish = ModContent.NPCType<Shattered_Goldfish>();
         
+        AddWallConversions<FlippedGrassWallTileUnsafe>
+            (
+                WallID.Grass,
+                WallID.GrassUnsafe
+            );
         AddWallConversions<AssecstoneWallTileUnsafe>
         (
             WallID.Stone,
@@ -95,12 +100,14 @@ public class AltBiomeMain : AltBiome
         
         AddWallConversions<HardenedAssecsandWallTileUnsafe>
         (
-            WallID.HardenedSand
+            WallID.HardenedSand,
+            WallID.HardenedSandEcho
         );
         
         AddWallConversions<AssecsandstoneWallTileUnsafe>
         (
-            WallID.Sandstone
+            WallID.Sandstone,
+            WallID.SandstoneEcho
         );
         
         //EvilBiomeGenerationPass = new Defiled_Wastelands_Generation_Pass();

@@ -40,12 +40,12 @@ public class AssecstoneBlockTile : ModdedBlockTile
             Tile above2 = Framing.GetTileSafely(i, j - 2);
             if (!above.HasTile && Main.tile[i, j].BlockType == BlockType.Solid)  //check for empty space and whether this block is solid
             {
-                if (Main.rand.NextBool(AssecstoneRubble1x1GroundedNatural.GrowChance)) //1 in 25 chance
+                if (Main.rand.NextBool(AssecstoneRubble1x1GroundedNatural.GrowChance)) //1 in X chance
                 {
                     WorldGen.Place1x1(i, j - 1, (ushort)ModContent.TileType<AssecstoneRubble1x1GroundedNatural>(), 0); //place tile
                     above.TileFrameX = (short)(frameX * 18); //reframe it so it cna show alternate styles
                 }
-                else if (Main.rand.NextBool(AssecstoneRubble1x2GroundedNatural.GrowChance) && !above2.HasTile) //1 in 40 chance and whether there's enough space
+                else if (Main.rand.NextBool(AssecstoneRubble1x2GroundedNatural.GrowChance) && !above2.HasTile) //1 in X chance and whether there's enough space
                 {
                     WorldGen.Place1x2(i, j - 1, (ushort)ModContent.TileType<AssecstoneRubble1x2GroundedNatural>(), 0);
                     above.TileFrameX = (short)(frameX * 18); //need to reframe both tiles to the same frame

@@ -19,9 +19,9 @@ public partial class ParadoxNPC : GlobalNPC
     {
         if (LeecharangBleed)
         {
-            int DoTPerS = Leecharang.DebuffDotPerSecond;
+            int DoTPerS = Leecharang.DebuffDotPerSecond * LeecharangBleedStacks;
             npc.lifeRegen -= DoTPerS * 2;
-            damage += DoTPerS;
+            damage += DoTPerS + 1;
         }
     }
 

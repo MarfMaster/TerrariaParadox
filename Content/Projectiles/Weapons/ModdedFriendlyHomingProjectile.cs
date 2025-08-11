@@ -16,8 +16,8 @@ public abstract class ModdedFriendlyHomingProjectile : ModdedFriendlyProjectile
     public abstract int MaxDetectRadius { get; }
     public override void SetStaticDefaults()
     {
+        base.SetStaticDefaults();
         ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
-        Main.projFrames[Projectile.type] = Frames;
     }
 
     public override void AI()

@@ -70,7 +70,7 @@ public class FlippedGrassBlock : ModdedBlockTile
             {
                 above.ResetToType((ushort)ModContent.TileType<FlippedHerbTile>());
             }
-            else
+            else if (Main.rand.NextBool(FlippedGrassPlants.GrowChance))
             {
                 above.ResetToType((ushort)ModContent.TileType<FlippedGrassPlants>());
                 above.TileFrameX = (short)(Main.rand.Next(0, FlippedGrassPlants.Frames - 1) * 18);

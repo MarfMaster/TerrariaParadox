@@ -23,7 +23,7 @@ namespace TerrariaParadox.Content.Tiles.Misc;
 
 public class AssecstoneRubble1x2GroundedNatural : ModdedRubbleNatural
 {
-	public const int GrowChance = 80;
+	public const int GrowChance = 160;
 	public override string TexturePath => "TerrariaParadox/Content/Tiles/Misc/AssecstoneRubble1x2Grounded";
 	public override int OnMineDustType => ModContent.DustType<AssecstoneDust>();
 	public override TileObjectData TileStyle => TileObjectData.Style1x2;

@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework.Input;
 using Terraria;
+using Terraria.GameContent.Bestiary;
 using Terraria.ModLoader;
 using TerrariaParadox.Content.Debuffs;
 
@@ -22,11 +23,34 @@ public partial class ParadoxPlayer : ModPlayer
             modifiers.DamageVariationScale *= 0;
         }
     }
+
     public override void PostUpdateBuffs()
     {
+        if (Player.InModBiome(ModContent.GetInstance<Content.Biomes.TheFlipside.BiomeUnderground>()))
+        {
+            Player.forcedGravity = 1;
+        }
         if (Stickled)
         {
             Player.GetDamage(DamageClass.Generic) *= 1f - (Content.Debuffs.Stickled.DamageReduction / 100f);
         }
     }
+
+    public override void PostUpdateEquips()
+    {
+        
+    }
+
+    public override void PostUpdateMiscEffects()
+    {
+    }
+    public override void PostUpdateRunSpeeds()
+    {
+    }
+
+    public override void PostUpdate()
+    {
+        
+    }
+
 }

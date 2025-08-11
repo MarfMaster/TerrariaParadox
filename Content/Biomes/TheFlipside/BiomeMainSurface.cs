@@ -34,8 +34,7 @@ namespace TerrariaParadox.Content.Biomes.TheFlipside;
 		{
 			bool infestedBlockCount = ModContent.GetInstance<BiomeBlockCounter>().InfestedBlockCount >= 300;
 
-			bool isAboveground = player.ZoneSkyHeight || player.ZoneOverworldHeight;
-			return infestedBlockCount && isAboveground;
+			return infestedBlockCount;
 		}
 
 		public override SceneEffectPriority Priority => SceneEffectPriority.BiomeHigh;

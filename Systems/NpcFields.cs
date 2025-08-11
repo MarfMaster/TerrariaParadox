@@ -10,6 +10,8 @@ public partial class ParadoxNPC : GlobalNPC
     public bool Stickled;
     
     public bool LeecharangBleed;
+
+    public int LeecharangBleedStacks = 0; //gets reset in the buff once it runs out
     
     public override void ResetEffects(NPC npc)
     {

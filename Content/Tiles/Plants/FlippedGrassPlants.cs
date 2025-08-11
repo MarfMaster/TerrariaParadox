@@ -15,6 +15,7 @@ namespace TerrariaParadox.Content.Tiles.Plants
 {
 	public class FlippedGrassPlants : ModTile
 	{
+		public const int GrowChance = 3;
 		public const int Frames = 22;
 		private const int FrameWidth = 18; // A constant for readability and to kick out those magic numbers
 

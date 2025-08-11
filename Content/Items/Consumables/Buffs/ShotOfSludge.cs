@@ -8,6 +8,8 @@ namespace TerrariaParadox.Content.Items.Consumables.Buffs;
 
 public class ShotOfSludge : ModdedBuffItem
 {
+    public override int Width => 14;
+    public override int Height => 26;
     public override int BuffType => BuffID.WellFed;
     public override int BuffTime => 25 * 60 * 60;
     public override int ItemUseStyle => ItemUseStyleID.DrinkLiquid;
