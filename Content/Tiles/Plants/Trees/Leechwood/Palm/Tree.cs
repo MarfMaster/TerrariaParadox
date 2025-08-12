@@ -22,7 +22,7 @@ namespace TerrariaParadox.Content.Tiles.Plants.Trees.Leechwood.Palm
 			OasisTopsTexture = ModContent.Request<Texture2D>("TerrariaParadox/Content/Tiles/Plants/Trees/Leechwood/Palm/OasisTreeTops");
 			BeachTopsTexture = ModContent.Request<Texture2D>("TerrariaParadox/Content/Tiles/Plants/Trees/Leechwood/Palm/BeachTreeTops");
 			
-			GrowsOnTileId = [ModContent.TileType<AssecsandBlockTile>()]; //would be assec sand
+			GrowsOnTileId = [ModContent.TileType<AssecsandBlockTile>()];
 		}
 		public override Asset<Texture2D> GetTexture() => WoodTexture;
 		

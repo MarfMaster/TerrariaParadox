@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TerrariaParadox.Content.Items;
+using TerrariaParadox.Content.NPCs.Hostile;
 
 namespace TerrariaParadox;
 
@@ -21,5 +22,21 @@ public partial class ParadoxItem : GlobalItem
             }
         }*/
         return base.UseItem(item, player);
+    }
+
+
+    public override bool? CanHitNPC(Item item, Player player, NPC target)
+    {
+        if ((item.type == ItemID.BugNet || item.type == ItemID.FireproofBugNet || item.type == ItemID.GoldenBugNet) && target.type == ModContent.NPCType<Swarm>())
+        {
+            return true;
+        }
+        return base.CanHitNPC(item, player, target);
+    }
+
+    public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
+    {
+        if (item.type == ItemID.BugNet)
+        base.ModifyWeaponDamage(item, player, ref damage);
     }
 }

@@ -138,6 +138,7 @@ Furniture:
 - Leechwood Table~~
 
 Code Tasks:
+- Add "flip" ability to Chitinite armor set
 - Add visuals to Flask of Stickling and Stickled Debuff, need dust for this
 - Add flipped vines to flipped grass blocks, need dust too
 - Add IsFood set to food items and ask for 2 extra sprites for each(see examplefooditem)

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using AltLibrary;
 using AltLibrary.Common.AltBiomes;
+using AltLibrary.Core.Generation;
 using Microsoft.Xna.Framework;
 using Terraria.GameContent.Personalities;
 using Terraria.ID;
@@ -111,7 +112,7 @@ public class AltBiomeMain : AltBiome
             WallID.SandstoneEcho
         );
         
-        //EvilBiomeGenerationPass = new Defiled_Wastelands_Generation_Pass();
+        EvilBiomeGenerationPass = new FlipsideGenerationPass();
     }
 
     public IEnumerable<int> ProvideItemObtainability()

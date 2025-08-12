@@ -60,6 +60,7 @@ public class Swarm : ModNPC
         NPC.DeathSound = SoundID.NPCDeath11;
         NPC.value = Value;
         NPC.noGravity  = true;
+        NPC.knockBackResist = 0f; //knockback immunity
 
         Banner = Type;
         BannerItem = ModContent.ItemType<SwarmBanner>();
