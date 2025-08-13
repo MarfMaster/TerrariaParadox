@@ -5,6 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using TerrariaParadox.Content.Debuffs.DoT;
 using TerrariaParadox.Content.Items.Tiles.Banners;
+using TerrariaParadox.Content.Projectiles.Hostile;
 
 namespace TerrariaParadox.Content.NPCs.Hostile;
 
@@ -13,12 +14,17 @@ public class Swarm : ModNPC
     public const int Width = 52;
     public const int Height = 52;
     public const int BaseDmg = 15;
-    public const float DmgMultiplierWhileDashing = 2f;
     public const int Defense = 0;
     public const int BaseHP = 70;
     public const int Value = 100;
+    
     public const int FrameDuration = 5;
-    public Rectangle DashRangeBox;
+    public const int Frames = 4;
+    public ref float AiState => ref NPC.ai[0];
+    public ref float AiTimer => ref NPC.ai[1];
+    public ref float DashTimer => ref NPC.ai[2];
+    private Rectangle DashRangeBox;
+    private float DmgMultiplierWhileDashing = 2f;
     private enum ActionState
     {
         Wander,
@@ -34,12 +40,6 @@ public class Swarm : ModNPC
         Third,
         Fourth
     }
-
-    public const int Frames = 4;
-
-    public ref float AiState => ref NPC.ai[0];
-    public ref float AiTimer => ref NPC.ai[1];
-    public ref float DashTimer => ref NPC.ai[2];
 
     public override void SetStaticDefaults()
     {
@@ -116,7 +116,7 @@ public class Swarm : ModNPC
 
             if (NPC.frame.Y >= Main.npcFrameCount[Type] * frameHeight)
             {
-                NPC.frame.Y = 0;
+                NPC.frame.Y = (int)Frame.First;
             }
         }
     }
