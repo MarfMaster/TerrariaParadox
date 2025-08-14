@@ -23,14 +23,19 @@ public partial class ParadoxPlayer : ModPlayer
             modifiers.DamageVariationScale *= 0;
         }
     }
-
-    public override void OnHurt(Player.HurtInfo info)
+    public override void PreUpdate()
     {
     }
-
-    public override void PostUpdateBuffs()
+    public override void PreUpdateBuffs()
     {
         if (Player.InModBiome(ModContent.GetInstance<Content.Biomes.TheFlipside.BiomeUnderground>()))
+        {
+            Player.AddBuff(ModContent.BuffType<Flipped>(), 5 * 60);
+        }
+    }
+    public override void PostUpdateBuffs()
+    {
+        if (FlippedGravity)
         {
             Player.forcedGravity = 1;
         }
@@ -39,19 +44,19 @@ public partial class ParadoxPlayer : ModPlayer
             Player.GetDamage(DamageClass.Generic) *= 1f - (Content.Debuffs.Stickled.DamageReduction / 100f);
         }
     }
-
     public override void PostUpdateEquips()
     {
         
     }
-
     public override void PostUpdateMiscEffects()
+    {
+    }
+    public override void PreUpdateMovement()
     {
     }
     public override void PostUpdateRunSpeeds()
     {
     }
-
     public override void PostUpdate()
     {
         

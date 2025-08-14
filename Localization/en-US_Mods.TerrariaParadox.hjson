@@ -207,6 +207,11 @@ Items: {
 				Tooltip: ""
 				DisplayName: Flatworm Banner
 			}
+
+			WalkingHiveBanner: {
+				DisplayName: Walking Hive Banner
+				Tooltip: ""
+			}
 		}
 	}
 
@@ -391,6 +396,11 @@ Debuffs: {
 		DisplayName: Stickled
 		Description: "{$CommonItemTooltip.Generic.DecreasedDamage}"
 	}
+
+	Flipped: {
+		DisplayName: Flipped
+		Description: Mods.TerrariaParadox.Debuffs.Flipped.Description
+	}
 }
 
 NPCs: {
@@ -402,6 +412,7 @@ NPCs: {
 	}
 
 	Swarm.DisplayName: Swarm
+	WalkingHive.DisplayName: Walking Hive
 }
 
 Tiles: {

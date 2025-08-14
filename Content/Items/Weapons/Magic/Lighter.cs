@@ -50,14 +50,7 @@ public class Lighter : ModdedBasicItem
 
     public override void HoldStyle(Player player, Rectangle heldItemFrame)
     {
-        if (player.direction == 1)
-        {
-            player.itemLocation += new Vector2(-9, -14);
-        }
-        else
-        {
-            player.itemLocation += new Vector2(+9, -14);
-        }
+        player.itemLocation += new Vector2(-9 * player.direction, -14);
     }
 
     public override void HoldItem(Player player)

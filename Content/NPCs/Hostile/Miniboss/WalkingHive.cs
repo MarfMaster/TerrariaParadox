@@ -1,31 +1,32 @@
+using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TerrariaParadox.Content.Debuffs.DoT;
 using TerrariaParadox.Content.Items.Tiles.Banners;
 using TerrariaParadox.Content.Projectiles.Hostile;
 
-namespace TerrariaParadox.Content.NPCs.Hostile;
-[Autoload(false)]
-public class WalkingHive : ModNPC
+namespace TerrariaParadox.Content.NPCs.Hostile.Miniboss;
+public class WalkingHive : ModdedHostileNPC
 {
-    public const int Width = 48;
-    public const int Height = 64;
-    public const int BaseDmg = 15;
-    public const int Defense = 0;
-    public const int DefenseFromBack = 20;
-    public const int BaseHP = 1000;
-    public const int Value = 100000;
-    public const int FrameDuration = 5;
-    public const int Frames = 4;
+    public override int TotalAnimationFrames => 52;
+    public override int Width => 48;
+    public override int Height => 64;
+    public override int BaseLifePoints => 1000;
+    public override int BaseDefense => 0;
+    public override float BaseKnockbackReceivedMultiplier => 0.2f;
+    public override int BaseContactDamage => 15;
+    public override SoundStyle OnHitSound => SoundID.NPCDeath9;
+    public override SoundStyle OnDeathSound => SoundID.NPCDeath11;
+    public override int Value => 100000;
+    public override int BannerItemType => ModContent.ItemType<WalkingHiveBanner>();
 
-    public ref float AiState => ref NPC.ai[0];
-    public ref float AiTimer => ref NPC.ai[1];
-    public ref float DashTimer => ref NPC.ai[2];
+    public int DefenseFromBack = 20;
     private enum ActionState
     {
         Wandering,
-        Aggroed,
+        Provoked,
         Hunting,
         Preparing,
         Puking,
@@ -52,14 +53,14 @@ public class WalkingHive : ModNPC
         Wandering3,
         Wandering4,
         Wandering5,
-        Aggroed1,
-        Aggroed2,
-        Aggroed3,
-        Aggroed4,
-        Aggroed5,
-        Aggroed6,
-        Aggroed7,
-        Aggroed8,
+        Provoked1,
+        Provoked2,
+        Provoked3,
+        Provoked4,
+        Provoked5,
+        Provoked6,
+        Provoked7,
+        Provoked8,
         Hunting1,
         Hunting2,
         Hunting3,
@@ -100,42 +101,23 @@ public class WalkingHive : ModNPC
         Explode4,
         Explode5
     }    
-    public override void SetStaticDefaults()
+    public override void CustomSetStaticDefaults()
     {
-        Main.npcFrameCount[Type] = Frames;
-        
         NPCID.Sets.SpecificDebuffImmunity[Type][ModContent.BuffType<LeecharangBleed>()] = true;
-    }
-
-    public override void SetDefaults()
-    {
-        NPC.width = Width;
-        NPC.height = Height;
-        NPC.aiStyle = -1;
-        NPC.damage = BaseDmg;
-        NPC.defense = Defense;
-        NPC.lifeMax = BaseHP;
-        NPC.HitSound = SoundID.NPCDeath9;
-        NPC.DeathSound = SoundID.NPCDeath11;
-        NPC.value = Value;
-        NPC.noGravity  = true;
-        NPC.knockBackResist = 0f; //knockback immunity
-
-        Banner = Type;
-        BannerItem = ModContent.ItemType<SwarmBanner>();
     }
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
         float chance = 0f;
         if (spawnInfo.Player.InModBiome(ModContent.GetInstance<Biomes.TheFlipside.BiomeMainSurface>()))// && !NPC.AnyNPCs(Type))so it can spawn one at a time
         {
-            chance = 0.1f;
+            chance = 0.001f;
         }
         return chance;
     }
 
     public override void FindFrame(int frameHeight)
     {
+        FrameDuration = 10;
         NPC.spriteDirection = NPC.direction;
         
         NPC.frameCounter++;
@@ -152,7 +134,7 @@ public class WalkingHive : ModNPC
     }
 
     public override void AI()
-    {/*
+    {
         Player target = Main.player[NPC.target];
         switch (AiState)
         {
@@ -161,19 +143,39 @@ public class WalkingHive : ModNPC
                 Wandering(target);
                 break;
             }
-            case (float)ActionState.Notice:
+            case (float)ActionState.Provoked:
             {
-                Noticing(target);
+                Provoked(target);
                 break;
             }
-            case (float)ActionState.Position:
+            case (float)ActionState.Hunting:
             {
-                Positioning(target);
+                Hunting(target);
                 break;
             }
-            case (float)ActionState.Dash:
+            case (float)ActionState.Preparing:
             {
-                Dashing(target);
+                Preparing(target);
+                break;
+            }
+            case (float)ActionState.Puking:
+            {
+                Puking(target);
+                break;
+            }
+            case (float)ActionState.Tired:
+            {
+                Tired(target);
+                break;
+            }
+            case (float)ActionState.Fleeing:
+            {
+                Fleeing(target);
+                break;
+            }
+            case (float)ActionState.Exploding:
+            {
+                Exploding(target);
                 break;
             }
         }
@@ -181,6 +183,54 @@ public class WalkingHive : ModNPC
         {
             Projectile.NewProjectile(Projectile.InheritSource(this.Entity), NPC.Center,
                 NPC.Center.DirectionTo(target.Center) * 10f, ModContent.ProjectileType<WalkingHivePuke>(), 10, 5f);
+        }
+    }
+
+    private void Wandering(Player target)
+    {
+        AiTimer++;
+        NPC.TargetClosest(false);
+
+        if ((AiTimer % 60 == 0 || AiTimer == 1) && Main.netMode != NetmodeID.MultiplayerClient)
+        {
+            NPC.velocity = new Vector2(5, 0);//Main.rand.NextFloat(-2f, 2f), 0);
+            
+            NPC.netUpdate = true;
+        }
+        
+        /*if (NPC.HasValidTarget && target.Distance(NPC.Center) < 800f)
+        {
+            AiState = (float)ActionState.Provoked;
+            AiTimer = 0;
         }*/
     }
+    private void Provoked(Player target)
+    {
+        
+    }
+    private void Hunting(Player target)
+    {
+        
+    }
+    private void Preparing(Player target)
+    {
+        
+    }
+    private void Puking(Player target)
+    {
+        
+    }
+    private void Tired(Player target)
+    {
+        
+    }
+    private void Fleeing(Player target)
+    {
+        
+    }
+    private void Exploding(Player target)
+    {
+        
+    }
+    
 }

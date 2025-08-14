@@ -7,6 +7,7 @@ public class ModdedBannerTile : ModBannerTile
     public enum StyleID
     {
         Flatworm,
-        Swarm
+        Swarm,
+        WalkingHive
     }
 }

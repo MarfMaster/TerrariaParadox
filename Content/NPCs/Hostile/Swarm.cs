@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TerrariaParadox.Content.Debuffs.DoT;
@@ -9,20 +10,21 @@ using TerrariaParadox.Content.Projectiles.Hostile;
 
 namespace TerrariaParadox.Content.NPCs.Hostile;
 
-public class Swarm : ModNPC
+public class Swarm : ModdedHostileNPC
 {
-    public const int Width = 52;
-    public const int Height = 52;
-    public const int BaseDmg = 15;
-    public const int Defense = 0;
-    public const int BaseHP = 70;
-    public const int Value = 100;
+    public override int TotalAnimationFrames => 4;
+    public override int Width => 52;
+    public override int Height => 52;
+    public override int BaseLifePoints => 70;
+    public override int BaseDefense => 0;
+    public override float BaseKnockbackReceivedMultiplier => 0f;
+    public override int BaseContactDamage => 15;
+    public override SoundStyle OnHitSound => SoundID.NPCDeath9;
+    public override SoundStyle OnDeathSound => SoundID.NPCDeath11;
+    public override int Value => 100;
+    public override int BannerItemType => ModContent.ItemType<SwarmBanner>();
     
-    public const int FrameDuration = 5;
-    public const int Frames = 4;
-    public ref float AiState => ref NPC.ai[0];
-    public ref float AiTimer => ref NPC.ai[1];
-    public ref float DashTimer => ref NPC.ai[2];
+    private ref float DashTimer => ref AiTimer2;
     private Rectangle DashRangeBox;
     private float DmgMultiplierWhileDashing = 2f;
     private enum ActionState
@@ -41,29 +43,14 @@ public class Swarm : ModNPC
         Fourth
     }
 
-    public override void SetStaticDefaults()
+    public override void CustomSetStaticDefaults()
     {
-        Main.npcFrameCount[Type] = Frames;
-        
         NPCID.Sets.SpecificDebuffImmunity[Type][ModContent.BuffType<LeecharangBleed>()] = true;
     }
 
-    public override void SetDefaults()
+    public override void CustomSetDefaults()
     {
-        NPC.width = Width;
-        NPC.height = Height;
-        NPC.aiStyle = -1;
-        NPC.damage = BaseDmg;
-        NPC.defense = Defense;
-        NPC.lifeMax = BaseHP;
-        NPC.HitSound = SoundID.NPCDeath9;
-        NPC.DeathSound = SoundID.NPCDeath11;
-        NPC.value = Value;
         NPC.noGravity  = true;
-        NPC.knockBackResist = 0f; //knockback immunity
-
-        Banner = Type;
-        BannerItem = ModContent.ItemType<SwarmBanner>();
     }
 
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
@@ -106,6 +93,7 @@ public class Swarm : ModNPC
 
     public override void FindFrame(int frameHeight)
     {
+        FrameDuration = 5;
         NPC.spriteDirection = NPC.direction;
         
         NPC.frameCounter++;
@@ -146,9 +134,9 @@ public class Swarm : ModNPC
         if (target.Distance(NPC.Center) < 600f)
         {
             AiTimer++;
-            Vector2 Rotation = new Vector2(1).RotatedBy((float)Math.PI * 2f * (AiTimer / 60f));
+            Vector2 rotation = new Vector2(1).RotatedBy((float)Math.PI * 2f * (AiTimer / 60f));
             
-            NPC.velocity = NPC.Center.DirectionTo(NPC.Center + Rotation * 10f) * 2f;
+            NPC.velocity = NPC.Center.DirectionTo(NPC.Center + rotation * 10f) * 2f;
             
             if (AiTimer >= 120)
             {
@@ -170,9 +158,9 @@ public class Swarm : ModNPC
 
     private void Positioning(Player target)
     {
-        Vector2 CenterHeightOffset = new Vector2(0, -175);
-        Vector2 BoxSize = new Vector2(250f, Height);
-        DashRangeBox = Utils.CenteredRectangle(target.Center + CenterHeightOffset, BoxSize);
+        Vector2 centerHeightOffset = new Vector2(0, -175);
+        Vector2 boxSize = new Vector2(250f, Height);
+        DashRangeBox = Utils.CenteredRectangle(target.Center + centerHeightOffset, boxSize);
 
         AiTimer++;
         NPC.velocity = NPC.Center.DirectionTo(DashRangeBox.Center()) * MathF.Min(8f, AiTimer / 30f);
@@ -211,9 +199,9 @@ public class Swarm : ModNPC
             }
         }
         
-        Vector2 PlayerOffsetLowerCenter = new Vector2(target.Center.X, target.Center.Y + (Height / 2f));
+        Vector2 playerOffsetLowerCenter = new Vector2(target.Center.X, target.Center.Y + (Height / 2f));
         
-        if (AiTimer < 120 && NPC.Center.Y > PlayerOffsetLowerCenter.Y && AiTimer != 0)
+        if (AiTimer < 120 && NPC.Center.Y > playerOffsetLowerCenter.Y && AiTimer != 0)
         {
             NPC.velocity *= 0.98f;
         }

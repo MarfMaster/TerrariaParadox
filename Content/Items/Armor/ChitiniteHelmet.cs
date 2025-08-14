@@ -30,6 +30,7 @@ public class ChitiniteHelmet : ModdedHelmet
     public override void ArmorSetBonus(Player player)
     {
         player.statDefense += SetBonusDefense;
+        player.GetModPlayer<ParadoxPlayer>().ChitiniteFlip = true;
     }
 
     public override void ArmorSetShadows(Player player)

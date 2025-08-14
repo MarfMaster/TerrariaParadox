@@ -10,7 +10,7 @@ namespace TerrariaParadox.Content.NPCs.Hostile;
 public abstract class ModdedHostileNPC : ModNPC
 {
     public abstract int TotalAnimationFrames { get; }
-    public int FrameDuration { get;}
+    public int FrameDuration { get; set; }
     public override void SetStaticDefaults()
     {
         Main.npcFrameCount[Type] = TotalAnimationFrames;
