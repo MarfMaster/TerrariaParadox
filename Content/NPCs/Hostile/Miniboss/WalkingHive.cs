@@ -1,8 +1,11 @@
+using System;
+using System.IO;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 using TerrariaParadox.Content.Debuffs.DoT;
 using TerrariaParadox.Content.Items.Tiles.Banners;
 using TerrariaParadox.Content.Projectiles.Hostile;
@@ -22,6 +25,7 @@ public class WalkingHive : ModdedHostileNPC
     public override int Value => 100000;
     public override int BannerItemType => ModContent.ItemType<WalkingHiveBanner>();
 
+    private ref float BackShots => ref AiTimer2;
     public int DefenseFromBack = 20;
     private enum ActionState
     {
@@ -105,6 +109,12 @@ public class WalkingHive : ModdedHostileNPC
     {
         NPCID.Sets.SpecificDebuffImmunity[Type][ModContent.BuffType<LeecharangBleed>()] = true;
     }
+
+    public override void CustomSetDefaults()
+    {
+        ItemID.Sets.KillsToBanner[BannerItem] = 10;
+    }
+
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
         float chance = 0f;
@@ -131,6 +141,21 @@ public class WalkingHive : ModdedHostileNPC
                 NPC.frame.Y = 0;
             }
         }
+
+        NPC.frame.Y = 0;
+    }
+    private float AggroDistance = 400f;
+    private float PukeRange = 200f;
+    private float ChaseRange = 800f;
+    private bool Hurt = false;
+    public override void SendExtraAI(BinaryWriter writer)
+    {
+        writer.WriteFlags(Hurt);
+    }
+
+    public override void ReceiveExtraAI(BinaryReader reader)
+    {
+        reader.ReadFlags(out Hurt);
     }
 
     public override void AI()
@@ -145,7 +170,7 @@ public class WalkingHive : ModdedHostileNPC
             }
             case (float)ActionState.Provoked:
             {
-                Provoked(target);
+                Provoked(target, Hurt);
                 break;
             }
             case (float)ActionState.Hunting:
@@ -179,10 +204,88 @@ public class WalkingHive : ModdedHostileNPC
                 break;
             }
         }
-        if ((Main.GameUpdateCount % 60 == 0 ) && Main.netMode != NetmodeID.MultiplayerClient)
+
+        NPC.reflectsProjectiles = false;
+        if (Main.GameUpdateCount % 30 == 0)
         {
-            Projectile.NewProjectile(Projectile.InheritSource(this.Entity), NPC.Center,
-                NPC.Center.DirectionTo(target.Center) * 10f, ModContent.ProjectileType<WalkingHivePuke>(), 10, 5f);
+            //Main.NewText(AiState);
+        }
+    }
+
+    private bool Backshot(int hitDirection)
+    {
+        return hitDirection == NPC.direction;
+    }
+    public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
+    {
+        Player player = Main.player[NPC.target];
+        projectile.TryGetOwner(out player);
+        
+        if (AiState == (float)ActionState.Wandering && player != null)
+        {
+            NPC.target = player.whoAmI;
+            Hurt = true;
+            AiState = (float)ActionState.Provoked;
+            AiTimer = 0;
+            NPC.netUpdate = true;
+        }
+        else if (AiState == (float)ActionState.Wandering && player == null)
+        {
+            NPC.TargetClosest(true);
+            Hurt = true;
+            AiState = (float)ActionState.Provoked;
+            AiTimer = 0;
+            NPC.netUpdate = true;
+        }
+        
+        if (projectile.CanBeReflected() && Backshot(hit.HitDirection))
+        {
+            Projectile Reflected = Projectile.NewProjectileDirect(projectile.GetSource_FromThis(), projectile.position, projectile.velocity,
+                    projectile.type, projectile.damage, projectile.knockBack);
+            NPC.ReflectProjectile(Reflected);
+            projectile.Kill();
+        }
+    }
+
+    public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
+    {
+        if (AiState == (float)ActionState.Wandering && player != null)
+        {
+            NPC.target = player.whoAmI;
+            Hurt = true;
+            AiState = (float)ActionState.Provoked;
+            NPC.netUpdate = true;
+        }
+        else if (AiState == (float)ActionState.Wandering && player == null)
+        {
+            NPC.TargetClosest(true);
+            Hurt = true;
+            AiState = (float)ActionState.Provoked;
+            NPC.netUpdate = true;
+        }
+    }
+
+    public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
+    {
+        if (Backshot(modifiers.HitDirection))
+        {
+            modifiers.Knockback *= 0;
+            modifiers.Defense.Base += DefenseFromBack;
+        }
+    }
+
+    private int MaxBackShots = 10;
+    public override void HitEffect(NPC.HitInfo hit)
+    {
+        if (Backshot(hit.HitDirection) && BackShots < MaxBackShots)
+        {
+            BackShots++;
+        }
+        if (Backshot(hit.HitDirection) && BackShots == MaxBackShots)
+        {
+            AiState = (float)ActionState.Exploding;
+            AiTimer = 0;
+            NPC.netUpdate = true;
         }
     }
 
@@ -191,46 +294,206 @@ public class WalkingHive : ModdedHostileNPC
         AiTimer++;
         NPC.TargetClosest(false);
 
-        if ((AiTimer % 60 == 0 || AiTimer == 1) && Main.netMode != NetmodeID.MultiplayerClient)
+        if (AiTimer == 120 && Main.rand.NextBool(5))
         {
-            NPC.velocity = new Vector2(5, 0);//Main.rand.NextFloat(-2f, 2f), 0);
-            
+            NPC.velocity.X = 0;
             NPC.netUpdate = true;
         }
+
+        if (AiTimer >= 180 && Main.netMode != NetmodeID.MultiplayerClient)
+        {
+            NPC.velocity.X = Main.rand.NextFloat(-2f, 2f);
+            SetDirection();
+            NPC.netUpdate = true;
+            AiTimer = 0;
+        }
         
-        /*if (NPC.HasValidTarget && target.Distance(NPC.Center) < 800f)
+        Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY, (int)target.gravDir, default);
+
+        if (NPC.collideX)
+        {
+            NPC.velocity.X *= -1f;
+            SetDirection();
+        }
+        
+        if (NPC.HasValidTarget && target.Distance(NPC.Center) < AggroDistance)
         {
             AiState = (float)ActionState.Provoked;
             AiTimer = 0;
-        }*/
+        }
     }
-    private void Provoked(Player target)
+    private void Provoked(Player target, in bool Hurt)
     {
-        
+        if (Hurt)
+        {
+            AiTimer += 3;
+            
+            NPC.velocity.X = 0;
+            
+            if (AiTimer >= 120)
+            {
+                AiState = (float)ActionState.Hunting;
+                AiTimer = 0;
+            }
+        }
+        else
+        {
+            if (target.Distance(NPC.Center) < AggroDistance)
+            {
+                AiTimer++;
+            
+                NPC.velocity.X = 0;
+            
+                if (AiTimer >= 120)
+                {
+                    AiState = (float)ActionState.Hunting;
+                    AiTimer = 0;
+                }
+            }
+            else
+            {
+                NPC.TargetClosest();
+                AiTimer--;
+
+                if (AiTimer <= 0)
+                {
+                    AiState = (float)ActionState.Wandering;
+                    AiTimer = 0;
+                }
+            }
+        }
     }
     private void Hunting(Player target)
     {
+        NPC.velocity.X = NPC.Center.DirectionTo(target.Center).X * 4f;
+        SetDirection();
         
+        Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY, (int)target.gravDir, default);
+        
+        if (NPC.collideX && NPC.velocity.Y >= 0)
+        {
+            NPC.velocity.Y += -8f;
+        }
+            
+        if (target.Distance(NPC.Center) < AggroDistance * 0.5f && NPC.HasValidTarget)
+        {
+            AiState = (float)ActionState.Preparing;
+            AiTimer = 0;
+        }
+        
+        if (target.Distance(NPC.Center) > ChaseRange || !NPC.HasValidTarget)
+        {
+            AiTimer++;
+            
+            NPC.TargetClosest();
+
+            if (AiTimer >= 120)
+            {
+                AiState = (float)ActionState.Provoked; //go back to just provoked and have it automatically calm down if you're far enough away
+                AiTimer = 100;
+            }
+        }
     }
     private void Preparing(Player target)
     {
-        
+        AiTimer++;
+            
+        NPC.velocity.X = 0;
+
+        if (AiTimer >= 120)
+        {
+            AiState = (float)ActionState.Puking;
+            AiTimer = 0;
+        }
     }
     private void Puking(Player target)
     {
+        AiTimer++;
+            
+        NPC.velocity.X = 0;
         
+        if ((AiTimer % 5 == 0 ) && Main.netMode != NetmodeID.MultiplayerClient)
+        {
+            Projectile.NewProjectile(Projectile.InheritSource(this.Entity), NPC.Center,
+                NPC.Center.DirectionTo(target.Center) * 10f, ModContent.ProjectileType<WalkingHivePuke>(), 10, 5f);
+        }
+
+        if (AiTimer >= 120)
+        {
+            AiState = (float)ActionState.Tired;
+            AiTimer = 0;
+        }
     }
     private void Tired(Player target)
     {
-        
+        AiTimer++;
+            
+        NPC.velocity.X = 0;
+
+        if (AiTimer >= 120)
+        {
+            if (target.Distance(NPC.Center) < ChaseRange && NPC.HasValidTarget)
+            {
+                AiState = (float)ActionState.Fleeing;
+                AiTimer = 0;
+            }
+            else
+            {
+                AiState = (float)ActionState.Wandering;
+                AiTimer = 0;
+            }
+        }
     }
     private void Fleeing(Player target)
     {
+        AiTimer++;
         
+        NPC.velocity.X = NPC.Center.DirectionTo(target.Center).X * -3f;
+        SetDirection();
+        
+        Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY, (int)target.gravDir, default);
+        
+        if (NPC.collideX && NPC.velocity.Y >= 0)
+        {
+            NPC.velocity.Y += -8f;
+        }
+
+        if (AiTimer >= 120)
+        {
+            if (target.Distance(NPC.Center) < ChaseRange)
+            {
+                AiState = (float)ActionState.Hunting;
+                AiTimer = 0;
+            }
+            else
+            {
+                AiState = (float)ActionState.Wandering;
+                AiTimer = 0;
+            }
+        }
     }
     private void Exploding(Player target)
     {
-        
+        AiTimer++;
+
+        if (AiTimer >= 120 && Main.netMode != NetmodeID.MultiplayerClient)
+        {
+            NPC.StrikeInstantKill();
+        }
+    }
+
+    public override void OnKill()
+    {
+        if (AiState == (float)ActionState.Exploding)
+        {
+            Main.NewText("boom");
+            //call some explosion projectile
+        }
+    }
+
+    private void SetDirection()
+    {
+        NPC.direction = NPC.velocity.X > 0f ? 1 : -1;
     }
     
 }
