@@ -2,9 +2,9 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TerrariaParadox.Content.Tiles.Plants.Trees.Leechwood;
+namespace TerrariaParadox.Content.Gores.Tiles.Plants.Trees;
 
-public class Leaf : ModGore
+public class LeechwoodLeaf : ModGore
 {
 
     public override void SetStaticDefaults() {

@@ -7,6 +7,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using TerrariaParadox.Content.Debuffs.DoT;
+using TerrariaParadox.Content.Gores.NPCs.Hostile.Miniboss;
 using TerrariaParadox.Content.Items.Tiles.Banners;
 using TerrariaParadox.Content.Projectiles.Hostile;
 
@@ -26,7 +27,7 @@ public class WalkingHive : ModdedHostileNPC
     public override int BannerItemType => ModContent.ItemType<WalkingHiveBanner>();
 
     private ref float BackShots => ref AiTimer2;
-    public int DefenseFromBack = 20;
+    public const int DefenseFromBack = 20;
     private enum ActionState
     {
         Wandering,
@@ -50,7 +51,7 @@ public class WalkingHive : ModdedHostileNPC
     /// If it reaches a certain number of stacks, it'll explode in a big radius around it, dealing high aoe damage and dying in the process.
     /// On death, no matter if it exploded or not, spawns 2 Swarms that are flung a decent distance to the right and left of it.
     /// </summary>
-    private enum Frame
+    private enum FrameState
     {
         Wandering1,
         Wandering2,
@@ -129,33 +130,348 @@ public class WalkingHive : ModdedHostileNPC
     {
         FrameDuration = 10;
         NPC.spriteDirection = NPC.direction;
-        
-        NPC.frameCounter++;
-        if (NPC.frameCounter >= FrameDuration)
-        {
-            NPC.frame.Y += frameHeight;
-            NPC.frameCounter = 0;
 
-            if (NPC.frame.Y >= Main.npcFrameCount[Type] * frameHeight)
+        switch (AiState)
+        {
+            case (float)ActionState.Wandering:
             {
-                NPC.frame.Y = 0;
+                if (AiTimer == 1)
+                {
+                    NPC.frame.Y = (int)FrameState.Wandering1 * frameHeight;
+                }
+                FrameDuration = 10;
+                if (NPC.velocity.X != 0)
+                {
+                    NPC.frameCounter++;
+                    if (NPC.frameCounter >= FrameDuration)
+                    {
+                        NPC.frame.Y += frameHeight;
+                        NPC.frameCounter = 0;
+
+                        if (NPC.frame.Y >= ((int)FrameState.Wandering5 + 1) * frameHeight)
+                        {
+                            NPC.frame.Y = (int)FrameState.Wandering1 * frameHeight;
+                        }
+                    }
+                }
+                else
+                {
+                    NPC.frame.Y = (int)FrameState.Wandering1 * frameHeight;
+                }
+                break;
+            }
+            case (float)ActionState.Provoked:
+            {
+                float dividend = ProvokedDuration / TotalProvokedFrames;
+                switch (AiTimer)
+                {
+                    case float one when AiTimer < dividend:
+                    {
+                        NPC.frame.Y = (int)FrameState.Provoked1 * frameHeight;
+                        break;
+                    }
+                    case float two when AiTimer > dividend && AiTimer < dividend * 2f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Provoked2 * frameHeight;
+                        break;
+                    }
+                    case float three when AiTimer > dividend * 2f && AiTimer < dividend * 3f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Provoked3 * frameHeight;
+                        break;
+                    }
+                    case float four when AiTimer > dividend * 3f && AiTimer < dividend * 4f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Provoked4 * frameHeight;
+                        break;
+                    }
+                    case float five when AiTimer > dividend * 4f && AiTimer < dividend * 5f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Provoked5 * frameHeight;
+                        break;
+                    }
+                    case float six when AiTimer > dividend * 5f && AiTimer < dividend * 6f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Provoked6 * frameHeight;
+                        break;
+                    }
+                    case float seven when AiTimer > dividend * 6f && AiTimer < dividend * 7f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Provoked7 * frameHeight;
+                        break;
+                    }
+                    case float eight when AiTimer > dividend * 7f && AiTimer < dividend * 8f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Provoked8 * frameHeight;
+                        break;
+                    }
+                }
+                break;
+            }
+            case (float)ActionState.Hunting:
+            {
+                if (AiTimer == 1)
+                {
+                    NPC.frame.Y = (int)FrameState.Hunting1 * frameHeight;
+                    AiTimer++;
+                }
+                FrameDuration = 5;
+                if (NPC.velocity.X != 0)
+                {
+                    NPC.frameCounter++;
+                    if (NPC.frameCounter >= FrameDuration)
+                    {
+                        NPC.frame.Y += frameHeight;
+                        NPC.frameCounter = 0;
+
+                        if (NPC.frame.Y >= ((int)FrameState.Hunting5 + 1) * frameHeight)
+                        {
+                            NPC.frame.Y = (int)FrameState.Hunting1 * frameHeight;
+                        }
+                    }
+                }
+                else
+                {
+                    NPC.frame.Y = (int)FrameState.Hunting1 * frameHeight;
+                }
+                break;
+            }
+            case (float)ActionState.Preparing:
+            {
+                float dividend = PrepDuration / TotalPrepFrames;
+                switch (AiTimer)
+                {
+                    case float one when AiTimer < dividend:
+                    {
+                        NPC.frame.Y = (int)FrameState.Preparing1 * frameHeight;
+                        break;
+                    }
+                    case float two when AiTimer > dividend && AiTimer < dividend * 2f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Preparing2 * frameHeight;
+                        break;
+                    }
+                    case float three when AiTimer > dividend * 2f && AiTimer < dividend * 3f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Preparing3 * frameHeight;
+                        break;
+                    }
+                    case float four when AiTimer > dividend * 3f && AiTimer < dividend * 4f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Preparing4 * frameHeight;
+                        break;
+                    }
+                    case float five when AiTimer > dividend * 4f && AiTimer < dividend * 5f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Preparing5 * frameHeight;
+                        break;
+                    }
+                    case float six when AiTimer > dividend * 5f && AiTimer < dividend * 6f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Preparing6 * frameHeight;
+                        break;
+                    }
+                    case float seven when AiTimer > dividend * 6f && AiTimer < dividend * 7f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Preparing7 * frameHeight;
+                        break;
+                    }
+                    case float eight when AiTimer > dividend * 7f && AiTimer < dividend * 8f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Preparing8 * frameHeight;
+                        break;
+                    }
+                }
+                break;
+            }
+            case (float)ActionState.Puking:
+            {
+                float dividend = PukeDuration / TotalPukeFrames;
+                switch (AiTimer)
+                {
+                    case float one when AiTimer < dividend:
+                    {
+                        NPC.frame.Y = (int)FrameState.Puking1 * frameHeight;
+                        break;
+                    }
+                    case float two when AiTimer > dividend && AiTimer < dividend * 2f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Puking2 * frameHeight;
+                        break;
+                    }
+                    case float three when AiTimer > dividend * 2f && AiTimer < dividend * 3f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Puking3 * frameHeight;
+                        break;
+                    }
+                    case float four when AiTimer > dividend * 3f && AiTimer < dividend * 4f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Puking4 * frameHeight;
+                        break;
+                    }
+                    case float five when AiTimer > dividend * 4f && AiTimer < dividend * 5f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Puking5 * frameHeight;
+                        break;
+                    }
+                    case float six when AiTimer > dividend * 5f && AiTimer < dividend * 6f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Puking6 * frameHeight;
+                        break;
+                    }
+                    case float seven when AiTimer > dividend * 6f && AiTimer < dividend * 7f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Puking7 * frameHeight;
+                        break;
+                    }
+                    case float eight when AiTimer > dividend * 7f && AiTimer < dividend * 8f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Puking8 * frameHeight;
+                        break;
+                    }
+                    case float nine when AiTimer > dividend * 8f && AiTimer < dividend * 9f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Puking9 * frameHeight;
+                        break;
+                    }
+                    case float ten when AiTimer > dividend * 9f && AiTimer < dividend * 10f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Puking10 * frameHeight;
+                        break;
+                    }
+                    case float eleven when AiTimer > dividend * 10f && AiTimer < dividend * 11f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Puking11 * frameHeight;
+                        break;
+                    }
+                    case float twelve when AiTimer > dividend * 11f && AiTimer < dividend * 12f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Puking12 * frameHeight;
+                        break;
+                    }
+                    case float thirteen when AiTimer > dividend * 12f && AiTimer < dividend * 13f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Puking13 * frameHeight;
+                        break;
+                    }
+                }
+                break;
+            }
+            case (float)ActionState.Tired:
+            {
+                float dividend = TiredDuration / TotalTiredFrames;
+                switch (AiTimer)
+                {
+                    case float one when AiTimer < dividend:
+                    {
+                        NPC.frame.Y = (int)FrameState.Tired1 * frameHeight;
+                        break;
+                    }
+                    case float two when AiTimer > dividend && AiTimer < dividend * 2f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Tired2 * frameHeight;
+                        break;
+                    }
+                    case float three when AiTimer > dividend * 2f && AiTimer < dividend * 3f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Tired3 * frameHeight;
+                        break;
+                    }
+                    case float four when AiTimer > dividend * 3f && AiTimer < dividend * 4f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Tired4 * frameHeight;
+                        break;
+                    }
+                    case float five when AiTimer > dividend * 4f && AiTimer < dividend * 5f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Tired5 * frameHeight;
+                        break;
+                    }
+                    case float six when AiTimer > dividend * 5f && AiTimer < dividend * 6f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Tired6 * frameHeight;
+                        break;
+                    }
+                    case float seven when AiTimer > dividend * 6f && AiTimer < dividend * 7f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Tired7 * frameHeight;
+                        break;
+                    }
+                    case float eight when AiTimer > dividend * 7f && AiTimer < dividend * 8f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Tired8 * frameHeight;
+                        break;
+                    }
+                }
+                break;
+            }
+            case (float)ActionState.Fleeing:
+            {
+                if (AiTimer == 1)
+                {
+                    NPC.frame.Y = (int)FrameState.Hunting1 * frameHeight;
+                }
+                FrameDuration = 7;
+                NPC.frameCounter++;
+                if (NPC.frameCounter >= FrameDuration)
+                {
+                    NPC.frame.Y += frameHeight;
+                    NPC.frameCounter = 0;
+
+                    if (NPC.frame.Y >= ((int)FrameState.Hunting5 + 1) * frameHeight)
+                    {
+                        NPC.frame.Y = (int)FrameState.Hunting1 * frameHeight;
+                    }
+                }
+                break;
+            }
+            case (float)ActionState.Exploding:
+            {
+                float dividend = ExplodingDuration / TotalExplosionFrames;
+                switch (AiTimer)
+                {
+                    case float one when AiTimer < dividend:
+                    {
+                        NPC.frame.Y = (int)FrameState.Explode1 * frameHeight;
+                        break;
+                    }
+                    case float two when AiTimer > dividend && AiTimer < dividend * 2f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Explode2 * frameHeight;
+                        break;
+                    }
+                    case float three when AiTimer > dividend * 2f && AiTimer < dividend * 3f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Explode3 * frameHeight;
+                        break;
+                    }
+                    case float four when AiTimer > dividend * 3f && AiTimer < dividend * 4f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Explode4 * frameHeight;
+                        break;
+                    }
+                    case float five when AiTimer > dividend * 4f && AiTimer < dividend * 5f:
+                    {
+                        NPC.frame.Y = (int)FrameState.Explode5 * frameHeight;
+                        break;
+                    }
+                }
+                break;
             }
         }
-
-        NPC.frame.Y = 0;
     }
-    private float AggroDistance = 400f;
-    private float PukeRange = 200f;
-    private float ChaseRange = 800f;
+    private const float AggroDistance = 400f;
+    private const float PukeRange = 200f;
+    private const float ChaseRange = 800f;
     private bool Hurt = false;
     public override void SendExtraAI(BinaryWriter writer)
     {
-        writer.WriteFlags(Hurt);
+        writer.WriteFlags(Hurt, IsExploding);
     }
 
     public override void ReceiveExtraAI(BinaryReader reader)
     {
-        reader.ReadFlags(out Hurt);
+        reader.ReadFlags(out Hurt, out IsExploding);
     }
 
     public override void AI()
@@ -175,7 +491,7 @@ public class WalkingHive : ModdedHostileNPC
             }
             case (float)ActionState.Hunting:
             {
-                Hunting(target);
+                Hunting(target, IsExploding);
                 break;
             }
             case (float)ActionState.Preparing:
@@ -274,7 +590,8 @@ public class WalkingHive : ModdedHostileNPC
         }
     }
 
-    private int MaxBackShots = 10;
+    private const int MaxBackShots = 10;
+    private bool IsExploding = false;
     public override void HitEffect(NPC.HitInfo hit)
     {
         if (Backshot(hit.HitDirection) && BackShots < MaxBackShots)
@@ -283,12 +600,40 @@ public class WalkingHive : ModdedHostileNPC
         }
         if (Backshot(hit.HitDirection) && BackShots == MaxBackShots)
         {
-            AiState = (float)ActionState.Exploding;
+            IsExploding = true;
+            AiState = (float)ActionState.Hunting;
             AiTimer = 0;
             NPC.netUpdate = true;
         }
+        if (!Main.dedServ && NPC.life <= 0)
+        {
+            Vector2 velocity1 = new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f);
+            Vector2 velocity2 = new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f);
+            Vector2 velocity3 = new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f);
+            Vector2 velocity4 = new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f);
+            Vector2 velocity5 = new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f);
+        
+            if (AiState == (float)ActionState.Exploding)
+            {
+                Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, velocity1 * 2f, ModContent.GoreType<WalkingHiveGore1>());
+                Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, velocity2 * 2f, ModContent.GoreType<WalkingHiveGore2>());
+                Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, velocity3 * 2f, ModContent.GoreType<WalkingHiveGore3>());
+                Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, velocity4 * 2f, ModContent.GoreType<WalkingHiveGore4>());
+                Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, velocity5 * 2f, ModContent.GoreType<WalkingHiveGore5>());
+                //call some explosion projectile
+            }
+            else
+            {
+                Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, velocity1, ModContent.GoreType<WalkingHiveGore1>());
+                Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, velocity2, ModContent.GoreType<WalkingHiveGore2>());
+                Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, velocity3, ModContent.GoreType<WalkingHiveGore3>());
+                Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, velocity4, ModContent.GoreType<WalkingHiveGore4>());
+                Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, velocity5, ModContent.GoreType<WalkingHiveGore5>());
+            }
+        }
     }
 
+    private const int TotalWanderingFrames = 5;
     private void Wandering(Player target)
     {
         AiTimer++;
@@ -322,6 +667,9 @@ public class WalkingHive : ModdedHostileNPC
             AiTimer = 0;
         }
     }
+
+    private const float TotalProvokedFrames = 8;
+    private const float ProvokedDuration = 120;
     private void Provoked(Player target, in bool Hurt)
     {
         if (Hurt)
@@ -329,8 +677,7 @@ public class WalkingHive : ModdedHostileNPC
             AiTimer += 3;
             
             NPC.velocity.X = 0;
-            
-            if (AiTimer >= 120)
+            if (AiTimer >= ProvokedDuration)
             {
                 AiState = (float)ActionState.Hunting;
                 AiTimer = 0;
@@ -338,13 +685,14 @@ public class WalkingHive : ModdedHostileNPC
         }
         else
         {
+            NPC.velocity.X = 0;
+            
             if (target.Distance(NPC.Center) < AggroDistance)
             {
                 AiTimer++;
             
-                NPC.velocity.X = 0;
             
-                if (AiTimer >= 120)
+                if (AiTimer >= ProvokedDuration)
                 {
                     AiState = (float)ActionState.Hunting;
                     AiTimer = 0;
@@ -363,74 +711,133 @@ public class WalkingHive : ModdedHostileNPC
             }
         }
     }
-    private void Hunting(Player target)
+
+    private const float TotalHuntingFrames = 5;
+    private const float IsExplodingStartTime = 20;
+    private const float ExplodeHuntDuration = 120;
+    private const float DeAggroDuration = 120;
+    private void Hunting(Player target, bool IsExploding)
     {
-        NPC.velocity.X = NPC.Center.DirectionTo(target.Center).X * 4f;
-        SetDirection();
-        
-        Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY, (int)target.gravDir, default);
-        
-        if (NPC.collideX && NPC.velocity.Y >= 0)
-        {
-            NPC.velocity.Y += -8f;
-        }
-            
-        if (target.Distance(NPC.Center) < AggroDistance * 0.5f && NPC.HasValidTarget)
-        {
-            AiState = (float)ActionState.Preparing;
-            AiTimer = 0;
-        }
-        
-        if (target.Distance(NPC.Center) > ChaseRange || !NPC.HasValidTarget)
+        if (IsExploding)
         {
             AiTimer++;
-            
-            NPC.TargetClosest();
-
-            if (AiTimer >= 120)
+            switch (AiTimer)
             {
-                AiState = (float)ActionState.Provoked; //go back to just provoked and have it automatically calm down if you're far enough away
-                AiTimer = 100;
+                case 1:
+                {
+                    SoundEngine.PlaySound(SoundID.DD2_KoboldFlyerChargeScream, NPC.Center);
+                    AiTimer++;
+                    break;
+                }
+                case <= 20:
+                {
+                    NPC.velocity.X = 0;
+                    break;
+                }
+                case float start when AiTimer > IsExplodingStartTime:
+                {
+                    NPC.velocity.X = NPC.Center.DirectionTo(target.Center).X * 8f;
+                    SetDirection();
+
+                    Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY,
+                        (int)target.gravDir, default);
+
+                    if (NPC.collideX && NPC.velocity.Y >= 0)
+                    {
+                        NPC.velocity.Y += -8f;
+                    }
+
+                    break;
+                }
+            }
+            if (AiTimer >= ExplodeHuntDuration)
+            {
+                AiState = (float)ActionState.Exploding;
+                AiTimer = 0;
+            }
+        }
+        else
+        {
+            if (AiTimer == 0)
+            {
+                AiTimer = 1;
+            }
+            NPC.velocity.X = NPC.Center.DirectionTo(target.Center).X * 4f;
+            SetDirection();
+
+            Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY,
+                (int)target.gravDir, default);
+
+            if (NPC.collideX && NPC.velocity.Y >= 0)
+            {
+                NPC.velocity.Y += -8f;
+            }
+            
+            if (target.Distance(NPC.Center) < PukeRange && NPC.HasValidTarget)
+            {
+                AiState = (float)ActionState.Preparing;
+                AiTimer = 0;
+            }
+            
+            if (target.Distance(NPC.Center) > ChaseRange || !NPC.HasValidTarget)
+            {
+                AiTimer++;
+
+                NPC.TargetClosest();
+
+                if (AiTimer >= DeAggroDuration)
+                {
+                    AiState = (float)ActionState.Provoked; //go back to just provoked and have it automatically calm down if you're far enough away
+                    AiTimer = 100;
+                }
             }
         }
     }
+
+    private const float TotalPrepFrames = 8;
+    private const float PrepDuration = 120;
     private void Preparing(Player target)
     {
         AiTimer++;
             
         NPC.velocity.X = 0;
 
-        if (AiTimer >= 120)
+        if (AiTimer >= PrepDuration)
         {
             AiState = (float)ActionState.Puking;
             AiTimer = 0;
         }
     }
+    private const float TotalPukeFrames = 13;
+    private const float PukeDuration = 120;
+    private const float PukeDivisor = 5;
     private void Puking(Player target)
     {
         AiTimer++;
             
         NPC.velocity.X = 0;
         
-        if ((AiTimer % 5 == 0 ) && Main.netMode != NetmodeID.MultiplayerClient)
+        if (AiTimer % PukeDivisor == 0 && Main.netMode != NetmodeID.MultiplayerClient)
         {
             Projectile.NewProjectile(Projectile.InheritSource(this.Entity), NPC.Center,
                 NPC.Center.DirectionTo(target.Center) * 10f, ModContent.ProjectileType<WalkingHivePuke>(), 10, 5f);
         }
 
-        if (AiTimer >= 120)
+        if (AiTimer >= PukeDuration)
         {
             AiState = (float)ActionState.Tired;
             AiTimer = 0;
         }
     }
+    private const float TotalTiredFrames = 8;
+    private const float TiredDuration = 120;
     private void Tired(Player target)
     {
         AiTimer++;
             
         NPC.velocity.X = 0;
 
-        if (AiTimer >= 120)
+        if (AiTimer >= TiredDuration)
         {
             if (target.Distance(NPC.Center) < ChaseRange && NPC.HasValidTarget)
             {
@@ -444,6 +851,7 @@ public class WalkingHive : ModdedHostileNPC
             }
         }
     }
+    private const float FleeDuration = 120;
     private void Fleeing(Player target)
     {
         AiTimer++;
@@ -458,7 +866,7 @@ public class WalkingHive : ModdedHostileNPC
             NPC.velocity.Y += -8f;
         }
 
-        if (AiTimer >= 120)
+        if (AiTimer >= FleeDuration)
         {
             if (target.Distance(NPC.Center) < ChaseRange)
             {
@@ -472,11 +880,16 @@ public class WalkingHive : ModdedHostileNPC
             }
         }
     }
+
+    private const float TotalExplosionFrames = 5;
+    private const float ExplodingDuration = 60;
     private void Exploding(Player target)
     {
         AiTimer++;
+        
+        NPC.velocity.X = 0;
 
-        if (AiTimer >= 120 && Main.netMode != NetmodeID.MultiplayerClient)
+        if (AiTimer >= ExplodingDuration && Main.netMode != NetmodeID.MultiplayerClient)
         {
             NPC.StrikeInstantKill();
         }
@@ -484,10 +897,11 @@ public class WalkingHive : ModdedHostileNPC
 
     public override void OnKill()
     {
-        if (AiState == (float)ActionState.Exploding)
+        if (AiState == (float)ActionState.Exploding && Main.netMode != NetmodeID.MultiplayerClient)
         {
-            Main.NewText("boom");
-            //call some explosion projectile
+            Projectile.NewProjectileDirect(NPC.GetSource_Death(), NPC.Center, Vector2.Zero,
+                ModContent.ProjectileType<WalkingHiveExplosion>(), (int)BaseContactDamage * 2, 1f);
+            SoundEngine.PlaySound(SoundID.DD2_KoboldExplosion, NPC.Center);
         }
     }
 

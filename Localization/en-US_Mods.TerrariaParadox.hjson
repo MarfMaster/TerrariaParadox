@@ -439,4 +439,5 @@ Projectiles: {
 	ParasyteLowerArm.DisplayName: Parasyte Lower Arm
 	ParasyteUpperArm.DisplayName: Parasyte Upper Arm
 	WalkingHivePuke.DisplayName: Walking Hive Puke
+	WalkingHiveExplosion.DisplayName: Walking Hive Explosion
 }

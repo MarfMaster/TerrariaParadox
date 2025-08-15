@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TerrariaParadox.Content.Gores.Tiles.Plants.Trees;
 using TerrariaParadox.Content.Items.Consumables.Buffs;
 using TerrariaParadox.Content.Tiles.Blocks;
 
@@ -32,7 +33,7 @@ namespace TerrariaParadox.Content.Tiles.Plants.Trees.Leechwood.Palm
 		
 		public override int TreeLeaf()
 		{
-			return ModContent.GoreType<Leechwood.Leaf>();
+			return ModContent.GoreType<LeechwoodLeaf>();
 		}
 
 		public override int SaplingGrowthType(ref int style) 
