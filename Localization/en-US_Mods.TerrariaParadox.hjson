@@ -271,6 +271,15 @@ Items: {
 				DisplayName: Zoonotic Bow
 				Tooltip: ""
 			}
+
+			Parasyte: {
+				DisplayName: Parasyte
+				Tooltip:
+					'''
+					Flings high velocity bullets
+					"What do you want your right hand to be?"
+					'''
+			}
 		}
 
 		Summon: {
@@ -440,4 +449,5 @@ Projectiles: {
 	ParasyteUpperArm.DisplayName: Parasyte Upper Arm
 	WalkingHivePuke.DisplayName: Walking Hive Puke
 	WalkingHiveExplosion.DisplayName: Walking Hive Explosion
+	ParasyteHeldProjectile.DisplayName: Parasyte Held Projectile
 }

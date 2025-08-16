@@ -14,6 +14,7 @@ using TerrariaParadox.Content.Dusts.Tiles;
 using TerrariaParadox.Content.Dusts.Tiles.Misc;
 using TerrariaParadox.Content.Items.Weapons.Magic;
 using TerrariaParadox.Content.Items.Weapons.Melee;
+using TerrariaParadox.Content.Items.Weapons.Ranged;
 using TerrariaParadox.Content.Items.Weapons.Summon.Minions;
 
 namespace TerrariaParadox.Content.Tiles.Misc;
@@ -39,6 +40,8 @@ public class BioluminescentBulb : ModTile
 			DustType = ModContent.DustType<BioluminescentBulbDust>();
 				
 			AnimationFrameHeight = 36;
+			
+			TerrariaParadox.WallHammerRequirement[Type] = 80;
 		}
 
 		private const float Red = 0.15f;
@@ -85,7 +88,7 @@ public class BioluminescentBulb : ModTile
 			Dictionary<int, int> DropsList = new Dictionary<int, int>()
 			{
 				{1, ModContent.ItemType<Leecharang>()},
-				{2, ItemID.Musket},
+				{2, ModContent.ItemType<Parasyte>()},
 				{3, ModContent.ItemType<Lighter>()},
 				{4, ModContent.ItemType<Suspicious8Ball>()},
 				{5, ItemID.ShadowOrb},

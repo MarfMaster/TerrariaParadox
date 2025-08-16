@@ -12,7 +12,7 @@ public class LighterSpark : ModdedFriendlyProjectile
     public override int Width => 24;
     public override int Height => 24;
     public override DamageClass DamageType => DamageClass.Magic;
-    public override int ProjectileLifeSpan => 60;
+    public override int LifeSpan => 60;
     public override bool PassThroughBlocks => false;
     public override int Pierce => 2;
     public override float RotationHelper => 0;

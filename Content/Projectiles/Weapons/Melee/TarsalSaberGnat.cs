@@ -12,7 +12,7 @@ public class TarsalSaberGnat : ModdedFriendlyHomingProjectile
     public override int Width => 10;
     public override int Height => 10;
     public override DamageClass DamageType => DamageClass.Melee;
-    public override int ProjectileLifeSpan => 1200;
+    public override int LifeSpan => 1200;
     public override float ProjectileSpeed => 5f;
     public override bool PassThroughBlocks => false;
     public override int MaxDetectRadius => 300;

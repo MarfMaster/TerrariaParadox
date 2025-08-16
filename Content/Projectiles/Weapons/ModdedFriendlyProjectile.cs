@@ -23,7 +23,7 @@ public abstract class ModdedFriendlyProjectile : ModProjectile
     /// <summary>
     /// This determines how long the projectile lasts. Terraria runs at 60 ticks per second, so 60 would normally be 1 second, but this projectile updates twice as often, so 120 is 1 second. 
     /// </summary>
-    public abstract int ProjectileLifeSpan { get; }
+    public abstract int LifeSpan { get; }
     public abstract bool PassThroughBlocks { get; }
     /// <summary>
     /// Determines how often the projectile pierces. Default is 0 for no pierce. For infinite pierce, set this to -2.
@@ -62,7 +62,7 @@ public abstract class ModdedFriendlyProjectile : ModProjectile
         Projectile.width = Width;
         Projectile.height = Height;
         Projectile.DamageType = DamageType;
-        Projectile.timeLeft = ProjectileLifeSpan;
+        Projectile.timeLeft = LifeSpan;
         Projectile.extraUpdates = 1;
         Projectile.friendly = true;
         Projectile.tileCollide = !PassThroughBlocks;

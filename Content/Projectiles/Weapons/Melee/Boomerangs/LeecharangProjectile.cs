@@ -15,7 +15,7 @@ public class LeecharangProjectile : ModdedFriendlyProjectile
     public override int Width => 24;
     public override int Height => 24;
     public override DamageClass DamageType => DamageClass.MeleeNoSpeed;
-    public override int ProjectileLifeSpan => 1200;
+    public override int LifeSpan => 1200;
     public override bool PassThroughBlocks => false;
     public override int Pierce => 1; //so it can return after having hit an enemy
     public override float RotationHelper => 0;

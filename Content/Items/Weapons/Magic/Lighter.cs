@@ -22,7 +22,7 @@ public class Lighter : ModdedBasicItem
     public override int Height => 24;
     public override int Rarity => ItemRarityID.Blue;
     public override int Value => PriceByRarity.fromItem(Item);
-    public override SoundStyle UseSound => SoundID.Item5;
+    public override SoundStyle UseSound => SoundID.Item20;
     public override bool UseTurn => false;
     public const int DebuffDuration = 5 * 60;
     public override void CustomSetDefaults()
