@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using AltLibrary.Core.Generation;
 using Microsoft.Xna.Framework;
+using ReLogic.Utilities;
 using Terraria;
+using Terraria.GameContent.Generation;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.WorldBuilding;
@@ -13,13 +15,52 @@ namespace TerrariaParadox;
 
 public class FlipsideGenerationPass : EvilBiomeGenerationPass
 {
-    public static List<int> FlipsideWestEdge;
-    public static List<int> FlipsideEastEdge;
     public override void GenerateEvil(int evilBiomePosition, int evilBiomePositionWestBound, int evilBiomePositionEastBound)
     {
-        //int Width = evilBiomePositionEastBound - evilBiomePositionWestBound;
-        //int EvilBiomeCenter = evilBiomePositionWestBound + (Width / 2);
-        //WorldUtils.Gen(new Point(evilBiomePositionWestBound, (int)GenVars.worldSurfaceLow), new Shapes.Rectangle(Width / 10, 20), new Actions.SetTile((ushort)ModContent.TileType<AssecstoneBlockTile>()));
+	    float worldSizeMultiplier = 1f;
+	    switch (WorldGen.GetWorldSize())
+	    {
+		    case 0:
+		    {
+			    worldSizeMultiplier = Main.rand.NextFloat(0.9f, 1.3f);
+			    break;
+		    }
+		    case 1:
+		    {
+			    worldSizeMultiplier = Main.rand.NextFloat(1.5f, 1.9f);
+			    break;
+		    }
+		    case 2:
+		    {
+			    worldSizeMultiplier = Main.rand.NextFloat(2.4f, 2.9f);
+			    break;
+		    }
+		    break;
+	    }
+        int width = (evilBiomePositionEastBound - evilBiomePositionWestBound) / 2;
+        int evilBiomeCenter = evilBiomePositionWestBound + (width);
+        
+        Point evilBiomeCenterPoint = new Point(evilBiomeCenter, (int)GenVars.rockLayerHigh);
+        Vector2 evilBiomeCenterVector = new Vector2((float)evilBiomeCenter, (float)GenVars.rockLayerHigh);
+        float bugBodyLength = 100f * worldSizeMultiplier;
+        float bugBodyHollowWidth = bugBodyLength * 0.625f;
+        
+        GenShape greatBug = new Shapes.Circle((int)bugBodyLength, (int)bugBodyLength);
+        GenShape hollowBugBody = new Shapes.Circle((int)(bugBodyHollowWidth * 0.65f), (int)bugBodyHollowWidth);
+        GenShape bugLeg = new ShapeBranch(0, width);
+        
+        GenAction placeStone = new Actions.SetTile((ushort)ModContent.TileType<AssecstoneBlockTile>());
+        GenAction placeStoneWall = new Actions.PlaceWall((ushort)ModContent.WallType<AssecstoneWallTileUnsafe>());
+        GenAction clearTiles = new Actions.ClearTile(false);
+        
+        WorldUtils.Gen(evilBiomeCenterPoint, greatBug, placeStone);
+        WorldUtils.Gen(evilBiomeCenterPoint, greatBug, placeStoneWall);
+
+        WorldUtils.Gen(evilBiomeCenterPoint, bugLeg, clearTiles);
+        
+        
+        WorldUtils.Gen(new Point((int)evilBiomeCenterVector.X, (int)evilBiomeCenterVector.Y), hollowBugBody, clearTiles);
+        GenVars.structures.AddProtectedStructure(Utils.CenteredRectangle(evilBiomeCenterVector.ToWorldCoordinates(), new Vector2(bugBodyLength, bugBodyLength)));
         
         //WorldGen.TileRunner(evilBiomePosition, (int)GenVars.worldSurface, 50, WorldGen.genRand.Next(2, 8), TileID.PinkSlimeBlock);
         Flipping(evilBiomePosition, evilBiomePositionWestBound, evilBiomePositionEastBound);

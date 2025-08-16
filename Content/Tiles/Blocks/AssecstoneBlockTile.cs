@@ -25,9 +25,9 @@ public class AssecstoneBlockTile : ModdedBlockTile
         MinPick = 65;
         MineResist = 2f;
         TileID.Sets.Conversion.Stone[Type] = true;
-        TileID.Sets.Stone[Type] = true;
-        TileID.Sets.CanBeClearedDuringOreRunner[Type] = true;
-        TileID.Sets.CanBeClearedDuringGeneration[Type] = true;
+        //TileID.Sets.Stone[Type] = true;
+        TileID.Sets.GeneralPlacementTiles[Type] = false;
+        TileID.Sets.CanBeClearedDuringGeneration[Type] = false;
     }    
     public override void RandomUpdate(int i, int j) 
     {

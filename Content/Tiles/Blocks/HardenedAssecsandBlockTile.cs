@@ -28,6 +28,6 @@ public class HardenedAssecsandBlockTile : ModdedBlockTile
         Main.tileMerge[Type][ModContent.TileType<AssecsandBlockTile>()] = true;
         Main.tileMerge[ModContent.TileType<AssecsandstoneBlockTile>()][Type] = true;
         Main.tileMerge[Type][ModContent.TileType<AssecsandstoneBlockTile>()] = true;
-        TileID.Sets.CanBeClearedDuringGeneration[Type] = true;
+        TileID.Sets.CanBeClearedDuringGeneration[Type] = false;
     }
 }

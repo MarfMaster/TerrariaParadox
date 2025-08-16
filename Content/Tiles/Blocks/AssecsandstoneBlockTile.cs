@@ -23,7 +23,7 @@ public class AssecsandstoneBlockTile : ModdedBlockTile
         TileID.Sets.Conversion.Sandstone[Type] = true;
         TileID.Sets.isDesertBiomeSand[Type] = true;
         TileID.Sets.ForAdvancedCollision.ForSandshark[Type] = true;
-        TileID.Sets.CanBeClearedDuringGeneration[Type] = true;
+        TileID.Sets.CanBeClearedDuringGeneration[Type] = false;
         TileID.Sets.SandBiome[Type] = 1;
         Main.tileMerge[ModContent.TileType<AssecsandBlockTile>()][Type] = true;
         Main.tileMerge[Type][ModContent.TileType<AssecsandBlockTile>()] = true;

@@ -17,5 +17,6 @@ public class HardenedAssecsandWallTileUnsafe : ModdedWallTile
         WallID.Sets.Conversion.Grass[Type] = true;
         Main.wallBlend[Type] = WallID.GrassUnsafe;
         WallID.Sets.CannotBeReplacedByWallSpread[Type] = true;
+        WallID.Sets.AllowsUndergroundDesertEnemiesToSpawn[Type] = true;
     }
 }

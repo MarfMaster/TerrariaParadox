@@ -151,14 +151,14 @@ public class ParasyteHeldProjectile : ModdedFriendlyProjectile
 			//Projectile.velocity.X *= 1f + Main.rand.Next(-3, 4) * 0.01f;
 
 			// Spawning dust
-			if (Main.rand.NextBool(10)) 
+			/*if (Main.rand.NextBool(10)) 
 			{
 				Dust dust = Dust.NewDustDirect(Projectile.position + Projectile.velocity * Main.rand.Next(6, 10) * 0.15f, Projectile.width, Projectile.height, ModContent.DustType<AssecstoneDust>(), 0f, 0f, 80, Color.White, 1f);
 				dust.position.X -= 4f;
 				dust.noGravity = true;
 				dust.velocity.X *= 0.5f;
 				dust.velocity.Y = -Main.rand.Next(3, 8) * 0.1f;
-			}
+			}*/
     }
 
     public override bool? CanDamage()

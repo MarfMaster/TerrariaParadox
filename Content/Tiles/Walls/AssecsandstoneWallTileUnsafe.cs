@@ -15,5 +15,6 @@ public class AssecsandstoneWallTileUnsafe : ModdedWallTile
     {
         WallID.Sets.Conversion.Sandstone[Type] = true;
         WallID.Sets.CannotBeReplacedByWallSpread[Type] = true;
+        WallID.Sets.AllowsUndergroundDesertEnemiesToSpawn[Type] = true;
     }
 }
