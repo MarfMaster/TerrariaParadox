@@ -13,10 +13,10 @@ public class TarsalSaber : ModdedBasicItem
     public override string LocalizationCategory => "Items.Weapons.Melee";
     public override int Damage => 23;
     public override int UseTime => 19;
-    public override int UseAnimation => 19;
+    public override int ItemUseAnimation => 19;
     public override float Knockback => 5.5f;
     public override DamageClass DamageType => DamageClass.Melee;
-    public override int UseStyle => ItemUseStyleID.Swing;
+    public override int ItemUseStyle => ItemUseStyleID.Swing;
     public override bool DealsContactDamage => true;
     public override int Width => 48;
     public override int Height => 48;

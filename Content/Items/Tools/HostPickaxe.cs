@@ -13,10 +13,10 @@ public class HostPickaxe : ModdedBasicItem
     public override string LocalizationCategory => "Items.Tools";
     public override int Damage => 13;
     public override int UseTime => 13;
-    public override int UseAnimation => 18;
+    public override int ItemUseAnimation => 18;
     public override float Knockback => 4;
     public override DamageClass DamageType => DamageClass.Melee;
-    public override int UseStyle => ItemUseStyleID.Swing;
+    public override int ItemUseStyle => ItemUseStyleID.Swing;
     public override bool DealsContactDamage => true;
     public override int Width => 32;
     public override int Height => 32;

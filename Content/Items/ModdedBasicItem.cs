@@ -8,13 +8,13 @@ public abstract class ModdedBasicItem : ModItem
 {
     public abstract int Damage { get; }
     public abstract int UseTime { get; }
-    public abstract int UseAnimation { get; }
+    public abstract int ItemUseAnimation { get; }
     public abstract float Knockback { get; }
     public abstract DamageClass DamageType { get; }
     /// <summary>
     /// How this item is held/used by the player when used. Pick from the ItemUseStyleID list.
     /// </summary>
-    public abstract int UseStyle { get; }
+    public abstract int ItemUseStyle { get; }
     /// <summary>
     /// Whether the items sprite should deal damage when in contact with an enemy. Set to false for things like Bows or Staves.
     /// </summary>
@@ -42,14 +42,14 @@ public abstract class ModdedBasicItem : ModItem
     {
         Item.damage = Damage;
         Item.useTime = UseTime;
-        Item.useAnimation = UseAnimation;
+        Item.useAnimation = ItemUseAnimation;
         Item.knockBack = Knockback;
         Item.width = Width;
         Item.height = Height;
         Item.rare = Rarity;
         Item.value = Value;
         Item.DamageType = DamageType;
-        Item.useStyle = UseStyle;
+        Item.useStyle = ItemUseStyle;
         Item.noMelee = !DealsContactDamage;
         Item.UseSound  = UseSound;
         Item.useTurn = UseTurn;

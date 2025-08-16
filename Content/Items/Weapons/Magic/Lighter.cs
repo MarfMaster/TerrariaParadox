@@ -13,10 +13,10 @@ public class Lighter : ModdedBasicItem
     public override string LocalizationCategory => "Items.Weapons.Magic";
     public override int Damage => 10;
     public override int UseTime => 24;
-    public override int UseAnimation => 24;
+    public override int ItemUseAnimation => 24;
     public override float Knockback => 0.5f;
     public override DamageClass DamageType => DamageClass.Magic;
-    public override int UseStyle => ItemUseStyleID.Shoot;
+    public override int ItemUseStyle => ItemUseStyleID.Shoot;
     public override bool DealsContactDamage => false;
     public override int Width => 10;
     public override int Height => 24;

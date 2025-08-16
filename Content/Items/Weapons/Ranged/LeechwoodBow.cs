@@ -10,10 +10,10 @@ public class LeechwoodBow : ModdedBasicItem
     public override string LocalizationCategory => "Items.Weapons.Ranged";
     public override int Damage => 9;
     public override int UseTime => 25;
-    public override int UseAnimation => 25;
+    public override int ItemUseAnimation => 25;
     public override float Knockback => 0.25f;
     public override DamageClass DamageType => DamageClass.Ranged;
-    public override int UseStyle => ItemUseStyleID.Shoot;
+    public override int ItemUseStyle => ItemUseStyleID.Shoot;
     public override bool DealsContactDamage => false;
     public override int Width => 16;
     public override int Height => 32;

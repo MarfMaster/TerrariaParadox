@@ -40,8 +40,6 @@ public class BioluminescentBulb : ModTile
 			DustType = ModContent.DustType<BioluminescentBulbDust>();
 				
 			AnimationFrameHeight = 36;
-			
-			TerrariaParadox.WallHammerRequirement[Type] = 80;
 		}
 
 		private const float Red = 0.15f;

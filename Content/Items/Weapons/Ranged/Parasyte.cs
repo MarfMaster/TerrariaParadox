@@ -13,10 +13,10 @@ public class Parasyte : ModdedBasicItem
     public override string LocalizationCategory => "Items.Weapons.Ranged";
     public override int Damage => 50;
     public override int UseTime => 60;
-    public override int UseAnimation => UseTime;
+    public override int ItemUseAnimation => UseTime;
     public override float Knockback => 11.25f;
     public override DamageClass DamageType => DamageClass.Ranged;
-    public override int UseStyle => ItemUseStyleID.Shoot;
+    public override int ItemUseStyle => ItemUseStyleID.Shoot;
     public override bool DealsContactDamage => false;
     public override int Width => 80;
     public override int Height => 30;
@@ -52,7 +52,6 @@ public class Parasyte : ModdedBasicItem
                 finalVelocity = velocity / 3;
                 break;
             }
-                break;
         }
         Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<ParasyteHeldProjectile>(), damage, knockback, player.whoAmI,0, projectile);
         return false;

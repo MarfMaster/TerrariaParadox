@@ -10,10 +10,10 @@ public class LeechwoodSword : ModdedBasicItem
     public override string LocalizationCategory => "Items.Weapons.Melee";
     public override int Damage => 12;
     public override int UseTime => 18;
-    public override int UseAnimation => 18;
+    public override int ItemUseAnimation => 18;
     public override float Knockback => 6.5f;
     public override DamageClass DamageType => DamageClass.Melee;
-    public override int UseStyle => ItemUseStyleID.Swing;
+    public override int ItemUseStyle => ItemUseStyleID.Swing;
     public override bool DealsContactDamage => true;
     public override int Width => 32;
     public override int Height => 32;

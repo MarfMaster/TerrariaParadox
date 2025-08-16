@@ -31,7 +31,7 @@ namespace TerrariaParadox.Content.NPCs.Hostile.Worms
 		public const int TailDmg = 25;
 		public const int TailDef = 6;
 		public const float MovementSpeed = 10f;
-		public const float Acceleration = 0.2f;
+		public const float WormAcceleration = 0.2f;
 		public const int MinimumSegments = 9;
 		public const int MaximumSegments = 15;
 
@@ -113,7 +113,7 @@ namespace TerrariaParadox.Content.NPCs.Hostile.Worms
 		{
 			// These two properties handle the movement of the worm
 			worm.MoveSpeed = MovementSpeed;
-			worm.Acceleration = Acceleration;
+			worm.Acceleration = WormAcceleration;
 		}
 
 		private int attackCounter;

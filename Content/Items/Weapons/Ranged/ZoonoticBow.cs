@@ -10,10 +10,10 @@ public class ZoonoticBow : ModdedBasicItem
     public override string LocalizationCategory => "Items.Weapons.Ranged";
     public override int Damage => 20;
     public override int UseTime => 24;
-    public override int UseAnimation => 24;
+    public override int ItemUseAnimation => 24;
     public override float Knockback => 1.5f;
     public override DamageClass DamageType => DamageClass.Ranged;
-    public override int UseStyle => ItemUseStyleID.Shoot;
+    public override int ItemUseStyle => ItemUseStyleID.Shoot;
     public override bool DealsContactDamage => false;
     public override int Width => 18;
     public override int Height => 32;

@@ -108,15 +108,6 @@ public class ParasiticPowderProjectile : ModProjectile
 							goto IL_510c;
 							IL_510c:
 							continue;
-							Tile tile = Main.tile[num1032, num1043];
-							if (tile.TileType >= 0 && tile.TileType < TileID.Count && TileID.Sets.CommonSapling[tile.TileType])
-							{
-								if (Main.remixWorld && num1043 >= (int)Main.worldSurface - 1 && num1043 < Main.maxTilesY - 20)
-								{
-									WorldGen.AttemptToGrowTreeFromSapling(num1032, num1043, underground: false);
-								}
-								WorldGen.AttemptToGrowTreeFromSapling(num1032, num1043, num1043 > (int)Main.worldSurface - 1);
-							}
 						}
 					}
 				}
