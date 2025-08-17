@@ -38,13 +38,25 @@ namespace TerrariaParadox
             //WorldGen.TileRunner(x - 1, y, WorldGen.genRand.Next(3, 8), WorldGen.genRand.Next(2, 8), TileID.CobaltBrick);
             Vector2 direction = Main.LocalPlayer.Center.DirectionTo(Main.MouseWorld);
             Point playerCenter = Main.LocalPlayer.Center.ToTileCoordinates();
+            Point cursorCenter =  Main.MouseWorld.ToTileCoordinates();
             //WorldGen.digTunnel(playerCenter.X, playerCenter.Y, direction.X, direction.Y, 30, 6);
             
-            //GenerateEvil(x, x, (x + 100));
+            GenerateEvil(x, x, (x + 100));
+            //TunnelAToB(playerCenter, cursorCenter, 20, 20, 10, (ushort)ModContent.TileType<AssecstoneBlockTile>(), (ushort)ModContent.WallType<AssecstoneWallTileUnsafe>());
         }
+
+        private GenAction placeStone;
+        private GenAction placeStoneWall;
+        private GenAction clearTiles;
         
-    private void GenerateEvil(int evilBiomePosition, int evilBiomePositionWestBound, int evilBiomePositionEastBound)
-    {
+        private ushort modStone;
+        private ushort modStoneWall;
+        private ushort bulbTile;
+		private void GenerateEvil(int evilBiomePosition, int evilBiomePositionWestBound, int evilBiomePositionEastBound)
+		{
+			modStone = (ushort)ModContent.TileType<AssecstoneBlockTile>();
+			modStoneWall = (ushort)ModContent.WallType<AssecstoneWallTileUnsafe>();
+			bulbTile = (ushort)ModContent.TileType<BioluminescentBulb>();
 	    //Main.rand mit WorldGen.Rand ersetzen sobald fertig
 	    float worldSizeMultiplier = 1f;
 	    switch (WorldGen.GetWorldSize())
@@ -75,64 +87,122 @@ namespace TerrariaParadox
         Point bulbOffset = new Point((int)(width * worldSizeMultiplier * 1.35f), (int)(width * worldSizeMultiplier));;
         Point bulbOffset2 = new Point((int)(width * worldSizeMultiplier * 1.65f), (int)(width * worldSizeMultiplier * 1.25f));
         
-        Point bulbCenterPoint1 = evilBiomeCenterPoint + bulbOffset;
-        Point bulbCenterPoint2 = evilBiomeCenterPoint - bulbOffset;
-        Point bulbCenterPoint3 = evilBiomeCenterPoint + new Point(-bulbOffset.X, bulbOffset.Y);
-        Point bulbCenterPoint4 = evilBiomeCenterPoint + new Point(bulbOffset.X, -bulbOffset.Y);
-        
-        Point bulbCenterPoint5 = evilBiomeCenterPoint + new Point(bulbOffset2.X, bulbOffset.Y / 3);
-        Point bulbCenterPoint6 = evilBiomeCenterPoint + new Point(-bulbOffset2.X, bulbOffset.Y / -3);
-        Point bulbCenterPoint7 = evilBiomeCenterPoint + new Point(bulbOffset2.X, bulbOffset.Y / -3);
-        Point bulbCenterPoint8 = evilBiomeCenterPoint + new Point(-bulbOffset2.X, bulbOffset.Y / 3);
-        
         
         
         Vector2 evilBiomeCenterVector = new Vector2((float)evilBiomeCenter, (float)GenVars.rockLayerHigh);
         
         
         float bugBodyLength = 100f * worldSizeMultiplier;
-        float bugBodyHollowWidth = bugBodyLength * 0.625f;
-        float bulbContainerWidth = bugBodyLength * 0.035f;
+        float bugBodyHollowWidth = bugBodyLength * 0.4f;
+        float bugBodyHollowHeight = bugBodyLength * 0.85f;
+        float bulbContainerSize = bugBodyLength * 0.035f;
         
         GenShape greatBug = new Shapes.Circle((int)bugBodyLength, (int)bugBodyLength);
-        GenShape hollowBugBody = new Shapes.Circle((int)(bugBodyHollowWidth * 0.65f), (int)bugBodyHollowWidth);
-        GenShape bulbContainer = new Shapes.Circle((int)bulbContainerWidth);
+        GenShape hollowBugBody = new Shapes.Circle((int)(bugBodyHollowWidth), (int)bugBodyHollowHeight);
         GenShape bugLeg = new ShapeRoot(MathHelper.Pi, 100, 10, 20);
         
-        GenAction placeStone = new Actions.SetTile((ushort)ModContent.TileType<AssecstoneBlockTile>());
-        GenAction placeStoneWall = new Actions.PlaceWall((ushort)ModContent.WallType<AssecstoneWallTileUnsafe>());
-        GenAction clearTiles = new Actions.ClearTile(false);
+        placeStone = new Actions.SetTile(modStone);
+        placeStoneWall = new Actions.PlaceWall(modStoneWall);
+        clearTiles = new Actions.ClearTile(false);
         
-        Main.NewText("Cursor: " + Main.MouseWorld + ", westbound: " + evilBiomePositionWestBound + ", eastbound: " + evilBiomePositionEastBound);
+        //Main.NewText("Cursor: " + Main.MouseWorld + ", westbound: " + evilBiomePositionWestBound + ", eastbound: " + evilBiomePositionEastBound);
         WorldUtils.Gen(evilBiomeCenterPoint, greatBug, placeStone);
         WorldUtils.Gen(evilBiomeCenterPoint, greatBug, placeStoneWall);
-
-        WorldUtils.Gen(bulbCenterPoint1, bulbContainer, clearTiles);
-        WorldGen.PlaceSign(bulbCenterPoint1.X, bulbCenterPoint1.Y, (ushort)ModContent.TileType<BioluminescentBulb>(), 0);
-        WorldUtils.Gen(bulbCenterPoint2, bulbContainer, clearTiles);
-        WorldGen.PlaceSign(bulbCenterPoint2.X, bulbCenterPoint2.Y, (ushort)ModContent.TileType<BioluminescentBulb>(), 0);
-        WorldUtils.Gen(bulbCenterPoint3, bulbContainer, clearTiles);
-        WorldGen.PlaceSign(bulbCenterPoint3.X, bulbCenterPoint3.Y, (ushort)ModContent.TileType<BioluminescentBulb>(), 0);
-        WorldUtils.Gen(bulbCenterPoint4, bulbContainer, clearTiles);
-        WorldGen.PlaceSign(bulbCenterPoint4.X, bulbCenterPoint4.Y, (ushort)ModContent.TileType<BioluminescentBulb>(), 0);
-        WorldUtils.Gen(bulbCenterPoint5, bulbContainer, clearTiles);
-        WorldGen.PlaceSign(bulbCenterPoint5.X, bulbCenterPoint5.Y, (ushort)ModContent.TileType<BioluminescentBulb>(), 0);
-        WorldUtils.Gen(bulbCenterPoint6, bulbContainer, clearTiles);
-        WorldGen.PlaceSign(bulbCenterPoint6.X, bulbCenterPoint6.Y, (ushort)ModContent.TileType<BioluminescentBulb>(), 0);
-        WorldUtils.Gen(bulbCenterPoint7, bulbContainer, clearTiles);
-        WorldGen.PlaceSign(bulbCenterPoint7.X, bulbCenterPoint7.Y, (ushort)ModContent.TileType<BioluminescentBulb>(), 0);
-        WorldUtils.Gen(bulbCenterPoint8, bulbContainer, clearTiles);
-        WorldGen.PlaceSign(bulbCenterPoint8.X, bulbCenterPoint8.Y, (ushort)ModContent.TileType<BioluminescentBulb>(), 0);
+        
+        PlaceBulbs(evilBiomeCenterPoint, bulbOffset, bulbOffset2, bulbContainerSize);
         //WorldUtils.Gen(evilBiomeCenterPoint, bugLeg, clearTiles);
 
-        Vector2 direction = evilBiomeCenterPoint.ToVector2().DirectionTo(bulbCenterPoint1.ToVector2());
-        WorldGen.digTunnel(evilBiomeCenterPoint.X, evilBiomeCenterPoint.X, direction.X, direction.Y, 30, 4);
+        //Vector2 direction = evilBiomeCenterPoint.ToVector2().DirectionTo(bulbCenterPoint1.ToVector2());
+        //WorldGen.digTunnel(evilBiomeCenterPoint.X, evilBiomeCenterPoint.X, direction.X, direction.Y, 30, 4);
         
-        //WorldUtils.Gen(evilBiomeCenterPoint, hollowBugBody, clearTiles);
+        WorldUtils.Gen(evilBiomeCenterPoint, hollowBugBody, clearTiles);
         //GenVars.structures.AddProtectedStructure(Utils.CenteredRectangle(evilBiomeCenterVector.ToWorldCoordinates(), new Vector2(bugBodyLength, bugBodyLength)));
         
         //WorldGen.TileRunner(evilBiomePosition, (int)GenVars.worldSurface, 50, WorldGen.genRand.Next(2, 8), TileID.PinkSlimeBlock);
         //Flipping(evilBiomePosition, evilBiomePositionWestBound, evilBiomePositionEastBound);
+		}
+
+		private void PlaceBulbs(Point evilBiomeCenter, Point bulbOffset1, Point bulbOffset2, float bulbContainerSize)
+		{
+			Point currentBulbPoint;
+			Point bulbCenterPoint1 = evilBiomeCenter + bulbOffset1;
+			Point bulbCenterPoint2 = evilBiomeCenter - bulbOffset1;
+			Point bulbCenterPoint3 = evilBiomeCenter + new Point(-bulbOffset1.X, bulbOffset1.Y);
+			Point bulbCenterPoint4 = evilBiomeCenter + new Point(bulbOffset1.X, -bulbOffset1.Y);
+        
+			Point bulbCenterPoint5 = evilBiomeCenter + new Point(bulbOffset2.X, bulbOffset1.Y / 3);
+			Point bulbCenterPoint6 = evilBiomeCenter + new Point(-bulbOffset2.X, bulbOffset1.Y / -3);
+			Point bulbCenterPoint7 = evilBiomeCenter + new Point(bulbOffset2.X, bulbOffset1.Y / -3);
+			Point bulbCenterPoint8 = evilBiomeCenter + new Point(-bulbOffset2.X, bulbOffset1.Y / 3);
+			
+			GenShape outerBulbContainer = new Shapes.Circle((int)(bulbContainerSize * 1.75f));
+			GenShape bulbContainer = new Shapes.Circle((int)bulbContainerSize);
+
+			int outlineWidth = 16;
+			int outlineHeight = 16;
+			int tunnelSize = 10;
+			int overshoot = -3;
+
+			currentBulbPoint = bulbCenterPoint1;
+			WorldgenMain.TunnelAToB(evilBiomeCenter, currentBulbPoint, outlineWidth, outlineHeight, tunnelSize, modStone, modStoneWall, overshoot);
+			WorldUtils.Gen(currentBulbPoint, outerBulbContainer, placeStone);
+			WorldUtils.Gen(currentBulbPoint, outerBulbContainer, placeStoneWall);
+			WorldUtils.Gen(currentBulbPoint, bulbContainer, clearTiles);
+			WorldGen.PlaceSign(currentBulbPoint.X, currentBulbPoint.Y, bulbTile);
+			
+			currentBulbPoint = bulbCenterPoint2;
+			WorldgenMain.TunnelAToB(evilBiomeCenter, currentBulbPoint, outlineWidth, outlineHeight, tunnelSize, modStone, modStoneWall, overshoot);
+			WorldUtils.Gen(currentBulbPoint, outerBulbContainer, placeStone);
+			WorldUtils.Gen(currentBulbPoint, outerBulbContainer, placeStoneWall);
+			WorldUtils.Gen(currentBulbPoint, bulbContainer, clearTiles);
+			WorldGen.PlaceSign(currentBulbPoint.X, currentBulbPoint.Y, bulbTile);
+			
+			currentBulbPoint = bulbCenterPoint3;
+			WorldgenMain.TunnelAToB(evilBiomeCenter, currentBulbPoint, outlineWidth, outlineHeight, tunnelSize, modStone, modStoneWall, overshoot);
+			WorldUtils.Gen(currentBulbPoint, outerBulbContainer, placeStone);
+			WorldUtils.Gen(currentBulbPoint, outerBulbContainer, placeStoneWall);
+			WorldUtils.Gen(currentBulbPoint, bulbContainer, clearTiles);
+			WorldGen.PlaceSign(currentBulbPoint.X, currentBulbPoint.Y, bulbTile);
+			
+			currentBulbPoint = bulbCenterPoint4;
+			WorldgenMain.TunnelAToB(evilBiomeCenter, currentBulbPoint, outlineWidth, outlineHeight, tunnelSize, modStone, modStoneWall, overshoot);
+			WorldUtils.Gen(currentBulbPoint, outerBulbContainer, placeStone);
+			WorldUtils.Gen(currentBulbPoint, outerBulbContainer, placeStoneWall);
+			WorldUtils.Gen(currentBulbPoint, bulbContainer, clearTiles);
+			WorldGen.PlaceSign(currentBulbPoint.X, currentBulbPoint.Y, bulbTile);
+			
+			currentBulbPoint = bulbCenterPoint5;
+			WorldgenMain.TunnelAToB(evilBiomeCenter, currentBulbPoint, outlineWidth, outlineHeight, tunnelSize, modStone, modStoneWall, overshoot);
+			WorldUtils.Gen(currentBulbPoint, outerBulbContainer, placeStone);
+			WorldUtils.Gen(currentBulbPoint, outerBulbContainer, placeStoneWall);
+			WorldUtils.Gen(currentBulbPoint, bulbContainer, clearTiles);
+			WorldGen.PlaceSign(currentBulbPoint.X, currentBulbPoint.Y, bulbTile);
+			
+			currentBulbPoint = bulbCenterPoint6;
+			WorldgenMain.TunnelAToB(evilBiomeCenter, currentBulbPoint, outlineWidth, outlineHeight, tunnelSize, modStone, modStoneWall, overshoot);
+			WorldUtils.Gen(currentBulbPoint, outerBulbContainer, placeStone);
+			WorldUtils.Gen(currentBulbPoint, outerBulbContainer, placeStoneWall);
+			WorldUtils.Gen(currentBulbPoint, bulbContainer, clearTiles);
+			WorldGen.PlaceSign(currentBulbPoint.X, currentBulbPoint.Y, bulbTile);
+			
+			currentBulbPoint = bulbCenterPoint7;
+			WorldgenMain.TunnelAToB(evilBiomeCenter, currentBulbPoint, outlineWidth, outlineHeight, tunnelSize, modStone, modStoneWall, overshoot);
+			WorldUtils.Gen(currentBulbPoint, outerBulbContainer, placeStone);
+			WorldUtils.Gen(currentBulbPoint, outerBulbContainer, placeStoneWall);
+			WorldUtils.Gen(currentBulbPoint, bulbContainer, clearTiles);
+			WorldGen.PlaceSign(currentBulbPoint.X, currentBulbPoint.Y, bulbTile);
+			
+			currentBulbPoint = bulbCenterPoint8;
+			WorldgenMain.TunnelAToB(evilBiomeCenter, currentBulbPoint, outlineWidth, outlineHeight, tunnelSize, modStone, modStoneWall, overshoot);
+			WorldUtils.Gen(currentBulbPoint, outerBulbContainer, placeStone);
+			WorldUtils.Gen(currentBulbPoint, outerBulbContainer, placeStoneWall);
+			WorldUtils.Gen(currentBulbPoint, bulbContainer, clearTiles);
+			WorldGen.PlaceSign(currentBulbPoint.X, currentBulbPoint.Y, bulbTile);
+		}
+
+			
+			//WorldGen.digTunnel(pA.X, pA.Y, xDirToB, yDirToB, 10, 5);
+			//WorldUtils.Gen(pA, tunnel, clearTiles);
+			//WorldUtils.Gen(pB, tunnel, clearTiles);
+		}
     }
-    }
-}

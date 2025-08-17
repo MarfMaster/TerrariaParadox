@@ -25,7 +25,8 @@ public class AssecstoneBlockTile : ModdedBlockTile
         MinPick = 65;
         MineResist = 2f;
         TileID.Sets.Conversion.Stone[Type] = true;
-        //TileID.Sets.Stone[Type] = true;
+        Main.tileStone[Type] = true;
+        TileID.Sets.Stone[Type] = true;
         TileID.Sets.GeneralPlacementTiles[Type] = false;
         TileID.Sets.CanBeClearedDuringGeneration[Type] = false;
     }    
