@@ -12,10 +12,12 @@ public class WeaponImbueStickling : ModBuff
     {
         BuffID.Sets.IsAFlaskBuff[Type] = true;
         Main.meleeBuff[Type] = true;
+        Main.persistentBuff[Type] = true;
     }
 
     public override void Update(Player player, ref int buffIndex)
     {
         player.GetModPlayer<ParadoxPlayer>().WeaponImbueStickling = true;
+        player.MeleeEnchantActive = true;
     }
 }

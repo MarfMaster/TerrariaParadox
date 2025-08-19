@@ -142,20 +142,20 @@ Code Tasks:
 - Add visuals to Flask of Stickling and Stickled Debuff, need dust for this
 - Add flipped vines to flipped grass blocks, need dust too
 - Add IsFood set to food items and ask for 2 extra sprites for each(see examplefooditem)
-- Need dust for murky solution and need projectile sprite
-- Need dust for flipped grass wall, murky solution, murky water, parasitic powder
-- Need flipped vines
-- Need murky ice wall
-- Add flipped thorns
+- Add dust for murky solution and need projectile sprite
+- Add dust for flipped grass wall, murky solution, murky water, parasitic powder
+- Add flipped vines
+- Add murky ice wall
+- Add flipped thorns growth
 - Add flipped planter box
-- Add walking hive
 - Add assimilated demon eye
-- Add Swarm
+- Add Flipped Torch
+- Add Flipped Campfire
 - Add Nyxar(prolly after having designed the worldgenned biome though)
 
 Worldgen:
 - Add Ootheca Altars to naturally generated Flipside caverns
-- Add flipped vines and plants to worldgen
+- Add flipped vines, thorns and plants to worldgen
 - Add chat message to breaking Bulbs, add boss spawning progress counter(nyxar should spawn every 4th bulb)
 - Generate Flipped Pots and give them the correct loot xd
 - Dont Dig Up seed crash
