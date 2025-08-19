@@ -16,6 +16,7 @@ public class OothecaAltar : ModTile
     public override void SetStaticDefaults()
     {
         TileID.Sets.GeneralPlacementTiles[Type] = false;
+        TileID.Sets.CanBeClearedDuringGeneration[Type] = false;
         Main.tileLighted[Type] = true;
         Main.tileFrameImportant[Type] = true;
         Main.tileLavaDeath[Type] = false;

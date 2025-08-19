@@ -143,8 +143,8 @@ Code Tasks:
 - Add flipped vines to flipped grass blocks, need dust too
 - Add IsFood set to food items and ask for 2 extra sprites for each(see examplefooditem)
 - Need dust for murky solution and need projectile sprite
-- Introduce Parasyte "gun": Wait for animation, should be able to just register an item animation instead of a held projectile, since item animation doesn't play while it's on the ground, only in the inventory and whilst held in your hand, the just give the bullet an offset that looks natural
 - Need dust for flipped grass wall, murky solution, murky water, parasitic powder
+- Need flipped vines
 - Need murky ice wall
 - Add flipped thorns
 - Add flipped planter box
@@ -154,8 +154,9 @@ Code Tasks:
 - Add Nyxar(prolly after having designed the worldgenned biome though)
 
 Worldgen:
-- Generate flipped caverns into the underground but flipped upside-down based on steves idea and force the players gravity to flip when entering the underground flipside
-- Make Bioluminescent Bulbs accessible with a copper pick but make that very dangerous to do? Add chat message to breaking them, add boss spawning progress counter(nyxar should spawn every 4th bulb)
+- Add Ootheca Altars to naturally generated Flipside caverns
+- Add flipped vines and plants to worldgen
+- Add chat message to breaking Bulbs, add boss spawning progress counter(nyxar should spawn every 4th bulb)
 - Generate Flipped Pots and give them the correct loot xd
 - Dont Dig Up seed crash
 - Get fixed boi seed crash

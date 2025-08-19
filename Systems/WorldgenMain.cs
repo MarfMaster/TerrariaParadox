@@ -21,44 +21,48 @@ public class WorldgenMain : ModSystem
     }
 
     public static void TunnelAToB(Point pA, Point pB, int outlineWidth, int outlineHeight, int tunnelSize,
-        ushort blockType, ushort wallType, int overshoot)
+        ushort blockType, ushort wallType, int dugOvershoot, int tileOvershoot = 0)
     {
         GenShape outline = new Shapes.Circle(outlineWidth, outlineHeight);
         //GenShape tunnel = new Shapes.Circle(tunnelWidth, tunnelHeight);
         GenAction placeTiles = new Actions.SetTile(blockType);
         GenAction placeWalls = new Actions.PlaceWall(wallType);
-        GenAction clearTiles = new Actions.ClearTile(false);
-
-        //WorldUtils.Gen(pA, outline, placeTiles);
-        //WorldUtils.Gen(pA, outline, placeWalls);
-
-        //WorldUtils.Gen(pB, outline, placeTiles);
-        //WorldUtils.Gen(pB, outline, placeWalls);
 
         Vector2 directionFromAToB = pA.ToWorldCoordinates().DirectionTo(pB.ToWorldCoordinates());
         double xDirToB = directionFromAToB.X;
         double yDirToB = directionFromAToB.Y;
         float distanceF = pA.ToWorldCoordinates().Distance(pB.ToWorldCoordinates()) / 16f;
+        float distanceSQ = pA.ToWorldCoordinates().DistanceSQ(pB.ToWorldCoordinates());
         float distanceI = (int)distanceF;
-        float circleProximityDivisor = 10.5f;
+        float circleProximityDivisor = 15f;
 
-        for (int i = 0; i < (distanceF / 10f) - (distanceF / 40); i++)
+        for (int i = 0; i < (distanceF / 5f) + tileOvershoot; i++)
         {
             Point pA2 = new Point(
                 (int)(pA.X + (xDirToB * (distanceF / circleProximityDivisor) * (3 + i - (tunnelSize / 4f)))),
                 (int)(pA.Y + (yDirToB * (distanceF / circleProximityDivisor) * (3 + i - (tunnelSize / 4f)))));
+            
+            if (distanceSQ < pA.ToWorldCoordinates().DistanceSQ(pA2.ToWorldCoordinates()))
+            {
+                break;
+            }
 
             WorldUtils.Gen(pA2, outline, placeTiles);
             WorldUtils.Gen(pA2, outline, placeWalls);
         }
-
-        for (int i = 0; i < (distanceF / 10f) + overshoot; i++)
+        float tunnelProximityDivisor = 27f;
+        for (int i = 0; i < (distanceF / 5f) + dugOvershoot; i++)
         {
             Point pA2 = new Point(
-                (int)(pA.X + (xDirToB * (distanceF / circleProximityDivisor) * (i - (tunnelSize / 4f)))),
-                (int)(pA.Y + (yDirToB * (distanceF / circleProximityDivisor) * (i - (tunnelSize / 4f)))));
+                (int)(pA.X + (xDirToB * (distanceF / tunnelProximityDivisor) * (i - (tunnelSize / 4f)))),
+                (int)(pA.Y + (yDirToB * (distanceF / tunnelProximityDivisor) * (i - (tunnelSize / 4f)))));
+            
+            if (distanceSQ < pA.ToWorldCoordinates().DistanceSQ(pA2.ToWorldCoordinates()))
+            {
+                break;
+            }
 
-            WorldGen.digTunnel(pA2.X, pA2.Y, xDirToB, yDirToB, 10, tunnelSize);
+            WorldGen.digTunnel(pA2.X, pA2.Y, xDirToB, yDirToB, 5, tunnelSize);
         }
     }
 }
