@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using AltLibrary.Core.Generation;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -97,7 +98,7 @@ public class FlipsideGenerationPass : EvilBiomeGenerationPass
 
         GrowAntennae(bugCenterPoint, bugTopLeftPoint, bugBodyHollowWidth, bugBodyLength, surfaceHeightY);
 
-        PlaceBulbs(bugCenterPoint, bulbOffset, bulbOffset2, bulbContainerSize, worldSizeMultiplier);
+        PrepareBulbs(bugCenterPoint, bulbOffset, bulbOffset2, bulbContainerSize, worldSizeMultiplier);
 
         WorldUtils.Gen(bugCenterPoint, hollowBugBody, _clearTiles);
     }
@@ -203,22 +204,34 @@ public class FlipsideGenerationPass : EvilBiomeGenerationPass
         WorldGen.digTunnel(rightAntennae2.X - 3, rightAntennae2.Y + 7, 0, 2, 5, antennaeTunnelSize);
     }
 
-    private void PlaceBulbs(Point bugCenterPoint, Point bulbOffset1, Point bulbOffset2, float bulbContainerSize,
+    private void PrepareBulbs(Point bugCenterPoint, Point bulbOffset1, Point bulbOffset2, float bulbContainerSize,
         float worldSizeMultiplier)
     {
-        Point currentBulbPoint;
+        List<Point> bulbPointList = new List<Point>();
+        
         var bulbCenterPoint1 = bugCenterPoint + bulbOffset1;
+        bulbPointList.Add(bulbCenterPoint1);
+        
         var bulbCenterPoint2 = bugCenterPoint - bulbOffset1;
+        bulbPointList.Add(bulbCenterPoint2);
+        
         var bulbCenterPoint3 = bugCenterPoint + new Point(-bulbOffset1.X, bulbOffset1.Y);
+        bulbPointList.Add(bulbCenterPoint3);
+        
         var bulbCenterPoint4 = bugCenterPoint + new Point(bulbOffset1.X, -bulbOffset1.Y);
+        bulbPointList.Add(bulbCenterPoint4);
 
         var bulbCenterPoint5 = bugCenterPoint + new Point(bulbOffset2.X, bulbOffset1.Y / 3);
+        bulbPointList.Add(bulbCenterPoint5);
+        
         var bulbCenterPoint6 = bugCenterPoint + new Point(-bulbOffset2.X, bulbOffset1.Y / -3);
+        bulbPointList.Add(bulbCenterPoint6);
+        
         var bulbCenterPoint7 = bugCenterPoint + new Point(bulbOffset2.X, bulbOffset1.Y / -3);
+        bulbPointList.Add(bulbCenterPoint7);
+        
         var bulbCenterPoint8 = bugCenterPoint + new Point(-bulbOffset2.X, bulbOffset1.Y / 3);
-
-        GenShape outerBulbContainer = new Shapes.Circle((int)(bulbContainerSize * 1.75f));
-        GenShape bulbContainer = new Shapes.Circle((int)bulbContainerSize);
+        bulbPointList.Add(bulbCenterPoint8);
 
         var outlineWidth = 16;
         var outlineHeight = 16;
@@ -264,73 +277,27 @@ public class FlipsideGenerationPass : EvilBiomeGenerationPass
             }
         }
 
-        currentBulbPoint = bulbCenterPoint1;
-        WorldgenMain.TunnelAToB(bugCenterPoint, currentBulbPoint, outlineWidth, outlineHeight, tunnelSize, _modStone,
-            _modStoneWall, overshoot);
-        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, _placeStone);
-        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, _placeStoneWall);
-        WorldUtils.Gen(currentBulbPoint, bulbContainer, _clearTiles);
-        WorldGen.PlaceSign(currentBulbPoint.X, currentBulbPoint.Y, _bulbTile);
-
-        currentBulbPoint = bulbCenterPoint2;
-        WorldgenMain.TunnelAToB(bugCenterPoint, currentBulbPoint, outlineWidth, outlineHeight, tunnelSize, _modStone,
-            _modStoneWall, overshoot);
-        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, _placeStone);
-        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, _placeStoneWall);
-        WorldUtils.Gen(currentBulbPoint, bulbContainer, _clearTiles);
-        WorldGen.PlaceSign(currentBulbPoint.X, currentBulbPoint.Y, _bulbTile);
-
-        currentBulbPoint = bulbCenterPoint3;
-        WorldgenMain.TunnelAToB(bugCenterPoint, currentBulbPoint, outlineWidth, outlineHeight, tunnelSize, _modStone,
-            _modStoneWall, overshoot);
-        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, _placeStone);
-        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, _placeStoneWall);
-        WorldUtils.Gen(currentBulbPoint, bulbContainer, _clearTiles);
-        WorldGen.PlaceSign(currentBulbPoint.X, currentBulbPoint.Y, _bulbTile);
-
-        currentBulbPoint = bulbCenterPoint4;
-        WorldgenMain.TunnelAToB(bugCenterPoint, currentBulbPoint, outlineWidth, outlineHeight, tunnelSize, _modStone,
-            _modStoneWall, overshoot);
-        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, _placeStone);
-        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, _placeStoneWall);
-        WorldUtils.Gen(currentBulbPoint, bulbContainer, _clearTiles);
-        WorldGen.PlaceSign(currentBulbPoint.X, currentBulbPoint.Y, _bulbTile);
-
-        currentBulbPoint = bulbCenterPoint5;
-        WorldgenMain.TunnelAToB(bugCenterPoint, currentBulbPoint, outlineWidth, outlineHeight, tunnelSize, _modStone,
-            _modStoneWall, overshoot);
-        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, _placeStone);
-        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, _placeStoneWall);
-        WorldUtils.Gen(currentBulbPoint, bulbContainer, _clearTiles);
-        WorldGen.PlaceSign(currentBulbPoint.X, currentBulbPoint.Y, _bulbTile);
-
-        currentBulbPoint = bulbCenterPoint6;
-        WorldgenMain.TunnelAToB(bugCenterPoint, currentBulbPoint, outlineWidth, outlineHeight, tunnelSize, _modStone,
-            _modStoneWall, overshoot);
-        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, _placeStone);
-        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, _placeStoneWall);
-        WorldUtils.Gen(currentBulbPoint, bulbContainer, _clearTiles);
-        WorldGen.PlaceSign(currentBulbPoint.X, currentBulbPoint.Y, _bulbTile);
-
-        currentBulbPoint = bulbCenterPoint7;
-        WorldgenMain.TunnelAToB(bugCenterPoint, currentBulbPoint, outlineWidth, outlineHeight, tunnelSize, _modStone,
-            _modStoneWall, overshoot);
-        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, _placeStone);
-        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, _placeStoneWall);
-        WorldUtils.Gen(currentBulbPoint, bulbContainer, _clearTiles);
-        WorldGen.PlaceSign(currentBulbPoint.X, currentBulbPoint.Y, _bulbTile);
-
-        currentBulbPoint = bulbCenterPoint8;
-        WorldgenMain.TunnelAToB(bugCenterPoint, currentBulbPoint, outlineWidth, outlineHeight, tunnelSize, _modStone,
-            _modStoneWall, overshoot);
-        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, _placeStone);
-        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, _placeStoneWall);
-        WorldUtils.Gen(currentBulbPoint, bulbContainer, _clearTiles);
-        WorldGen.PlaceSign(currentBulbPoint.X, currentBulbPoint.Y, _bulbTile);
+        foreach (var p in bulbPointList)
+        {
+            WorldgenMain.TunnelAToB(bugCenterPoint, p, outlineWidth, outlineHeight, tunnelSize, _modStone,
+                _modStoneWall, overshoot);
+            BulbPoints.Add(p, bulbContainerSize);
+        }
     }
 
+    private static Dictionary<Point, float> BulbPoints = new Dictionary<Point, float>();
 
     public override void PostGenerateEvil()
     {
+        foreach (var p in BulbPoints.Keys)
+        {
+            GenShape outerBulbContainer = new Shapes.Circle((int)(BulbPoints[p] * 1.75f));
+            GenShape bulbContainer = new Shapes.Circle((int)BulbPoints[p]);
+            
+            WorldUtils.Gen(p, outerBulbContainer, _placeStone);
+            WorldUtils.Gen(p, outerBulbContainer, _placeStoneWall);
+            WorldUtils.Gen(p, bulbContainer, _clearTiles);
+            WorldGen.PlaceSign(p.X, p.Y, _bulbTile);
+        }
     }
 }
