@@ -10,6 +10,7 @@ public class FlipsideCactus : ModCactus
     private Asset<Texture2D> FruitTexture;
     private Asset<Texture2D> Texture;
 
+    public const int WorldGenChance = 30;
     public override void SetStaticDefaults()
     {
         // Makes Example Cactus grow on ExampleSand. You will need to use ExampleSolution to convert regular sand since ExampleCactus will not grow naturally yet.

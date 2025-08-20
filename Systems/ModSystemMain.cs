@@ -20,6 +20,7 @@ public partial class ParadoxSystem : ModSystem
         {
             { TileID.Grass, (ushort)ModContent.TileType<FlippedGrassBlock>() },
             { TileID.JungleGrass, (ushort)ModContent.TileType<FlippedJungleGrassBlock>() },
+            { TileID.MushroomGrass, (ushort)ModContent.TileType<FlippedJungleGrassBlock>() },
             { TileID.Stone, (ushort)ModContent.TileType<AssecstoneBlockTile>() },
             { TileID.IceBlock, (ushort)ModContent.TileType<MurkyIceBlockTile>() },
             { TileID.Sand, (ushort)ModContent.TileType<AssecsandBlockTile>() },
@@ -29,12 +30,12 @@ public partial class ParadoxSystem : ModSystem
             { TileID.Plants2, (ushort)ModContent.TileType<FlippedGrassPlants>() },
             //{TileID.Vines, (ushort)ModContent.TileType<FlippedVines>()},
             { TileID.JungleThorns, (ushort)ModContent.TileType<FlippedThorns>() },
-            { TileID.CorruptPlants, (ushort)ModContent.TileType<AssimilatedGrassTile>() },
-            { TileID.ShadowOrbs, (ushort)ModContent.TileType<BioluminescentBulb>() },
-            { TileID.Lamps, (ushort)ModContent.TileType<AssecstoneStalactitesSmallNatural>() },
-            { TileID.Stalactite, (ushort)ModContent.TileType<AssecstoneStalactitesNatural>() },
-            { TileID.SmallPiles, (ushort)ModContent.TileType<AssecstoneStalagmitesSmallNatural>() },
-            { TileID.LargePiles, (ushort)ModContent.TileType<AssecstoneStalagmitesNatural>() }
+            { (ushort)ModContent.TileType<AssimilatedGrassTile>(), (ushort)ModContent.TileType<AssimilatedGrassTile>() },
+            { (ushort)ModContent.TileType<BioluminescentBulb>(), (ushort)ModContent.TileType<BioluminescentBulb>() },
+            { (ushort)ModContent.TileType<AssecstoneStalactitesSmallNatural>(), (ushort)ModContent.TileType<AssecstoneStalactitesSmallNatural>() },
+            { (ushort)ModContent.TileType<AssecstoneStalactitesNatural>(), (ushort)ModContent.TileType<AssecstoneStalactitesNatural>() },
+            { (ushort)ModContent.TileType<AssecstoneStalagmitesSmallNatural>(), (ushort)ModContent.TileType<AssecstoneStalagmitesSmallNatural>() },
+            { (ushort)ModContent.TileType<AssecstoneStalagmitesNatural>(), (ushort)ModContent.TileType<AssecstoneStalagmitesNatural>() }
         };
         AssimilatedWalls = new Dictionary<ushort, ushort>
         {

@@ -125,7 +125,7 @@ public class AltBiomeMain : AltBiome
             WallID.SandstoneEcho
         );
 
-        EvilBiomeGenerationPass = new FlipsideGenerationPass();
+        EvilBiomeGenerationPass = new FlipsideEvilPass();
     }
 
     public IEnumerable<int> ProvideItemObtainability()

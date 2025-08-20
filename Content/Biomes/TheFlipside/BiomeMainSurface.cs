@@ -41,7 +41,7 @@ public class BiomeMainSurface : ModBiome
     // Calculate when the biome is active.
     public override bool IsBiomeActive(Player player)
     {
-        var infestedBlockCount = ModContent.GetInstance<BiomeBlockCounter>().InfestedBlockCount >= 300;
+        var infestedBlockCount = ModContent.GetInstance<WorldgenMain>().FlippedBlockCount >= 300;
 
         return infestedBlockCount;
     }
