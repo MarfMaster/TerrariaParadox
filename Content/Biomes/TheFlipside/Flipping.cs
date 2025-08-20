@@ -2,120 +2,42 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TerrariaParadox.Content.Tiles.Blocks;
-using TerrariaParadox.Content.Tiles.Plants;
-using TerrariaParadox.Content.Tiles.Walls;
 
 namespace TerrariaParadox.Content.Biomes.TheFlipside;
 
 public class Flipping : ModBiomeConversion
 {
-    public static int Assecsand;
-    public static int AssecSandstone;
-    public static int HardenedAssecsand;
-    public static int FlippedGrass;
-    public static int FlippedJungleGrass;
-    public static int MurkyIce;
     public static int Assecstone;
-    public static int FlippedThorn;
-
-
-    public static int AssecstoneWall;
-    public static int AssecstoneWallUnsafe;
-    public static int FlippedWall1;
-    public static int FlippedWall1Unsafe;
-    public static int FlippedWall2;
-    public static int FlippedWall2Unsafe;
-    public static int FlippedWall3;
-    public static int FlippedWall3Unsafe;
-    public static int FlippedWall4;
-    public static int FlippedWall4Unsafe;
-    public static int FlippedGrassWall;
-    public static int FlippedGrassWallUnsafe;
-    public static int AssecSandstoneWall;
-    public static int AssecSandstoneWallUnsafe;
-    public static int HardenedAssecsandWall;
-    public static int HardenedAssecsandWallUnsafe;
-    public static int MurkyIceWall;
-    public static int MurkyIceWallUnsafe;
 
     public override void PostSetupContent()
     {
         // Cache the conversion types.
-        Assecsand = ModContent.TileType<AssecsandBlockTile>();
-        AssecSandstone = ModContent.TileType<AssecsandstoneBlockTile>();
-        HardenedAssecsand = ModContent.TileType<HardenedAssecsandBlockTile>();
-        FlippedGrass = ModContent.TileType<FlippedGrassBlock>();
-        FlippedJungleGrass = ModContent.TileType<FlippedJungleGrassBlock>();
-        MurkyIce = ModContent.TileType<MurkyIceBlockTile>();
         Assecstone = ModContent.TileType<AssecstoneBlockTile>();
-        FlippedThorn = ModContent.TileType<FlippedThorns>();
-
-
-        AssecstoneWall = ModContent.WallType<AssecstoneWallTile>();
-        AssecstoneWallUnsafe = ModContent.WallType<AssecstoneWallTileUnsafe>();
-        //FlippedWall1 = ModContent.WallType<>();
-        //FlippedWall1Unsafe = ModContent.WallType<>();
-        //FlippedWall2 = ModContent.WallType<>();
-        //FlippedWall2Unsafe = ModContent.WallType<>();
-        //FlippedWall3 = ModContent.WallType<>();
-        //FlippedWall3Unsafe = ModContent.WallType<>();
-        //FlippedWall4 = ModContent.WallType<>();
-        //FlippedWall4Unsafe = ModContent.WallType<>();
-        FlippedGrassWall = ModContent.WallType<FlippedGrassWallTile>();
-        FlippedGrassWallUnsafe = ModContent.WallType<FlippedGrassWallTileUnsafe>();
-        AssecSandstoneWall = ModContent.WallType<AssecsandstoneWallTile>();
-        AssecSandstoneWallUnsafe = ModContent.WallType<AssecsandstoneWallTileUnsafe>();
-        HardenedAssecsandWall = ModContent.WallType<HardenedAssecsandWallTile>();
-        HardenedAssecsandWallUnsafe = ModContent.WallType<HardenedAssecsandWallTileUnsafe>();
-        //MurkyIceWall = ModContent.WallType<>();
-        //MurkyIceWallUnsafe = ModContent.WallType<>();
 
 
         // Go over every tile and add a conversion to it for our conversion type if they're part of the list of usual conversion tiles
         for (var i = 0; i < TileLoader.TileCount; i++)
+        {
             switch (i)
             {
-                case int sand when TileID.Sets.Conversion.Sand[i]:
-                {
-                    TileLoader.RegisterConversion(i, Type, ConvertSand);
-                    break;
-                }
-                case int sandstone when TileID.Sets.Conversion.Sandstone[i]:
-                {
-                    TileLoader.RegisterConversion(i, Type, ConvertSandstone);
-                    break;
-                }
-                case int hardenedsand when TileID.Sets.Conversion.HardenedSand[i]:
-                {
-                    TileLoader.RegisterConversion(i, Type, ConvertHardenedSand);
-                    break;
-                }
-                case int grass when TileID.Sets.Conversion.Grass[i]:
-                {
-                    TileLoader.RegisterConversion(i, Type, ConvertGrass);
-                    break;
-                }
-                case int jungle when TileID.Sets.Conversion.JungleGrass[i]:
-                {
-                    TileLoader.RegisterConversion(i, Type, ConvertJungleGrass);
-                    break;
-                }
-                case int ice when TileID.Sets.Conversion.Ice[i]:
-                {
-                    TileLoader.RegisterConversion(i, Type, ConvertIce);
-                    break;
-                }
                 case int stone when TileID.Sets.Conversion.Stone[i]:
                 {
                     TileLoader.RegisterConversion(i, Type, ConvertStone);
                     break;
                 }
-                case int thorns when TileID.Sets.Conversion.Thorn[i]:
-                {
-                    TileLoader.RegisterConversion(i, Type, ConvertThorn);
-                    break;
-                }
             }
+
+            if (ParadoxSystem.AssimilatedBlocks.ContainsKey((ushort)i) &&
+                (TileID.Sets.Conversion.Grass[i] ||
+                 TileID.Sets.Conversion.JungleGrass[i] ||
+                 TileID.Sets.Conversion.Sand[i] ||
+                 TileID.Sets.Conversion.Sandstone[i] ||
+                 TileID.Sets.Conversion.HardenedSand[i] ||
+                 TileID.Sets.Conversion.Ice[i] ||
+                 TileID.Sets.Conversion.Thorn[i]
+                ))
+                TileLoader.RegisterConversion(i, Type, ConvertTiles);
+        }
 
         // Register conversions for every natural wall
         for (var i = 0; i < WallLoader.WallCount; i++)
@@ -127,43 +49,14 @@ public class Flipping : ModBiomeConversion
                 WallID.Sets.Conversion.NewWall1[i] || // NewWalls are the underground wall variants 
                 WallID.Sets.Conversion.NewWall2[i] ||
                 WallID.Sets.Conversion.NewWall3[i] ||
-                WallID.Sets.Conversion.NewWall4[i])
+                WallID.Sets.Conversion.NewWall4[i]
+               )
                 WallLoader.RegisterConversion(i, Type, ConvertWalls);
     }
 
-    public bool ConvertSand(int i, int j, int type, int conversionType)
+    public bool ConvertTiles(int i, int j, int type, int conversionType)
     {
-        WorldGen.ConvertTile(i, j, Assecsand, true);
-        return false;
-    }
-
-    public bool ConvertSandstone(int i, int j, int type, int conversionType)
-    {
-        WorldGen.ConvertTile(i, j, AssecSandstone, true);
-        return false;
-    }
-
-    public bool ConvertHardenedSand(int i, int j, int type, int conversionType)
-    {
-        WorldGen.ConvertTile(i, j, HardenedAssecsand, true);
-        return false;
-    }
-
-    public bool ConvertGrass(int i, int j, int type, int conversionType)
-    {
-        WorldGen.ConvertTile(i, j, FlippedGrass, true);
-        return false;
-    }
-
-    public bool ConvertJungleGrass(int i, int j, int type, int conversionType)
-    {
-        WorldGen.ConvertTile(i, j, FlippedJungleGrass, true);
-        return false;
-    }
-
-    public bool ConvertIce(int i, int j, int type, int conversionType)
-    {
-        WorldGen.ConvertTile(i, j, MurkyIce, true);
+        WorldGen.ConvertTile(i, j, ParadoxSystem.AssimilatedBlocks[(ushort)type], true);
         return false;
     }
 
@@ -182,12 +75,6 @@ public class Flipping : ModBiomeConversion
         FindAndConvertTree(i, j, tileTypeAbove);*/
 
         WorldGen.ConvertTile(i, j, Assecstone, true);
-        return false;
-    }
-
-    public bool ConvertThorn(int i, int j, int type, int conversionType)
-    {
-        WorldGen.ConvertTile(i, j, FlippedThorn, true);
         return false;
     }
 
@@ -264,7 +151,8 @@ public class Flipping : ModBiomeConversion
 
     public bool ConvertWalls(int i, int j, int type, int conversionType)
     {
-        var wallType = ModContent.WallType<AssecstoneWallTileUnsafe>();
+        WorldGen.ConvertWall(i, j, ParadoxSystem.AssimilatedWalls[(ushort)type]);
+        /*var wallType = ModContent.WallType<AssecstoneWallTileUnsafe>();
         switch (type)
         {
             case int stone when WallID.Sets.Conversion.Stone[type]:
@@ -289,7 +177,7 @@ public class Flipping : ModBiomeConversion
             }
         }
 
-        WorldGen.ConvertWall(i, j, wallType);
+        WorldGen.ConvertWall(i, j, wallType);*/
         return false;
     }
 }

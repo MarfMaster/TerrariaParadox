@@ -24,7 +24,6 @@ public class AltBiomeMain : AltBiome
     public override string OuterTexture => "TerrariaParadox/Textures/UI/World/GenFlipsideProgressBar";
     public override Color OuterColor => new(35, 198, 138);
     public override IShoppingBiome Biome => ModContent.GetInstance<BiomeMainSurface>();
-
     public override string LocalizationCategory => "Biomes.TheFlipside";
     public override Color NameColor => OuterColor;
 
@@ -33,7 +32,7 @@ public class AltBiomeMain : AltBiome
         get
         {
             var context = new AltMaterialContext();
-            context.SetEvilHerb(ModContent.ItemType<FlippedHerb>());
+            context.SetEvilHerb(ModContent.ItemType<AssimilatedGrass>());
             context.SetEvilBar(ModContent.ItemType<ChitiniteBar>());
             context.SetEvilOre(ModContent.ItemType<ChitiniteOre>());
             context.SetVileInnard(ModContent.ItemType<EggCluster>());

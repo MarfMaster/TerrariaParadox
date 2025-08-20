@@ -10,21 +10,21 @@ namespace TerrariaParadox.Content.NPCs;
 
 public enum WormSegmentType
 {
-	/// <summary>
-	///     The head segment for the worm.  Only one "head" is considered to be active for any given worm
-	/// </summary>
-	Head,
+    /// <summary>
+    ///     The head segment for the worm.  Only one "head" is considered to be active for any given worm
+    /// </summary>
+    Head,
 
-	/// <summary>
-	///     The body segment.  Follows the segment in front of it
-	/// </summary>
-	Body,
+    /// <summary>
+    ///     The body segment.  Follows the segment in front of it
+    /// </summary>
+    Body,
 
-	/// <summary>
-	///     The tail segment.  Has the same AI as the body segments.  Only one "tail" is considered to be active for any given
-	///     worm
-	/// </summary>
-	Tail
+    /// <summary>
+    ///     The tail segment.  Has the same AI as the body segments.  Only one "tail" is considered to be active for any given
+    ///     worm
+    /// </summary>
+    Tail
 }
 
 /// <summary>

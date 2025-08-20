@@ -10,6 +10,6 @@ public class BiomeBlockCounter : ModSystem
     public override void TileCountsAvailable(ReadOnlySpan<int> tileCounts)
     {
         InfestedBlockCount = 0;
-        foreach (var i in TerrariaParadox.InfestedBlocks) InfestedBlockCount += tileCounts[i];
+        foreach (var i in ParadoxSystem.AssimilatedBlocks.Values) InfestedBlockCount += tileCounts[i];
     }
 }

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Enums;
 using Terraria.GameContent.Metadata;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -27,7 +28,7 @@ public enum PlantStage : byte
 // - Player.PlaceThing_Tiles_BlockPlacementForAssortedThings: check where type == 84 (grown herb)
 // - Player.ItemCheck_GetTileCutIgnoreList: maybe generalize?
 // TODO vanilla seeds to replace fully grown herb
-public class FlippedHerbTile : ModTile
+public class AssimilatedGrassTile : ModTile
 {
     public const int GrowChance = 250;
     private const int FrameWidth = 18; // A constant for readability and to kick out those magic numbers
@@ -141,10 +142,10 @@ public class FlippedHerbTile : ModTile
         var worldPosition = new Vector2(i, j).ToWorldCoordinates();
         var nearestPlayer = Main.player[Player.FindClosest(worldPosition, 16, 16)];
 
-        var herbItemType = ModContent.ItemType<FlippedHerb>();
+        var herbItemType = ModContent.ItemType<AssimilatedGrass>();
         var herbItemStack = 1;
 
-        var seedItemType = ModContent.ItemType<FlippedHerbSeeds>();
+        var seedItemType = ModContent.ItemType<AssimilatedGrassSeeds>();
         var seedItemStack = 1;
 
         if (nearestPlayer.active && (nearestPlayer.HeldItem.type == ItemID.StaffofRegrowth ||
@@ -174,16 +175,60 @@ public class FlippedHerbTile : ModTile
         return stage == PlantStage.Grown;
     }
 
+    /*public override void NearbyEffects(int i, int j, bool closer) //enable this for instant guaranteed blooming
+    {
+        var tile = Framing.GetTileSafely(i, j);
+        var stage = GetStage(i, j);
+
+        // Only blooms during new moon and blood moons
+        if (stage == PlantStage.Growing && !Main.IsItDay() && (Main.GetMoonPhase() == MoonPhase.Empty || Main.bloodMoon))
+        {
+            // Increase the x frame to change the stage
+            tile.TileFrameX += FrameWidth;
+
+            // If in multiplayer, sync the frame change
+            if (Main.netMode != NetmodeID.SinglePlayer) NetMessage.SendTileSquare(-1, i, j, 1);
+        }
+        else if (stage == PlantStage.Grown && Main.IsItDay())
+        {
+            // Decrease the x frame to change the stage
+            tile.TileFrameX -= FrameWidth;
+
+            // If in multiplayer, sync the frame change
+            if (Main.netMode != NetmodeID.SinglePlayer) NetMessage.SendTileSquare(-1, i, j, 1);
+        }
+    }*/
+
     public override void RandomUpdate(int i, int j)
     {
         var tile = Framing.GetTileSafely(i, j);
         var stage = GetStage(i, j);
 
         // Only grow to the next stage if there is a next stage. We don't want our tile turning pink!
-        if (stage != PlantStage.Grown)
+        // Only grow at night by chance
+        if (stage == PlantStage.Planted && !Main.IsItDay() && Main.rand.NextBool(5))
         {
             // Increase the x frame to change the stage
             tile.TileFrameX += FrameWidth;
+
+            // If in multiplayer, sync the frame change
+            if (Main.netMode != NetmodeID.SinglePlayer) NetMessage.SendTileSquare(-1, i, j, 1);
+        }
+
+        // Only blooms during new moon and blood moons
+        if (stage == PlantStage.Growing && !Main.IsItDay() &&
+            (Main.GetMoonPhase() == MoonPhase.Empty || Main.bloodMoon))
+        {
+            // Increase the x frame to change the stage
+            tile.TileFrameX += FrameWidth;
+
+            // If in multiplayer, sync the frame change
+            if (Main.netMode != NetmodeID.SinglePlayer) NetMessage.SendTileSquare(-1, i, j, 1);
+        }
+        else if (stage == PlantStage.Grown && Main.IsItDay())
+        {
+            // Decrease the x frame to change the stage
+            tile.TileFrameX -= FrameWidth;
 
             // If in multiplayer, sync the frame change
             if (Main.netMode != NetmodeID.SinglePlayer) NetMessage.SendTileSquare(-1, i, j, 1);

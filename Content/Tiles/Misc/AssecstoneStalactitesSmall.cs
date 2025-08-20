@@ -7,22 +7,22 @@ using TerrariaParadox.Content.Items.Tiles.Blocks;
 
 namespace TerrariaParadox.Content.Tiles.Misc;
 
-public class AssecstoneRubble1x2HangingNatural : ModdedRubbleNatural
+public class AssecstoneStalactitesSmallNatural : ModdedRubbleNatural
 {
-    public const int GrowChance = 160;
-    public override string TexturePath => "TerrariaParadox/Content/Tiles/Misc/AssecstoneRubble1x2Hanging";
+    public const int GrowChance = 100;
+    public override string TexturePath => "TerrariaParadox/Content/Tiles/Misc/AssecstoneStalactitesSmall";
     public override int OnMineDustType => ModContent.DustType<AssecstoneDust>();
-    public override TileObjectData TileStyle => TileObjectData.Style1x2Top;
+    public override TileObjectData TileStyle => TileObjectData.Style1x1;
     public override bool Grounded => false;
     public override bool Hanging => true;
     public override Color MapColor => new(59, 79, 101);
 }
 
-public class AssecstoneRubble1x2HangingFake : ModdedRubbleFake
+public class AssecstoneStalactitesSmallFake : ModdedRubbleFake
 {
-    public override string TexturePath => "TerrariaParadox/Content/Tiles/Misc/AssecstoneRubble1x2Hanging";
+    public override string TexturePath => "TerrariaParadox/Content/Tiles/Misc/AssecstoneStalactitesSmall";
     public override int OnMineDustType => ModContent.DustType<AssecstoneDust>();
-    public override TileObjectData TileStyle => TileObjectData.Style1x2Top;
+    public override TileObjectData TileStyle => TileObjectData.Style1x1;
     public override bool Grounded => false;
     public override bool Hanging => true;
     public override Color MapColor => new(59, 79, 101);
@@ -30,6 +30,6 @@ public class AssecstoneRubble1x2HangingFake : ModdedRubbleFake
 
     public override void RubblePlacementLine()
     {
-        FlexibleTileWand.RubblePlacementMedium.AddVariations(MaterialItemType, Type, 0, 1, 2, 3, 4, 5);
+        FlexibleTileWand.RubblePlacementSmall.AddVariations(MaterialItemType, Type, 0, 1, 2, 3, 4, 5);
     }
 }

@@ -12,31 +12,26 @@ namespace TerrariaParadox;
 
 public class FlipsideGenerationPass : EvilBiomeGenerationPass
 {
-    private ushort bulbTile;
-    private GenAction clearTiles;
-    private ushort modGrassBlock;
-    private ushort modJGrassBlock;
+    private ushort _bulbTile;
 
-    private ushort modStone;
-    private ushort modStoneWall;
-
-    private GenAction placeStone;
-    private GenAction placeStoneWall;
-    public override string ProgressMessage => "Unleashing parasitic lifeforms upon this world";
+    private GenAction _clearTiles;
+    private ushort _modStone;
+    private ushort _modStoneWall;
+    private GenAction _placeStone;
+    private GenAction _placeStoneWall;
+    public override string ProgressMessage => LangUtils.GetTextValue("Biomes.TheFlipside.AltBiomeMain.GenPassName");
     public override bool CanGenerateNearDungeonOcean => true;
 
     public override void GenerateEvil(int evilBiomePosition, int evilBiomePositionWestBound,
         int evilBiomePositionEastBound)
     {
-        modStone = (ushort)ModContent.TileType<AssecstoneBlockTile>();
-        modStoneWall = (ushort)ModContent.WallType<AssecstoneWallTileUnsafe>();
-        modGrassBlock = (ushort)ModContent.TileType<FlippedGrassBlock>();
-        modJGrassBlock = (ushort)ModContent.TileType<FlippedJungleGrassBlock>();
-        bulbTile = (ushort)ModContent.TileType<BioluminescentBulb>();
+        _modStone = (ushort)ModContent.TileType<AssecstoneBlockTile>();
+        _modStoneWall = (ushort)ModContent.WallType<AssecstoneWallTileUnsafe>();
+        _bulbTile = (ushort)ModContent.TileType<BioluminescentBulb>();
 
-        placeStone = new Actions.SetTile(modStone);
-        placeStoneWall = new Actions.PlaceWall(modStoneWall);
-        clearTiles = new Actions.ClearTile();
+        _placeStone = new Actions.SetTile(ParadoxSystem.AssimilatedBlocks[TileID.Stone]);
+        _placeStoneWall = new Actions.PlaceWall(ParadoxSystem.AssimilatedWalls[WallID.Stone]);
+        _clearTiles = new Actions.ClearTile();
 
         var worldSizeMultiplier = 1f;
         switch (WorldGen.GetWorldSize())
@@ -80,18 +75,16 @@ public class FlipsideGenerationPass : EvilBiomeGenerationPass
             (int)bugBodyLength * 2);
         GenVars.structures.AddProtectedStructure(bugRectangle);
 
-        Flipping(evilBiomePosition, evilBiomePositionWestBound, evilBiomePositionEastBound, bugRectangle.Bottom);
+        FirstFlipping(evilBiomePosition, evilBiomePositionWestBound, evilBiomePositionEastBound, bugRectangle.Bottom);
 
         //int x = WorldGen.genRand.Next(0, Main.maxTilesX);
-        var foundSurface = false;
+        //var foundSurface = false;
         var surfaceHeightY = 1;
         while (surfaceHeightY < Main.worldSurface)
         {
-            if (TerrariaParadox.InfestedBlocks.Contains(Main.tile[evilBiomeCenter, surfaceHeightY].TileType))
-            {
-                foundSurface = true;
+            if (ParadoxSystem.AssimilatedBlocks.ContainsValue(Main.tile[evilBiomeCenter, surfaceHeightY].TileType))
+                //foundSurface = true;
                 break;
-            }
 
             surfaceHeightY++;
         }
@@ -99,17 +92,17 @@ public class FlipsideGenerationPass : EvilBiomeGenerationPass
         GenShape greatBug = new Shapes.Circle((int)bugBodyLength, (int)bugBodyLength);
         GenShape hollowBugBody = new Shapes.Circle((int)bugBodyHollowWidth, (int)bugBodyHollowHeight);
 
-        WorldUtils.Gen(bugCenterPoint, greatBug, placeStone);
-        WorldUtils.Gen(bugCenterPoint, greatBug, placeStoneWall);
+        WorldUtils.Gen(bugCenterPoint, greatBug, _placeStone);
+        WorldUtils.Gen(bugCenterPoint, greatBug, _placeStoneWall);
 
         GrowAntennae(bugCenterPoint, bugTopLeftPoint, bugBodyHollowWidth, bugBodyLength, surfaceHeightY);
 
         PlaceBulbs(bugCenterPoint, bulbOffset, bulbOffset2, bulbContainerSize, worldSizeMultiplier);
 
-        WorldUtils.Gen(bugCenterPoint, hollowBugBody, clearTiles);
+        WorldUtils.Gen(bugCenterPoint, hollowBugBody, _clearTiles);
     }
 
-    private void Flipping(int evilBiomePosition, int evilBiomePositionWestBound, int evilBiomePositionEastBound,
+    private void FirstFlipping(int evilBiomePosition, int evilBiomePositionWestBound, int evilBiomePositionEastBound,
         int bugBottom)
     {
         var indexYCoordsMin = bugBottom + 40.0;
@@ -118,58 +111,41 @@ public class FlipsideGenerationPass : EvilBiomeGenerationPass
             indexYCoordsMin += WorldGen.genRand.Next(-2, 3);
             if (indexYCoordsMin < bugBottom + 30.0) indexYCoordsMin = bugBottom + 30.0;
             if (indexYCoordsMin > bugBottom + 50.0) indexYCoordsMin = bugBottom + 50.0;
-            var flag7 = false;
+            //var flag7 = false;
             var indexYCoordsMax = (int)GenVars.worldSurfaceLow;
             while (indexYCoordsMax < indexYCoordsMin)
             {
-                if (Main.tile[indexXCoords, indexYCoordsMax].HasTile)
-                {
-                    if (Main.tile[indexXCoords, indexYCoordsMax].TileType == TileID.Sand &&
-                        indexXCoords >= evilBiomePositionWestBound + WorldGen.genRand.Next(5) &&
-                        indexXCoords <= evilBiomePositionEastBound - WorldGen.genRand.Next(5))
-                        Main.tile[indexXCoords, indexYCoordsMax].TileType =
-                            (ushort)ModContent.TileType<AssecsandBlockTile>();
-                    if (indexYCoordsMax < GenVars.worldSurfaceHigh - 1.0 && !flag7)
-                    {
-                        if (Main.tile[indexXCoords, indexYCoordsMax].TileType == TileID.Dirt)
-                        {
-                            WorldGen.grassSpread = 0;
-                            WorldGen.SpreadGrass(indexXCoords, indexYCoordsMax, TileID.Dirt,
-                                ModContent.TileType<FlippedGrassBlock>());
-                        }
-                        else if (Main.tile[indexXCoords, indexYCoordsMax].TileType == TileID.Mud)
-                        {
-                            WorldGen.grassSpread = 0;
-                            WorldGen.SpreadGrass(indexXCoords, indexYCoordsMax, TileID.Mud,
-                                ModContent.TileType<FlippedJungleGrassBlock>());
-                        }
-                    }
+                var tile = Main.tile[indexXCoords, indexYCoordsMax];
+                if (tile.TileType == TileID.Sand &&
+                    indexXCoords >= evilBiomePositionWestBound + WorldGen.genRand.Next(5) &&
+                    indexXCoords <= evilBiomePositionEastBound - WorldGen.genRand.Next(5))
+                    tile.TileType =
+                        (ushort)ModContent.TileType<AssecsandBlockTile>();
 
-                    flag7 = true;
-                    if (Main.tile[indexXCoords, indexYCoordsMax].TileType == TileID.Stone &&
-                        indexXCoords >= evilBiomePositionWestBound + WorldGen.genRand.Next(5) &&
-                        indexXCoords <= evilBiomePositionEastBound - WorldGen.genRand.Next(5))
-                        Main.tile[indexXCoords, indexYCoordsMax].TileType =
-                            (ushort)ModContent.TileType<AssecstoneBlockTile>();
-                    if (Main.tile[indexXCoords, indexYCoordsMax].WallType == WallID.HardenedSand)
-                        Main.tile[indexXCoords, indexYCoordsMax].WallType =
-                            (ushort)ModContent.WallType<HardenedAssecsandWallTileUnsafe>();
-                    else if (Main.tile[indexXCoords, indexYCoordsMax].WallType == WallID.Sandstone)
-                        Main.tile[indexXCoords, indexYCoordsMax].WallType =
-                            (ushort)ModContent.WallType<AssecsandstoneWallTileUnsafe>();
-                    if (Main.tile[indexXCoords, indexYCoordsMax].TileType == TileID.Grass)
-                        Main.tile[indexXCoords, indexYCoordsMax].TileType =
-                            (ushort)ModContent.TileType<FlippedGrassBlock>();
-                    if (Main.tile[indexXCoords, indexYCoordsMax].TileType == TileID.IceBlock)
-                        Main.tile[indexXCoords, indexYCoordsMax].TileType =
-                            (ushort)ModContent.TileType<MurkyIceBlockTile>();
-                    else if (Main.tile[indexXCoords, indexYCoordsMax].TileType == TileID.Sandstone)
-                        Main.tile[indexXCoords, indexYCoordsMax].TileType =
-                            (ushort)ModContent.TileType<AssecsandstoneBlockTile>();
-                    else if (Main.tile[indexXCoords, indexYCoordsMax].TileType == TileID.HardenedSand)
-                        Main.tile[indexXCoords, indexYCoordsMax].TileType =
-                            (ushort)ModContent.TileType<HardenedAssecsandBlockTile>();
+                if (indexYCoordsMax < GenVars.worldSurfaceHigh - 1.0) //&& !flag7)
+                {
+                    if (tile.TileType == TileID.Dirt)
+                    {
+                        WorldGen.grassSpread = 0;
+                        WorldGen.SpreadGrass(indexXCoords, indexYCoordsMax, TileID.Dirt,
+                            ModContent.TileType<FlippedGrassBlock>());
+                    }
+                    else if (tile.TileType == TileID.Mud)
+                    {
+                        WorldGen.grassSpread = 0;
+                        WorldGen.SpreadGrass(indexXCoords, indexYCoordsMax, TileID.Mud,
+                            ModContent.TileType<FlippedJungleGrassBlock>());
+                    }
                 }
+
+                if (tile.HasTile)
+                    //flag7 = true;
+                    if (ParadoxSystem.AssimilatedBlocks.TryGetValue(tile.TileType, out var tileType))
+                        tile.TileType = tileType;
+
+                if (tile.WallType != WallID.None)
+                    if (ParadoxSystem.AssimilatedWalls.TryGetValue(tile.WallType, out var wallType))
+                        tile.WallType = wallType;
 
                 indexYCoordsMax++;
             }
@@ -197,11 +173,11 @@ public class FlipsideGenerationPass : EvilBiomeGenerationPass
         var antennaeTunnelSize = 8;
 
         WorldgenMain.TunnelAToB(leftAntennaeStart, leftAntennae1, antennaeOutlineSize, antennaeOutlineSize,
-            antennaeTunnelSize, modStone, modStoneWall, 2);
+            antennaeTunnelSize, _modStone, _modStoneWall, 2);
         WorldgenMain.TunnelAToB(leftAntennae1, leftAntennae2, antennaeOutlineSize, antennaeOutlineSize,
-            antennaeTunnelSize, modStone, modStoneWall, 2);
+            antennaeTunnelSize, _modStone, _modStoneWall, 2);
         WorldgenMain.TunnelAToB(leftAntennae3, leftAntennae2, antennaeOutlineSize, antennaeOutlineSize,
-            antennaeTunnelSize, modStone, modStoneWall, 3);
+            antennaeTunnelSize, _modStone, _modStoneWall, 3);
         WorldGen.digTunnel(leftAntennae1.X, leftAntennae1.Y, 0, 2, 5, antennaeTunnelSize);
         WorldGen.digTunnel(leftAntennae2.X - 5, leftAntennae2.Y - 5, 0, 2, 5, antennaeTunnelSize);
         WorldGen.digTunnel(leftAntennae2.X - 8, leftAntennae2.Y - 7, 0, 2, 5, antennaeTunnelSize);
@@ -212,11 +188,11 @@ public class FlipsideGenerationPass : EvilBiomeGenerationPass
         WorldGen.digTunnel(leftAntennae2.X + 3, leftAntennae2.Y + 7, 0, 2, 5, antennaeTunnelSize);
 
         WorldgenMain.TunnelAToB(rightAntennaeStart, rightAntennae1, antennaeOutlineSize, antennaeOutlineSize,
-            antennaeTunnelSize, modStone, modStoneWall, 2);
+            antennaeTunnelSize, _modStone, _modStoneWall, 2);
         WorldgenMain.TunnelAToB(rightAntennae1, rightAntennae2, antennaeOutlineSize, antennaeOutlineSize,
-            antennaeTunnelSize, modStone, modStoneWall, 2);
+            antennaeTunnelSize, _modStone, _modStoneWall, 2);
         WorldgenMain.TunnelAToB(rightAntennae3, rightAntennae2, antennaeOutlineSize, antennaeOutlineSize,
-            antennaeTunnelSize, modStone, modStoneWall, 3);
+            antennaeTunnelSize, _modStone, _modStoneWall, 3);
         WorldGen.digTunnel(rightAntennae1.X, rightAntennae1.Y, 0, 2, 5, antennaeTunnelSize);
         WorldGen.digTunnel(rightAntennae2.X + 5, rightAntennae2.Y - 5, 0, 2, 5, antennaeTunnelSize);
         WorldGen.digTunnel(rightAntennae2.X + 8, rightAntennae2.Y - 7, 0, 2, 5, antennaeTunnelSize);
@@ -289,68 +265,68 @@ public class FlipsideGenerationPass : EvilBiomeGenerationPass
         }
 
         currentBulbPoint = bulbCenterPoint1;
-        WorldgenMain.TunnelAToB(bugCenterPoint, currentBulbPoint, outlineWidth, outlineHeight, tunnelSize, modStone,
-            modStoneWall, overshoot);
-        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, placeStone);
-        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, placeStoneWall);
-        WorldUtils.Gen(currentBulbPoint, bulbContainer, clearTiles);
-        WorldGen.PlaceSign(currentBulbPoint.X, currentBulbPoint.Y, bulbTile);
+        WorldgenMain.TunnelAToB(bugCenterPoint, currentBulbPoint, outlineWidth, outlineHeight, tunnelSize, _modStone,
+            _modStoneWall, overshoot);
+        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, _placeStone);
+        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, _placeStoneWall);
+        WorldUtils.Gen(currentBulbPoint, bulbContainer, _clearTiles);
+        WorldGen.PlaceSign(currentBulbPoint.X, currentBulbPoint.Y, _bulbTile);
 
         currentBulbPoint = bulbCenterPoint2;
-        WorldgenMain.TunnelAToB(bugCenterPoint, currentBulbPoint, outlineWidth, outlineHeight, tunnelSize, modStone,
-            modStoneWall, overshoot);
-        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, placeStone);
-        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, placeStoneWall);
-        WorldUtils.Gen(currentBulbPoint, bulbContainer, clearTiles);
-        WorldGen.PlaceSign(currentBulbPoint.X, currentBulbPoint.Y, bulbTile);
+        WorldgenMain.TunnelAToB(bugCenterPoint, currentBulbPoint, outlineWidth, outlineHeight, tunnelSize, _modStone,
+            _modStoneWall, overshoot);
+        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, _placeStone);
+        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, _placeStoneWall);
+        WorldUtils.Gen(currentBulbPoint, bulbContainer, _clearTiles);
+        WorldGen.PlaceSign(currentBulbPoint.X, currentBulbPoint.Y, _bulbTile);
 
         currentBulbPoint = bulbCenterPoint3;
-        WorldgenMain.TunnelAToB(bugCenterPoint, currentBulbPoint, outlineWidth, outlineHeight, tunnelSize, modStone,
-            modStoneWall, overshoot);
-        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, placeStone);
-        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, placeStoneWall);
-        WorldUtils.Gen(currentBulbPoint, bulbContainer, clearTiles);
-        WorldGen.PlaceSign(currentBulbPoint.X, currentBulbPoint.Y, bulbTile);
+        WorldgenMain.TunnelAToB(bugCenterPoint, currentBulbPoint, outlineWidth, outlineHeight, tunnelSize, _modStone,
+            _modStoneWall, overshoot);
+        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, _placeStone);
+        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, _placeStoneWall);
+        WorldUtils.Gen(currentBulbPoint, bulbContainer, _clearTiles);
+        WorldGen.PlaceSign(currentBulbPoint.X, currentBulbPoint.Y, _bulbTile);
 
         currentBulbPoint = bulbCenterPoint4;
-        WorldgenMain.TunnelAToB(bugCenterPoint, currentBulbPoint, outlineWidth, outlineHeight, tunnelSize, modStone,
-            modStoneWall, overshoot);
-        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, placeStone);
-        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, placeStoneWall);
-        WorldUtils.Gen(currentBulbPoint, bulbContainer, clearTiles);
-        WorldGen.PlaceSign(currentBulbPoint.X, currentBulbPoint.Y, bulbTile);
+        WorldgenMain.TunnelAToB(bugCenterPoint, currentBulbPoint, outlineWidth, outlineHeight, tunnelSize, _modStone,
+            _modStoneWall, overshoot);
+        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, _placeStone);
+        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, _placeStoneWall);
+        WorldUtils.Gen(currentBulbPoint, bulbContainer, _clearTiles);
+        WorldGen.PlaceSign(currentBulbPoint.X, currentBulbPoint.Y, _bulbTile);
 
         currentBulbPoint = bulbCenterPoint5;
-        WorldgenMain.TunnelAToB(bugCenterPoint, currentBulbPoint, outlineWidth, outlineHeight, tunnelSize, modStone,
-            modStoneWall, overshoot);
-        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, placeStone);
-        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, placeStoneWall);
-        WorldUtils.Gen(currentBulbPoint, bulbContainer, clearTiles);
-        WorldGen.PlaceSign(currentBulbPoint.X, currentBulbPoint.Y, bulbTile);
+        WorldgenMain.TunnelAToB(bugCenterPoint, currentBulbPoint, outlineWidth, outlineHeight, tunnelSize, _modStone,
+            _modStoneWall, overshoot);
+        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, _placeStone);
+        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, _placeStoneWall);
+        WorldUtils.Gen(currentBulbPoint, bulbContainer, _clearTiles);
+        WorldGen.PlaceSign(currentBulbPoint.X, currentBulbPoint.Y, _bulbTile);
 
         currentBulbPoint = bulbCenterPoint6;
-        WorldgenMain.TunnelAToB(bugCenterPoint, currentBulbPoint, outlineWidth, outlineHeight, tunnelSize, modStone,
-            modStoneWall, overshoot);
-        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, placeStone);
-        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, placeStoneWall);
-        WorldUtils.Gen(currentBulbPoint, bulbContainer, clearTiles);
-        WorldGen.PlaceSign(currentBulbPoint.X, currentBulbPoint.Y, bulbTile);
+        WorldgenMain.TunnelAToB(bugCenterPoint, currentBulbPoint, outlineWidth, outlineHeight, tunnelSize, _modStone,
+            _modStoneWall, overshoot);
+        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, _placeStone);
+        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, _placeStoneWall);
+        WorldUtils.Gen(currentBulbPoint, bulbContainer, _clearTiles);
+        WorldGen.PlaceSign(currentBulbPoint.X, currentBulbPoint.Y, _bulbTile);
 
         currentBulbPoint = bulbCenterPoint7;
-        WorldgenMain.TunnelAToB(bugCenterPoint, currentBulbPoint, outlineWidth, outlineHeight, tunnelSize, modStone,
-            modStoneWall, overshoot);
-        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, placeStone);
-        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, placeStoneWall);
-        WorldUtils.Gen(currentBulbPoint, bulbContainer, clearTiles);
-        WorldGen.PlaceSign(currentBulbPoint.X, currentBulbPoint.Y, bulbTile);
+        WorldgenMain.TunnelAToB(bugCenterPoint, currentBulbPoint, outlineWidth, outlineHeight, tunnelSize, _modStone,
+            _modStoneWall, overshoot);
+        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, _placeStone);
+        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, _placeStoneWall);
+        WorldUtils.Gen(currentBulbPoint, bulbContainer, _clearTiles);
+        WorldGen.PlaceSign(currentBulbPoint.X, currentBulbPoint.Y, _bulbTile);
 
         currentBulbPoint = bulbCenterPoint8;
-        WorldgenMain.TunnelAToB(bugCenterPoint, currentBulbPoint, outlineWidth, outlineHeight, tunnelSize, modStone,
-            modStoneWall, overshoot);
-        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, placeStone);
-        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, placeStoneWall);
-        WorldUtils.Gen(currentBulbPoint, bulbContainer, clearTiles);
-        WorldGen.PlaceSign(currentBulbPoint.X, currentBulbPoint.Y, bulbTile);
+        WorldgenMain.TunnelAToB(bugCenterPoint, currentBulbPoint, outlineWidth, outlineHeight, tunnelSize, _modStone,
+            _modStoneWall, overshoot);
+        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, _placeStone);
+        WorldUtils.Gen(currentBulbPoint, outerBulbContainer, _placeStoneWall);
+        WorldUtils.Gen(currentBulbPoint, bulbContainer, _clearTiles);
+        WorldGen.PlaceSign(currentBulbPoint.X, currentBulbPoint.Y, _bulbTile);
     }
 
 

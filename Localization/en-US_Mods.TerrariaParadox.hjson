@@ -132,8 +132,8 @@ Items: {
 				Tooltip: ""
 			}
 
-			FlippedHerbSeeds: {
-				DisplayName: Flipped Herb Seeds
+			AssimilatedGrassSeeds: {
+				DisplayName: Assimilated Grass Seeds
 				Tooltip: ""
 			}
 		}
@@ -342,11 +342,6 @@ Items: {
 	}
 
 	Materials: {
-		AssimilatedFlesh: {
-			DisplayName: Assimilated Flesh
-			Tooltip: ""
-		}
-
 		BioluminescentGoop: {
 			DisplayName: Bioluminescent Goop
 			Tooltip: ""
@@ -367,8 +362,8 @@ Items: {
 			Tooltip: ""
 		}
 
-		FlippedHerb: {
-			DisplayName: Flipped Herb
+		AssimilatedGrass: {
+			DisplayName: Assimilated Grass
 			Tooltip: ""
 		}
 	}
@@ -429,9 +424,8 @@ Tiles: {
 	OothecaAltar.MapEntry: Ootheca Altar
 	ChitiniteOreTile.MapEntry: Chitinite Ore Tile
 	ChestTile.MapEntry0: Leechwood Chest
-	FlippedHerb.MapEntry: Flipped Herb
-	FlippedHerbTile.MapEntry: Flipped Herb Tile
 	FlippedThorns.MapEntry: Flipped Thorns
+	AssimilatedGrassTile.MapEntry: Assimilated Grass Tile
 }
 
 Projectiles: {

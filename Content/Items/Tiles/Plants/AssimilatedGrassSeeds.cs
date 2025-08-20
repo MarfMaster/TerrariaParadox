@@ -4,7 +4,7 @@ using TerrariaParadox.Content.Tiles.Plants;
 
 namespace TerrariaParadox.Content.Items.Tiles.Plants;
 
-public class FlippedHerbSeeds : ModItem
+public class AssimilatedGrassSeeds : ModItem
 {
     public override string LocalizationCategory => "Items.Tiles.Plants";
 
@@ -16,7 +16,7 @@ public class FlippedHerbSeeds : ModItem
 
     public override void SetDefaults()
     {
-        Item.DefaultToPlaceableTile(ModContent.TileType<FlippedHerbTile>());
+        Item.DefaultToPlaceableTile(ModContent.TileType<AssimilatedGrassTile>());
         Item.value = 20;
     }
 }

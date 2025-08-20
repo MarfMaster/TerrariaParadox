@@ -17,7 +17,7 @@ public class AssecstoneWallTileUnsafe : ModdedWallTile
     {
         WallID.Sets.Conversion.Stone[Type] = true;
         Main.wallBlend[Type] = WallID.Stone;
-        TerrariaParadox.WallHammerRequirement[Type] = 70;
+        ParadoxSystem.WallHammerRequirement[Type] = 70;
         WallID.Sets.CannotBeReplacedByWallSpread[Type] = true;
     }
 }

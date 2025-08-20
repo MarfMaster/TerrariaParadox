@@ -41,7 +41,7 @@ public class FlippedJungleGrassBlock : ModdedBlockTile
                 Main.tileMerge[i][Type] = true;
             }
 
-        TerrariaParadox.TileTransformsOnKill[Type] = true;
+        ParadoxSystem.TileTransformsOnKill[Type] = true;
         TileID.Sets.ForcedDirtMerging[Type] = true;
         TileID.Sets.Conversion.MergesWithDirtInASpecialWay[Type] = true;
     }
@@ -61,9 +61,9 @@ public class FlippedJungleGrassBlock : ModdedBlockTile
             {
                 above.ResetToType((ushort)ModContent.TileType<ParasiticMushroomTile>());
             }
-            else if (Main.rand.NextBool(FlippedHerbTile.GrowChance))
+            else if (Main.rand.NextBool(AssimilatedGrassTile.GrowChance))
             {
-                above.ResetToType((ushort)ModContent.TileType<FlippedHerbTile>());
+                above.ResetToType((ushort)ModContent.TileType<AssimilatedGrassTile>());
             }
             else if (Main.rand.NextBool(FlippedGrassPlants.GrowChance))
             {
