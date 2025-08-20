@@ -7,6 +7,7 @@ using TerrariaParadox.Content.Dusts.Tiles.Blocks;
 using TerrariaParadox.Content.Tiles.Misc;
 
 namespace TerrariaParadox.Content.Tiles.Blocks;
+
 public class MurkyIceBlockTile : ModdedBlockTile
 {
     public override bool SolidBlock => true;
@@ -14,10 +15,11 @@ public class MurkyIceBlockTile : ModdedBlockTile
     public override int OnMineDustType => ModContent.DustType<MurkyIceDust>();
     public override ushort VanillaFallbackTileAndMerge => TileID.IceBlock;
     public override SoundStyle TileMineSound => SoundID.Item50; //Ice Block mine sound
-    public override Color MapColor => new Color(42, 42, 79);
+    public override Color MapColor => new(42, 42, 79);
     public override int WaterfallStyleID => WaterStyleID.Corrupt;
     public override bool MergesWithItself => true;
     public override bool NameShowsOnMapHover => false;
+
     public override void CustomSetStaticDefaults()
     {
         TileID.Sets.Conversion.Ice[Type] = true;
@@ -34,12 +36,12 @@ public class MurkyIceBlockTile : ModdedBlockTile
 
     public override void RandomUpdate(int i, int j)
     {
-        Vector2 worldCoordinates = new Vector2(i, j).ToWorldCoordinates();
+        var worldCoordinates = new Vector2(i, j).ToWorldCoordinates();
         if (worldCoordinates.Y > Main.worldSurface) //below underground layer
         {
-            int frameX = Main.rand.Next(0, 3); //generate a random tileframe for alternate styles
-            Tile below = Framing.GetTileSafely(i, j + 1);
-            Tile below2 = Framing.GetTileSafely(i, j + 2);
+            var frameX = Main.rand.Next(0, 3); //generate a random tileframe for alternate styles
+            var below = Framing.GetTileSafely(i, j + 1);
+            var below2 = Framing.GetTileSafely(i, j + 2);
             if (!below.HasTile && Main.tile[i, j].BlockType == BlockType.Solid)
             {
                 if (Main.rand.NextBool(MurkyIcicles1x1Natural.GrowChance))

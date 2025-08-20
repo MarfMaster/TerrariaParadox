@@ -10,5 +10,5 @@ public class DoorOpen : ModdedDoorOpen
     public override int ClosedDoorType => ModContent.TileType<DoorClosed>();
     public override int DoorItemType => ModContent.ItemType<LeechwoodDoor>();
     public override int OnMineDustType => ModContent.DustType<LeechwoodDust>();
-    public override Color MapColor => new Color(37, 37, 50);
+    public override Color MapColor => new(37, 37, 50);
 }

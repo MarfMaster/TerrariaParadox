@@ -12,7 +12,8 @@ public class ChitiniteBreastplate : ModdedBreastplate
     public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(AttackSpeed);
     public override int Defense => 8;
     public override int Rarity => ItemRarityID.Blue;
-    public override int Value => PriceByRarity.fromItem(Item);    
+    public override int Value => PriceByRarity.fromItem(Item);
+
     public override void EquipEffects(Player player)
     {
         player.GetAttackSpeed(DamageClass.Generic) += AttackSpeed / 100f;

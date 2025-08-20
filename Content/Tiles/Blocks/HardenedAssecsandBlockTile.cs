@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
-using Terraria.Audio;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TerrariaParadox.Content.Dusts.Tiles.Blocks;
@@ -14,10 +14,11 @@ public class HardenedAssecsandBlockTile : ModdedBlockTile
     public override int OnMineDustType => ModContent.DustType<HardenedAssecsandDust>();
     public override ushort VanillaFallbackTileAndMerge => TileID.HardenedSand;
     public override SoundStyle TileMineSound => SoundID.Dig;
-    public override Color MapColor => new Color(38, 41, 72);
+    public override Color MapColor => new(38, 41, 72);
     public override int WaterfallStyleID => WaterStyleID.Corrupt;
     public override bool MergesWithItself => true;
     public override bool NameShowsOnMapHover => false;
+
     public override void CustomSetStaticDefaults()
     {
         TileID.Sets.Conversion.HardenedSand[Type] = true;

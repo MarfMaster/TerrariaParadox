@@ -1,5 +1,4 @@
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace TerrariaParadox.Content.Items.Materials;
 

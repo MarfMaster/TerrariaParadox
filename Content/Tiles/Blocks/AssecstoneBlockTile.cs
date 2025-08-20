@@ -16,10 +16,11 @@ public class AssecstoneBlockTile : ModdedBlockTile
     public override int OnMineDustType => ModContent.DustType<AssecstoneDust>();
     public override ushort VanillaFallbackTileAndMerge => TileID.Stone;
     public override SoundStyle TileMineSound => SoundID.Tink;
-    public override Color MapColor => new Color(69, 79, 101);
+    public override Color MapColor => new(69, 79, 101);
     public override int WaterfallStyleID => WaterStyleID.Corrupt;
     public override bool MergesWithItself => true;
     public override bool NameShowsOnMapHover => false;
+
     public override void CustomSetStaticDefaults()
     {
         MinPick = 65;
@@ -29,40 +30,49 @@ public class AssecstoneBlockTile : ModdedBlockTile
         TileID.Sets.Stone[Type] = true;
         TileID.Sets.GeneralPlacementTiles[Type] = false;
         TileID.Sets.CanBeClearedDuringGeneration[Type] = false;
-    }    
-    public override void RandomUpdate(int i, int j) 
+    }
+
+    public override void RandomUpdate(int i, int j)
     {
-        Vector2 worldCoordinates = new Vector2(i, j).ToWorldCoordinates();
-        Tile above = Framing.GetTileSafely(i, j - 1); //get tiles above
-        if (worldCoordinates.Y > Main.worldSurface) //below underground layer
+        var coordinates = new Point(i, j);
+        var above = Framing.GetTileSafely(i, j - 1); //get tiles above
+        if (coordinates.Y > Main.worldSurface) //below underground layer
         {
-            int frameX = Main.rand.Next(0, 6); //generate a random tileframe for alternate styles
-            
-            Tile above2 = Framing.GetTileSafely(i, j - 2);
-            if (!above.HasTile && Main.tile[i, j].BlockType == BlockType.Solid)  //check for empty space and whether this block is solid
+            var frameX = Main.rand.Next(0, 6); //generate a random tileframe for alternate styles
+
+            var above2 = Framing.GetTileSafely(i, j - 2);
+            if (!above.HasTile &&
+                Main.tile[i, j].BlockType == BlockType.Solid) //check for empty space and whether this block is solid
             {
                 if (Main.rand.NextBool(AssecstoneRubble1x1GroundedNatural.GrowChance)) //1 in X chance
                 {
-                    WorldGen.Place1x1(i, j - 1, (ushort)ModContent.TileType<AssecstoneRubble1x1GroundedNatural>(), 0); //place tile
+                    WorldGen.Place1x1(i, j - 1,
+                        (ushort)ModContent.TileType<AssecstoneRubble1x1GroundedNatural>()); //place tile
                     above.TileFrameX = (short)(frameX * 18); //reframe it so it cna show alternate styles
                 }
-                else if (Main.rand.NextBool(AssecstoneRubble1x2GroundedNatural.GrowChance) && !above2.HasTile) //1 in X chance and whether there's enough space
+                else if (Main.rand.NextBool(AssecstoneRubble1x2GroundedNatural.GrowChance) &&
+                         !above2.HasTile) //1 in X chance and whether there's enough space
                 {
                     WorldGen.Place1x2(i, j - 1, (ushort)ModContent.TileType<AssecstoneRubble1x2GroundedNatural>(), 0);
                     above.TileFrameX = (short)(frameX * 18); //need to reframe both tiles to the same frame
                     above2.TileFrameX = (short)(frameX * 18);
                 }
+
                 WorldGen.TileFrame(i, j - 1);
                 return;
             }
+
             //everything for hanging tiles it the same but adjusted for it hanging below instead of being grounded on top of this tile
-            Tile below = Framing.GetTileSafely(i, j + 1);
-            Tile below2 = Framing.GetTileSafely(i, j + 2);
-            if (!below.HasTile && Main.tile[i, j].BlockType == BlockType.Solid) 
+            var below = Framing.GetTileSafely(i, j + 1);
+            var below2 = Framing.GetTileSafely(i, j + 2);
+            if (!below.HasTile && Main.tile[i, j].BlockType == BlockType.Solid)
             {
                 if (Main.rand.NextBool(AssecstoneRubble1x1HangingNatural.GrowChance))
                 {
-                    below.ResetToType((ushort)ModContent.TileType<AssecstoneRubble1x1HangingNatural>()); //using resettotype here because there is no worldgen method for hanging 1x1 rubble
+                    below.ResetToType(
+                        (ushort)ModContent
+                            .TileType<
+                                AssecstoneRubble1x1HangingNatural>()); //using resettotype here because there is no worldgen method for hanging 1x1 rubble
                     below.TileFrameX = (short)(frameX * 18);
                 }
                 else if (Main.rand.NextBool(AssecstoneRubble1x2HangingNatural.GrowChance) && !below2.HasTile)
@@ -71,15 +81,15 @@ public class AssecstoneBlockTile : ModdedBlockTile
                     below.TileFrameX = (short)(frameX * 18);
                     below2.TileFrameX = (short)(frameX * 18);
                 }
+
                 WorldGen.TileFrame(i, j + 1);
             }
         }
-        if (!above.HasTile && Main.tile[i, j].BlockType == BlockType.Solid) 
+
+        if (!above.HasTile && Main.tile[i, j].BlockType == BlockType.Solid)
         {
-            if (Main.rand.NextBool(FlippedHerbTile.GrowChance / 3))
-            {
+            if (Main.rand.NextBool(FlippedHerbTile.GrowChance / 2))
                 above.ResetToType((ushort)ModContent.TileType<FlippedHerbTile>());
-            }
             WorldGen.TileFrame(i, j - 1);
         }
     }

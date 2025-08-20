@@ -5,8 +5,11 @@ namespace TerrariaParadox.Content.Projectiles.Tiles;
 
 public abstract class ModdedSandballProjectile : ModProjectile
 {
-    public virtual void CustomSetStaticDefaults(){}
-    public override void SetStaticDefaults() 
+    public virtual void CustomSetStaticDefaults()
+    {
+    }
+
+    public override void SetStaticDefaults()
     {
         ProjectileID.Sets.FallingBlockDoesNotFallThroughPlatforms[Type] = true;
         ProjectileID.Sets.ForcePlateDetection[Type] = true;

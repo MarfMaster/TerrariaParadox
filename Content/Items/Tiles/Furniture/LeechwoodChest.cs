@@ -13,6 +13,7 @@ public class LeechwoodChest : ModdedFurnitureItem
     public override bool Craftable => true;
     public override int MaterialType => ModContent.ItemType<Leechwood>();
     public override int MaterialAmount => ModdedChestTile.MaterialAmount;
+
     public override void RecipeExtraIngredients(Recipe recipe)
     {
         recipe.AddRecipeGroup(RecipeGroupID.IronBar, 2);

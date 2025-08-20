@@ -1,7 +1,5 @@
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
-using TerrariaParadox.Content.Buffs;
 
 namespace TerrariaParadox.Content.Items.Consumables.Buffs;
 

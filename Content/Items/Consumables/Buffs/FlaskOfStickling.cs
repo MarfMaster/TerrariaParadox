@@ -1,4 +1,3 @@
-using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -17,12 +16,10 @@ public class FlaskOfStickling : ModdedBuffItem
     public override SoundStyle ItemUseSound => SoundID.Item3;
     public override int Rarity => ItemRarityID.LightRed;
     public override int Value => 500;
+
     public override void AddRecipes()
     {
-        CreateRecipe().
-            AddIngredient(ItemID.BottledWater).
-            AddIngredient(ModContent.ItemType<Stickler>(), 2).
-            AddTile(TileID.ImbuingStation).
-            Register();
+        CreateRecipe().AddIngredient(ItemID.BottledWater).AddIngredient(ModContent.ItemType<Stickler>(), 2)
+            .AddTile(TileID.ImbuingStation).Register();
     }
 }

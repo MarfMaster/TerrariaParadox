@@ -7,6 +7,7 @@ namespace TerrariaParadox.Content.Debuffs;
 public class Flipped : ModBuff
 {
     public override string LocalizationCategory => "Debuffs";
+
     public override void SetStaticDefaults()
     {
         Main.debuff[Type] = true;

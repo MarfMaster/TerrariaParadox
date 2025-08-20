@@ -15,7 +15,7 @@ public class MurkyIcicles1x1Natural : ModdedRubbleNatural
     public override TileObjectData TileStyle => TileObjectData.Style1x1;
     public override bool Grounded => false;
     public override bool Hanging => true;
-    public override Color MapColor => new Color(64, 64, 101);
+    public override Color MapColor => new(64, 64, 101);
 }
 
 public class MurkyIcicles1x1Fake : ModdedRubbleFake
@@ -25,8 +25,9 @@ public class MurkyIcicles1x1Fake : ModdedRubbleFake
     public override TileObjectData TileStyle => TileObjectData.Style1x1;
     public override bool Grounded => false;
     public override bool Hanging => true;
-    public override Color MapColor => new Color(64, 64, 101);
+    public override Color MapColor => new(64, 64, 101);
     public override int MaterialItemType => ModContent.ItemType<MurkyIceBlock>();
+
     public override void RubblePlacementLine()
     {
         FlexibleTileWand.RubblePlacementSmall.AddVariations(MaterialItemType, Type, 0, 1, 2);

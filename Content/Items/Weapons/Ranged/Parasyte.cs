@@ -4,10 +4,10 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TerrariaParadox.Content.Items.Tiles.Blocks;
 using TerrariaParadox.Content.Projectiles.Weapons.Ranged;
 
 namespace TerrariaParadox.Content.Items.Weapons.Ranged;
+
 public class Parasyte : ModdedBasicItem
 {
     public override string LocalizationCategory => "Items.Weapons.Ranged";
@@ -24,6 +24,7 @@ public class Parasyte : ModdedBasicItem
     public override int Value => PriceByRarity.fromItem(Item);
     public override SoundStyle UseSound => SoundID.NPCHit8.WithVolumeScale(0.5f);
     public override bool UseTurn => false;
+
     public override void SetStaticDefaults()
     {
     }
@@ -37,23 +38,27 @@ public class Parasyte : ModdedBasicItem
         Item.noUseGraphic = true;
     }
 
-    public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type,
+    public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity,
+        int type,
         int damage, float knockback)
     {
-        int projectile = type;
-        Vector2 finalVelocity = velocity;
-        player.PickAmmo(Item, out int shoot, out float speed, out int ammoDamage, out float ammoKnockback, out int ammoType);
+        var projectile = type;
+        var finalVelocity = velocity;
+        player.PickAmmo(Item, out var shoot, out var speed, out var ammoDamage, out var ammoKnockback,
+            out var ammoType);
         switch (ammoType)
         {
-            case int normal when ammoType == ItemID.MusketBall | ammoType == ItemID.SilverBullet |
-                                 ammoType == ItemID.TungstenBullet:
+            case int normal when (ammoType == ItemID.MusketBall) | (ammoType == ItemID.SilverBullet) |
+                                 (ammoType == ItemID.TungstenBullet):
             {
                 projectile = ProjectileID.BulletHighVelocity;
                 finalVelocity = velocity / 3;
                 break;
             }
         }
-        Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<ParasyteHeldProjectile>(), damage, knockback, player.whoAmI,0, projectile);
+
+        Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<ParasyteHeldProjectile>(),
+            damage, knockback, player.whoAmI, 0, projectile);
         return false;
     }
 

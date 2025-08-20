@@ -11,7 +11,8 @@ public class AssecstoneWallTileUnsafe : ModdedWallTile
     public override bool PlayerPlaced => false;
     public override int OnMineDustType => ModContent.DustType<AssecstoneDust>();
     public override ushort VanillaFallbackTile => WallID.EbonstoneUnsafe;
-    public override Color MapColor => new Color(31, 36, 48);
+    public override Color MapColor => new(31, 36, 48);
+
     public override void CustomSetStaticDefaults()
     {
         WallID.Sets.Conversion.Stone[Type] = true;

@@ -8,11 +8,10 @@ namespace TerrariaParadox.Content.Items.Tiles.Blocks;
 public class HardenedAssecsandBlock : ModdedBlockItem
 {
     public override int TileType => ModContent.TileType<HardenedAssecsandBlockTile>();
+
     public override void AddRecipes()
     {
-        CreateRecipe().
-            AddIngredient(ModContent.ItemType<HardenedAssecsandWall>(), 4).
-            AddTile(TileID.WorkBenches).
-            Register();
+        CreateRecipe().AddIngredient(ModContent.ItemType<HardenedAssecsandWall>(), 4).AddTile(TileID.WorkBenches)
+            .Register();
     }
 }

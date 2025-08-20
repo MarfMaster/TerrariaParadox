@@ -2,13 +2,13 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using TerrariaParadox.Content.Items.Tiles.Blocks;
 using TerrariaParadox.Content.Tiles.Bars;
-using TerrariaParadox.Content.Tiles.Blocks;
 
 namespace TerrariaParadox.Content.Items.Tiles.Bars;
 
 public class ChitiniteBar : ModdedBarItem
 {
     public override int TileType => ModContent.TileType<ChitiniteBarTile>();
+
     public override void CustomSetDefaults()
     {
         Item.rare = ItemRarityID.Blue;
@@ -17,9 +17,6 @@ public class ChitiniteBar : ModdedBarItem
 
     public override void AddRecipes()
     {
-        CreateRecipe().
-            AddIngredient(ModContent.ItemType<ChitiniteOre>(), 3).
-            AddTile(TileID.Furnaces).
-            Register();
+        CreateRecipe().AddIngredient(ModContent.ItemType<ChitiniteOre>(), 3).AddTile(TileID.Furnaces).Register();
     }
 }

@@ -1,9 +1,8 @@
 using Microsoft.Xna.Framework;
-using Terraria.Audio;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ObjectData;
 using TerrariaParadox.Content.Dusts.Tiles.Blocks;
 
 namespace TerrariaParadox.Content.Tiles.Plants;
@@ -15,10 +14,11 @@ public class FlippedThorns : ModdedBlockTile
     public override int OnMineDustType => ModContent.DustType<AssecstoneDust>();
     public override ushort VanillaFallbackTileAndMerge => TileID.CorruptThorns;
     public override SoundStyle TileMineSound => SoundID.Grass;
-    public override Color MapColor => new Color(57, 63, 75);
+    public override Color MapColor => new(57, 63, 75);
     public override int WaterfallStyleID => WaterStyleID.Corrupt;
     public override bool MergesWithItself => false;
     public override bool NameShowsOnMapHover => true;
+
     public override void CustomSetStaticDefaults()
     {
         Main.tileCut[Type] = true;

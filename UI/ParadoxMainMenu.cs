@@ -2,12 +2,12 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria.ModLoader;
 
-namespace TerrariaParadox
+namespace TerrariaParadox;
+
+public class ParadoxMainMenu : ModMenu
 {
-    public class ParadoxMainMenu : ModMenu
-    {
-        public override string DisplayName => "TERRARIA: PARADOX";
-        
-        public override Asset<Texture2D> Logo => ModContent.Request<Texture2D>("TerrariaParadox/Textures/MainMenu/MenuLogo");
-    }
+    public override string DisplayName => "TERRARIA: PARADOX";
+
+    public override Asset<Texture2D> Logo =>
+        ModContent.Request<Texture2D>("TerrariaParadox/Textures/MainMenu/MenuLogo");
 }

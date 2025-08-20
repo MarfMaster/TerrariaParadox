@@ -6,10 +6,11 @@ namespace TerrariaParadox.Content.Gores.Tiles.Plants.Trees;
 
 public class LeechwoodLeaf : ModGore
 {
-
-    public override void SetStaticDefaults() {
+    public override void SetStaticDefaults()
+    {
         ChildSafety.SafeGore[Type] = true; // Leaf gore should appear regardless of the "Blood and Gore" setting
         GoreID.Sets.SpecialAI[Type] = 3; // Falling leaf behavior
-        GoreID.Sets.PaintedFallingLeaf[Type] = true; // This is used for all vanilla tree leaves, related to the bigger spritesheet for tile paints
+        GoreID.Sets.PaintedFallingLeaf[Type] =
+            true; // This is used for all vanilla tree leaves, related to the bigger spritesheet for tile paints
     }
 }

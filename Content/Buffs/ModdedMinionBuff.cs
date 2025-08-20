@@ -7,6 +7,7 @@ public abstract class ModdedMinionBuff : ModBuff
 {
     public override string LocalizationCategory => "Buffs.Minions";
     public abstract int MinionProjectileType { get; }
+
     public override void SetStaticDefaults()
     {
         Main.buffNoSave[Type] = true;

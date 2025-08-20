@@ -1,5 +1,4 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using TerrariaParadox.Content.Dusts.Tiles.Blocks;
@@ -9,10 +8,10 @@ namespace TerrariaParadox.Content.Debuffs;
 public class Stickled : ModBuff
 {
     public const float DamageReduction = 10f;
-    
+
     public override string LocalizationCategory => "Debuffs";
     public override LocalizedText Description => base.Description.WithFormatArgs(DamageReduction);
-    
+
     public override void SetStaticDefaults()
     {
         Main.debuff[Type] = true;

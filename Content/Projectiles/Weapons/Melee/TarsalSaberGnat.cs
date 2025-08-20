@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
@@ -18,6 +17,7 @@ public class TarsalSaberGnat : ModdedFriendlyHomingProjectile
     public override int MaxDetectRadius => 300;
     public override float RotationHelper => -MathHelper.PiOver2;
     public override int Pierce => 5;
+
     public override void OnSpawn(IEntitySource source)
     {
         Projectile.CritChance = (int)Projectile.ai[0];

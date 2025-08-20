@@ -1,13 +1,5 @@
 using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.DataStructures;
-using Terraria.Enums;
-using Terraria.GameContent;
-using Terraria.GameContent.ObjectInteractions;
-using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.ObjectData;
 using TerrariaParadox.Content.Dusts.Tiles.Blocks;
 using TerrariaParadox.Content.Items.Tiles.Furniture;
 
@@ -17,5 +9,5 @@ public class ChairTile : ModdedChairTile
 {
     public override int OnMineDustType => ModContent.DustType<LeechwoodDust>();
     public override int ItemType => ModContent.ItemType<LeechwoodChair>();
-    public override Color MapColor => new Color(37, 37, 50);
+    public override Color MapColor => new(37, 37, 50);
 }

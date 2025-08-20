@@ -30,20 +30,18 @@ public class HostPickaxe : ModdedBasicItem
         Item.pick = 85;
         Item.attackSpeedOnlyAffectsWeaponAnimation = true;
     }
+
     public override void AddRecipes()
     {
-        CreateRecipe().
-            AddIngredient(ModContent.ItemType<ChitiniteBar>(), 12).
-            AddIngredient(ModContent.ItemType<BioluminescentGoop>(), 6).
-            AddTile(TileID.Anvils).
-            Register();
-    }        
+        CreateRecipe().AddIngredient(ModContent.ItemType<ChitiniteBar>(), 12)
+            .AddIngredient(ModContent.ItemType<BioluminescentGoop>(), 6).AddTile(TileID.Anvils).Register();
+    }
+
     public override void ModifyTooltips(List<TooltipLine> tooltips)
     {
-        int ttindex = tooltips.FindLastIndex(t => t.Mod == "Terraria");
+        var ttindex = tooltips.FindLastIndex(t => t.Mod == "Terraria");
         if (ttindex != -1)
-        {
-            tooltips.Insert(ttindex + 1, new TooltipLine(Mod, "PickaxePower", Language.GetTextValue("ItemTooltip.NightmarePickaxe")));
-        }
+            tooltips.Insert(ttindex + 1,
+                new TooltipLine(Mod, "PickaxePower", Language.GetTextValue("ItemTooltip.NightmarePickaxe")));
     }
 }

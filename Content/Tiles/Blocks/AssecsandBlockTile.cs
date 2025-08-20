@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
-using Terraria.Audio;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TerrariaParadox.Content.Dusts.Tiles.Blocks;
@@ -15,7 +15,7 @@ public class AssecsandBlockTile : ModdedSandBlockTile
     public override int OnMineDustType => ModContent.DustType<AssecsandDust>();
     public override ushort VanillaFallbackTileAndMerge => TileID.Sand;
     public override SoundStyle TileMineSound => SoundID.Dig;
-    public override Color MapColor => new Color(12, 12, 18);
+    public override Color MapColor => new(12, 12, 18);
     public override int WaterfallStyleID => WaterStyleID.Corrupt;
     public override int SandballProjectileType => ModContent.ProjectileType<AssecsandballProjectile>();
     public override bool MergesWithItself => true;

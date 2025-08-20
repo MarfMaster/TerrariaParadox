@@ -1,4 +1,3 @@
-using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TerrariaParadox.Content.Items.Tiles.Walls;
@@ -12,9 +11,7 @@ public class AssecstoneBrick : ModdedBlockItem
 
     public override void AddRecipes()
     {
-        CreateRecipe().
-            AddIngredient(ModContent.ItemType<AssecstoneBrickWall>(), 4).
-            AddTile(TileID.WorkBenches).
-            Register();
+        CreateRecipe().AddIngredient(ModContent.ItemType<AssecstoneBrickWall>(), 4).AddTile(TileID.WorkBenches)
+            .Register();
     }
 }

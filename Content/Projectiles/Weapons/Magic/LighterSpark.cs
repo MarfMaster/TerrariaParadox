@@ -16,6 +16,7 @@ public class LighterSpark : ModdedFriendlyProjectile
     public override bool PassThroughBlocks => false;
     public override int Pierce => 2;
     public override float RotationHelper => 0;
+
     public override void CustomSetDefaults()
     {
         Projectile.usesLocalNPCImmunity = true;
@@ -27,12 +28,12 @@ public class LighterSpark : ModdedFriendlyProjectile
         AITimer1++;
         if (AITimer1 % 2 == 0)
         {
-            Dust Spark1 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Torch);
+            var Spark1 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Torch);
             Spark1.noGravity = true;
-            Dust Spark2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Torch);
+            var Spark2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Torch);
             Spark2.velocity *= 2f;
             Spark2.noGravity = true;
-            Dust Spark3 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Torch);
+            var Spark3 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Torch);
             Spark3.scale *= 1.6f;
             Spark3.noGravity = true;
         }

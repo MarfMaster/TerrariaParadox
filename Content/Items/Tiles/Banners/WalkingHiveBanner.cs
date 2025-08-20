@@ -4,5 +4,5 @@ namespace TerrariaParadox.Content.Items.Tiles.Banners;
 
 public class WalkingHiveBanner : ModdedBannerItem
 {
-    public override int BannerStyle => (int)(ModdedBannerTile.StyleID.WalkingHive);
+    public override int BannerStyle => (int)ModdedBannerTile.StyleID.WalkingHive;
 }

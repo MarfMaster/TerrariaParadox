@@ -1,24 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-	<!-- Import tModLoader mod properties -->
-	<Import Project="..\tModLoader.targets" />
+    <!-- Import tModLoader mod properties -->
+    <Import Project="..\tModLoader.targets"/>
 
-	<!-- General -->
-	<PropertyGroup>
-    <DotNetName Condition=" '$(OS)' == 'Unix' ">/usr/bin/dotnet</DotNetName>
-	</PropertyGroup>
-	<ItemGroup>
-	  <Folder Include="Localization\" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Reference Include="AltLibrary">
-	    <HintPath>..\ModAssemblies\AltLibrary_v2.1.0.7.dll</HintPath>
-	  </Reference>
-	  <Reference Include="PegasusLib">
-	    <HintPath>..\ModAssemblies\PegasusLib_v1.0.7.2.dll</HintPath>
-	  </Reference>
-	</ItemGroup>
+    <!-- General -->
+    <PropertyGroup>
+        <DotNetName Condition=" '$(OS)' == 'Unix' ">/usr/bin/dotnet</DotNetName>
+    </PropertyGroup>
+    <ItemGroup>
+        <Folder Include="Localization\"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Reference Include="AltLibrary">
+            <HintPath>..\ModAssemblies\AltLibrary_v2.1.0.7.dll</HintPath>
+        </Reference>
+        <Reference Include="PegasusLib">
+            <HintPath>..\ModAssemblies\PegasusLib_v1.0.7.2.dll</HintPath>
+        </Reference>
+    </ItemGroup>
 
-	<!-- References -->
+    <!-- References -->
 
 </Project>

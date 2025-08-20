@@ -1,6 +1,6 @@
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
 using TerrariaParadox.Content.Items.Tiles.Blocks;
 using TerrariaParadox.Content.Items.Tiles.Plants;
 using TerrariaParadox.Content.Projectiles.Consumables;
@@ -10,6 +10,7 @@ namespace TerrariaParadox.Content.Items.Consumables;
 public class MurkyWater : ModItem
 {
     public override string LocalizationCategory => "Items.Consumables";
+
     public override void SetDefaults()
     {
         Item.useStyle = 1;
@@ -32,8 +33,7 @@ public class MurkyWater : ModItem
 
     public override void AddRecipes()
     {
-        CreateRecipe(10).AddIngredient(ItemID.Bottle, 10).
-            AddIngredient(ModContent.ItemType<AssecsandBlock>()).
-            AddIngredient(ModContent.ItemType<FlippedSeeds>()).Register();
+        CreateRecipe(10).AddIngredient(ItemID.Bottle, 10).AddIngredient(ModContent.ItemType<AssecsandBlock>())
+            .AddIngredient(ModContent.ItemType<FlippedSeeds>()).Register();
     }
 }

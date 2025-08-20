@@ -14,10 +14,11 @@ public class ChitiniteOreTile : ModdedBlockTile
     public override int OnMineDustType => ModContent.DustType<ChitiniteOreDust>();
     public override ushort VanillaFallbackTileAndMerge => TileID.Stone;
     public override SoundStyle TileMineSound => SoundID.Tink;
-    public override Color MapColor => new Color(46, 126, 113);
+    public override Color MapColor => new(46, 126, 113);
     public override int WaterfallStyleID => WaterStyleID.Corrupt;
     public override bool MergesWithItself => true;
     public override bool NameShowsOnMapHover => true;
+
     public override void CustomSetStaticDefaults()
     {
         Main.tileLighted[Type] = true;

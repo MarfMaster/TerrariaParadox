@@ -1,7 +1,4 @@
-using Terraria.Audio;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
 
 namespace TerrariaParadox.Content.Items;
 
@@ -15,7 +12,11 @@ public abstract class ModdedFoodItem : ModItem
     public abstract bool UsesGulpSound { get; }
     public abstract int Rarity { get; }
     public abstract int Value { get; }
-    public virtual void CustomSetDefaults() { }
+
+    public virtual void CustomSetDefaults()
+    {
+    }
+
     public override void SetDefaults()
     {
         Item.rare = Rarity;

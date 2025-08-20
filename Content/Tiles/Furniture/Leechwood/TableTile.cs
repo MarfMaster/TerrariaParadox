@@ -7,5 +7,5 @@ namespace TerrariaParadox.Content.Tiles.Furniture.Leechwood;
 public class TableTile : ModdedTableTile
 {
     public override int OnMineDustType => ModContent.DustType<LeechwoodDust>();
-    public override Color MapColor => new Color(37, 37, 50);
+    public override Color MapColor => new(37, 37, 50);
 }

@@ -4,5 +4,4 @@ namespace TerrariaParadox;
 
 public partial class ParadoxProjectile : GlobalProjectile
 {
-    
 }

@@ -1,4 +1,3 @@
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -24,15 +23,16 @@ public class TarsalSaber : ModdedBasicItem
     public override int Value => PriceByRarity.fromItem(Item);
     public override bool UseTurn => true;
     public override SoundStyle UseSound => SoundID.Item1;
+
     public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
     {
-        Projectile.NewProjectile(Item.GetSource_FromThis(), target.Center, player.Center.DirectionTo(target.Center) * 5f, ModContent.ProjectileType<TarsalSaberGnat>(), damageDone / 2, Knockback, Main.myPlayer, player.GetTotalCritChance(DamageClass.Melee) + Item.crit);
+        Projectile.NewProjectile(Item.GetSource_FromThis(), target.Center,
+            player.Center.DirectionTo(target.Center) * 5f, ModContent.ProjectileType<TarsalSaberGnat>(), damageDone / 2,
+            Knockback, Main.myPlayer, player.GetTotalCritChance(DamageClass.Melee) + Item.crit);
     }
+
     public override void AddRecipes()
     {
-        CreateRecipe().
-            AddIngredient(ModContent.ItemType<ChitiniteBar>(), 10).
-            AddTile(TileID.Anvils).
-            Register();
+        CreateRecipe().AddIngredient(ModContent.ItemType<ChitiniteBar>(), 10).AddTile(TileID.Anvils).Register();
     }
 }

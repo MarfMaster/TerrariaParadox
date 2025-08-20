@@ -1,19 +1,17 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
-using TerrariaParadox.Content.Projectiles.Tiles.Sandball;
-using TerrariaParadox.Content.Tiles.Blocks;
 
 namespace TerrariaParadox.Content.Tiles;
 
 public abstract class ModdedSandBlockTile : ModdedBlockTile
 {
     public abstract int SandballProjectileType { get; }
+
     public override void SetStaticDefaults()
     {
         base.SetStaticDefaults();
-        
+
         Main.tileBrick[Type] = true;
         Main.tileSand[Type] = true;
         TileID.Sets.Conversion.Sand[Type] = true;
@@ -24,7 +22,7 @@ public abstract class ModdedSandBlockTile : ModdedBlockTile
         TileID.Sets.FallingBlockProjectile[Type] = new TileID.Sets.FallingBlockProjectileInfo(SandballProjectileType);
         TileID.Sets.isDesertBiomeSand[Type] = true;
         TileID.Sets.SandBiome[Type] = 1;
-        
+
         TileID.Sets.CanBeClearedDuringOreRunner[Type] = true;
         TileID.Sets.GeneralPlacementTiles[Type] = false;
         TileID.Sets.ChecksForMerge[Type] = true;

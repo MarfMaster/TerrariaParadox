@@ -1,9 +1,8 @@
 using Microsoft.Xna.Framework;
-using Terraria.Audio;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TerrariaParadox.Content.Dusts.Tiles.Blocks;
 using TerrariaParadox.Content.Tiles.Plants;
 
 namespace TerrariaParadox.Content.Tiles.Blocks;
@@ -15,7 +14,7 @@ public class FlippedGrassBlock : ModdedBlockTile
     public override int OnMineDustType => DustID.Dirt;
     public override ushort VanillaFallbackTileAndMerge => TileID.Dirt;
     public override SoundStyle TileMineSound => SoundID.Dig;
-    public override Color MapColor => new Color(69, 79, 101);
+    public override Color MapColor => new(69, 79, 101);
     public override int WaterfallStyleID => WaterStyleID.Corrupt;
     public override bool MergesWithItself => false;
     public override bool NameShowsOnMapHover => false;
@@ -35,14 +34,13 @@ public class FlippedGrassBlock : ModdedBlockTile
         Main.tileMerge[TileID.Dirt][Type] = true;
         Main.tileMerge[Type][TileID.Mud] = true;
         Main.tileMerge[TileID.Mud][Type] = true;
-        for (int i = 0; i < TileLoader.TileCount; i++)
-        {
+        for (var i = 0; i < TileLoader.TileCount; i++)
             if (TileID.Sets.Grass[i] || TileID.Sets.GrassSpecial[i])
             {
                 Main.tileMerge[Type][i] = true;
                 Main.tileMerge[i][Type] = true;
             }
-        }
+
         TerrariaParadox.TileTransformsOnKill[Type] = true;
         TileID.Sets.ForcedDirtMerging[Type] = true;
         TileID.Sets.Conversion.MergesWithDirtInASpecialWay[Type] = true;
@@ -50,17 +48,14 @@ public class FlippedGrassBlock : ModdedBlockTile
 
     public override bool CanReplace(int i, int j, int tileTypeBeingPlaced)
     {
-        if (tileTypeBeingPlaced == TileID.Dirt)
-        {
-            return false;
-        }
+        if (tileTypeBeingPlaced == TileID.Dirt) return false;
         return base.CanReplace(i, j, tileTypeBeingPlaced);
     }
 
-    public override void RandomUpdate(int i, int j) 
+    public override void RandomUpdate(int i, int j)
     {
-        Tile above = Framing.GetTileSafely(i, j - 1);
-        if (!above.HasTile && Main.tile[i, j].BlockType == BlockType.Solid) 
+        var above = Framing.GetTileSafely(i, j - 1);
+        if (!above.HasTile && Main.tile[i, j].BlockType == BlockType.Solid)
         {
             if (Main.rand.NextBool(ParasiticMushroomTile.ChanceToGrow))
             {
@@ -75,15 +70,13 @@ public class FlippedGrassBlock : ModdedBlockTile
                 above.ResetToType((ushort)ModContent.TileType<FlippedGrassPlants>());
                 above.TileFrameX = (short)(Main.rand.Next(0, FlippedGrassPlants.Frames - 1) * 18);
             }
+
             WorldGen.TileFrame(i, j - 1);
         }
     }
 
-    public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem) 
+    public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
     {
-        if (fail && !effectOnly) 
-        {
-            Framing.GetTileSafely(i, j).TileType = TileID.Dirt;
-        }
+        if (fail && !effectOnly) Framing.GetTileSafely(i, j).TileType = TileID.Dirt;
     }
 }

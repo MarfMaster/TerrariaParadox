@@ -5,25 +5,22 @@ namespace TerrariaParadox.Content.Biomes.TheFlipside;
 public class SurfaceBackgroundStyle : ModSurfaceBackgroundStyle
 {
     // Use this to keep far Backgrounds like the mountains.
-    public override void ModifyFarFades(float[] fades, float transitionSpeed) 
+    public override void ModifyFarFades(float[] fades, float transitionSpeed)
     {
-        for (int i = 0; i < fades.Length; i++) {
-            if (i == Slot) {
+        for (var i = 0; i < fades.Length; i++)
+            if (i == Slot)
+            {
                 fades[i] += transitionSpeed;
-                if (fades[i] > 1f) {
-                    fades[i] = 1f;
-                }
+                if (fades[i] > 1f) fades[i] = 1f;
             }
-            else {
+            else
+            {
                 fades[i] -= transitionSpeed;
-                if (fades[i] < 0f) {
-                    fades[i] = 0f;
-                }
+                if (fades[i] < 0f) fades[i] = 0f;
             }
-        }
     }
 
-    public override int ChooseFarTexture() 
+    public override int ChooseFarTexture()
     {
         return BackgroundTextureLoader.GetBackgroundSlot(Mod, "Textures/Backgrounds/TheFlipside/SurfaceFar");
     }
@@ -33,7 +30,7 @@ public class SurfaceBackgroundStyle : ModSurfaceBackgroundStyle
         return BackgroundTextureLoader.GetBackgroundSlot(Mod, "Textures/Backgrounds/TheFlipside/SurfaceMiddle");
     }
 
-    /*public override int ChooseCloseTexture(ref float scale, ref double parallax, ref float a, ref float b) 
+    /*public override int ChooseCloseTexture(ref float scale, ref double parallax, ref float a, ref float b)
     {
         return BackgroundTextureLoader.GetBackgroundSlot(Mod, "Textures/Backgrounds/TheFlipside/SurfaceClose");
     }*/

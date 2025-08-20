@@ -1,11 +1,15 @@
 using Terraria.ModLoader;
 
-namespace TerrariaParadox
+namespace TerrariaParadox;
+
+public class RecipeSystem : ModSystem
 {
-    public class RecipeSystem : ModSystem
+    #region Recipes
+
+    public override void AddRecipeGroups()
     {
-        #region Recipes
-        public override void AddRecipeGroups() => RecipeUtil.AddRecipeGroups();
-        #endregion
+        RecipeUtil.AddRecipeGroups();
     }
+
+    #endregion
 }

@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -6,14 +5,46 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using TerrariaParadox.Content.Biomes.TheFlipside;
 using TerrariaParadox.Content.Debuffs.DoT;
 using TerrariaParadox.Content.Gores.NPCs.Hostile.Miniboss;
 using TerrariaParadox.Content.Items.Tiles.Banners;
 using TerrariaParadox.Content.Projectiles.Hostile;
 
 namespace TerrariaParadox.Content.NPCs.Hostile.Miniboss;
+
 public class WalkingHive : ModdedHostileNPC
 {
+    public const int DefenseFromBack = 20;
+    private const float AggroDistance = 400f;
+    private const float PukeRange = 200f;
+    private const float ChaseRange = 800f;
+
+    private const int MaxBackShots = 10;
+
+    private const int TotalWanderingFrames = 5;
+
+    private const float TotalProvokedFrames = 8;
+    private const float ProvokedDuration = 120;
+
+    private const float TotalHuntingFrames = 5;
+    private const float IsExplodingStartTime = 20;
+    private const float ExplodeHuntDuration = 120;
+    private const float DeAggroDuration = 120;
+
+    private const float TotalPrepFrames = 8;
+    private const float PrepDuration = 120;
+    private const float TotalPukeFrames = 13;
+    private const float PukeDuration = 120;
+    private const float PukeDivisor = 5;
+    private const float TotalTiredFrames = 8;
+    private const float TiredDuration = 120;
+    private const float FleeDuration = 120;
+
+    private const float TotalExplosionFrames = 5;
+    private const float ExplodingDuration = 60;
+    private bool Hurt;
+    private bool IsExploding;
     public override int TotalAnimationFrames => 52;
     public override int Width => 48;
     public override int Height => 64;
@@ -27,85 +58,7 @@ public class WalkingHive : ModdedHostileNPC
     public override int BannerItemType => ModContent.ItemType<WalkingHiveBanner>();
 
     private ref float BackShots => ref AiTimer2;
-    public const int DefenseFromBack = 20;
-    private enum ActionState
-    {
-        Wandering,
-        Provoked,
-        Hunting,
-        Preparing,
-        Puking,
-        Tired,
-        Fleeing, //uses Hunting frames
-        Exploding
-    }
-    /// <summary>
-    /// Notes:
-    /// Wanders about in a random direction, until he notices the player.
-    /// Once he notices the player, he will first turn towards them for half a second and then turn his back to the player for about 2 secs and prepare to puke.
-    /// Once the prep is done, he will face the player to puke at them.
-    /// After having puked, he will keep facing that direction for a few secs and be tired.
-    /// If the player can't finish it off while it's tired, it'll then turn it's back to the player and try to run away for a few secs.
-    /// Then, it'll go back to preparing to puke if a nearby player is still alive. Else it'll go back to wandering.
-    /// Every time this enemy is hit in the back, it'll gain a stack and have increased defense against that hit, plus reflecting basic projectiles back at the player.
-    /// If it reaches a certain number of stacks, it'll explode in a big radius around it, dealing high aoe damage and dying in the process.
-    /// On death, no matter if it exploded or not, spawns 2 Swarms that are flung a decent distance to the right and left of it.
-    /// </summary>
-    private enum FrameState
-    {
-        Wandering1,
-        Wandering2,
-        Wandering3,
-        Wandering4,
-        Wandering5,
-        Provoked1,
-        Provoked2,
-        Provoked3,
-        Provoked4,
-        Provoked5,
-        Provoked6,
-        Provoked7,
-        Provoked8,
-        Hunting1,
-        Hunting2,
-        Hunting3,
-        Hunting4,
-        Hunting5,
-        Preparing1,
-        Preparing2,
-        Preparing3,
-        Preparing4,
-        Preparing5,
-        Preparing6,
-        Preparing7,
-        Preparing8,
-        Puking1,
-        Puking2,
-        Puking3,
-        Puking4,
-        Puking5,
-        Puking6,
-        Puking7,
-        Puking8,
-        Puking9,
-        Puking10,
-        Puking11,
-        Puking12,
-        Puking13,
-        Tired1,
-        Tired2,
-        Tired3,
-        Tired4,
-        Tired5,
-        Tired6,
-        Tired7,
-        Tired8,
-        Explode1,
-        Explode2,
-        Explode3,
-        Explode4,
-        Explode5
-    }    
+
     public override void CustomSetStaticDefaults()
     {
         NPCID.Sets.SpecificDebuffImmunity[Type][ModContent.BuffType<LeecharangBleed>()] = true;
@@ -118,11 +71,10 @@ public class WalkingHive : ModdedHostileNPC
 
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
-        float chance = 0f;
-        if (spawnInfo.Player.InModBiome(ModContent.GetInstance<Biomes.TheFlipside.BiomeMainSurface>()))// && !NPC.AnyNPCs(Type))so it can spawn one at a time
-        {
+        var chance = 0f;
+        if (spawnInfo.Player.InModBiome(ModContent
+                .GetInstance<BiomeMainSurface>())) // && !NPC.AnyNPCs(Type))so it can spawn one at a time
             chance = 0.001f;
-        }
         return chance;
     }
 
@@ -135,10 +87,7 @@ public class WalkingHive : ModdedHostileNPC
         {
             case (float)ActionState.Wandering:
             {
-                if (AiTimer == 1)
-                {
-                    NPC.frame.Y = (int)FrameState.Wandering1 * frameHeight;
-                }
+                if (AiTimer == 1) NPC.frame.Y = (int)FrameState.Wandering1 * frameHeight;
                 FrameDuration = 10;
                 if (NPC.velocity.X != 0)
                 {
@@ -149,20 +98,19 @@ public class WalkingHive : ModdedHostileNPC
                         NPC.frameCounter = 0;
 
                         if (NPC.frame.Y >= ((int)FrameState.Wandering5 + 1) * frameHeight)
-                        {
                             NPC.frame.Y = (int)FrameState.Wandering1 * frameHeight;
-                        }
                     }
                 }
                 else
                 {
                     NPC.frame.Y = (int)FrameState.Wandering1 * frameHeight;
                 }
+
                 break;
             }
             case (float)ActionState.Provoked:
             {
-                float dividend = ProvokedDuration / TotalProvokedFrames;
+                var dividend = ProvokedDuration / TotalProvokedFrames;
                 switch (AiTimer)
                 {
                     case float one when AiTimer < dividend:
@@ -206,6 +154,7 @@ public class WalkingHive : ModdedHostileNPC
                         break;
                     }
                 }
+
                 break;
             }
             case (float)ActionState.Hunting:
@@ -215,6 +164,7 @@ public class WalkingHive : ModdedHostileNPC
                     NPC.frame.Y = (int)FrameState.Hunting1 * frameHeight;
                     AiTimer++;
                 }
+
                 FrameDuration = 5;
                 if (NPC.velocity.X != 0)
                 {
@@ -225,20 +175,19 @@ public class WalkingHive : ModdedHostileNPC
                         NPC.frameCounter = 0;
 
                         if (NPC.frame.Y >= ((int)FrameState.Hunting5 + 1) * frameHeight)
-                        {
                             NPC.frame.Y = (int)FrameState.Hunting1 * frameHeight;
-                        }
                     }
                 }
                 else
                 {
                     NPC.frame.Y = (int)FrameState.Hunting1 * frameHeight;
                 }
+
                 break;
             }
             case (float)ActionState.Preparing:
             {
-                float dividend = PrepDuration / TotalPrepFrames;
+                var dividend = PrepDuration / TotalPrepFrames;
                 switch (AiTimer)
                 {
                     case float one when AiTimer < dividend:
@@ -282,11 +231,12 @@ public class WalkingHive : ModdedHostileNPC
                         break;
                     }
                 }
+
                 break;
             }
             case (float)ActionState.Puking:
             {
-                float dividend = PukeDuration / TotalPukeFrames;
+                var dividend = PukeDuration / TotalPukeFrames;
                 switch (AiTimer)
                 {
                     case float one when AiTimer < dividend:
@@ -355,11 +305,12 @@ public class WalkingHive : ModdedHostileNPC
                         break;
                     }
                 }
+
                 break;
             }
             case (float)ActionState.Tired:
             {
-                float dividend = TiredDuration / TotalTiredFrames;
+                var dividend = TiredDuration / TotalTiredFrames;
                 switch (AiTimer)
                 {
                     case float one when AiTimer < dividend:
@@ -403,14 +354,12 @@ public class WalkingHive : ModdedHostileNPC
                         break;
                     }
                 }
+
                 break;
             }
             case (float)ActionState.Fleeing:
             {
-                if (AiTimer == 1)
-                {
-                    NPC.frame.Y = (int)FrameState.Hunting1 * frameHeight;
-                }
+                if (AiTimer == 1) NPC.frame.Y = (int)FrameState.Hunting1 * frameHeight;
                 FrameDuration = 7;
                 NPC.frameCounter++;
                 if (NPC.frameCounter >= FrameDuration)
@@ -419,15 +368,14 @@ public class WalkingHive : ModdedHostileNPC
                     NPC.frameCounter = 0;
 
                     if (NPC.frame.Y >= ((int)FrameState.Hunting5 + 1) * frameHeight)
-                    {
                         NPC.frame.Y = (int)FrameState.Hunting1 * frameHeight;
-                    }
                 }
+
                 break;
             }
             case (float)ActionState.Exploding:
             {
-                float dividend = ExplodingDuration / TotalExplosionFrames;
+                var dividend = ExplodingDuration / TotalExplosionFrames;
                 switch (AiTimer)
                 {
                     case float one when AiTimer < dividend:
@@ -456,14 +404,12 @@ public class WalkingHive : ModdedHostileNPC
                         break;
                     }
                 }
+
                 break;
             }
         }
     }
-    private const float AggroDistance = 400f;
-    private const float PukeRange = 200f;
-    private const float ChaseRange = 800f;
-    private bool Hurt = false;
+
     public override void SendExtraAI(BinaryWriter writer)
     {
         writer.WriteFlags(Hurt, IsExploding);
@@ -476,7 +422,7 @@ public class WalkingHive : ModdedHostileNPC
 
     public override void AI()
     {
-        Player target = Main.player[NPC.target];
+        var target = Main.player[NPC.target];
         switch (AiState)
         {
             case (float)ActionState.Wandering:
@@ -532,11 +478,12 @@ public class WalkingHive : ModdedHostileNPC
     {
         return hitDirection == NPC.direction;
     }
+
     public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
     {
-        Player player = Main.player[NPC.target];
+        var player = Main.player[NPC.target];
         projectile.TryGetOwner(out player);
-        
+
         if (AiState == (float)ActionState.Wandering && player != null)
         {
             NPC.target = player.whoAmI;
@@ -547,17 +494,18 @@ public class WalkingHive : ModdedHostileNPC
         }
         else if (AiState == (float)ActionState.Wandering && player == null)
         {
-            NPC.TargetClosest(true);
+            NPC.TargetClosest();
             Hurt = true;
             AiState = (float)ActionState.Provoked;
             AiTimer = 0;
             NPC.netUpdate = true;
         }
-        
+
         if (projectile.CanBeReflected() && Backshot(hit.HitDirection))
         {
-            Projectile Reflected = Projectile.NewProjectileDirect(projectile.GetSource_FromThis(), projectile.position, projectile.velocity,
-                    projectile.type, projectile.damage, projectile.knockBack);
+            var Reflected = Projectile.NewProjectileDirect(projectile.GetSource_FromThis(), projectile.position,
+                projectile.velocity,
+                projectile.type, projectile.damage, projectile.knockBack);
             NPC.ReflectProjectile(Reflected);
             projectile.Kill();
         }
@@ -574,7 +522,7 @@ public class WalkingHive : ModdedHostileNPC
         }
         else if (AiState == (float)ActionState.Wandering && player == null)
         {
-            NPC.TargetClosest(true);
+            NPC.TargetClosest();
             Hurt = true;
             AiState = (float)ActionState.Provoked;
             NPC.netUpdate = true;
@@ -590,14 +538,9 @@ public class WalkingHive : ModdedHostileNPC
         }
     }
 
-    private const int MaxBackShots = 10;
-    private bool IsExploding = false;
     public override void HitEffect(NPC.HitInfo hit)
     {
-        if (Backshot(hit.HitDirection) && BackShots < MaxBackShots)
-        {
-            BackShots++;
-        }
+        if (Backshot(hit.HitDirection) && BackShots < MaxBackShots) BackShots++;
         if (Backshot(hit.HitDirection) && BackShots == MaxBackShots)
         {
             IsExploding = true;
@@ -605,35 +548,45 @@ public class WalkingHive : ModdedHostileNPC
             AiTimer = 0;
             NPC.netUpdate = true;
         }
+
         if (!Main.dedServ && NPC.life <= 0)
         {
-            Vector2 velocity1 = new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f);
-            Vector2 velocity2 = new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f);
-            Vector2 velocity3 = new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f);
-            Vector2 velocity4 = new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f);
-            Vector2 velocity5 = new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f);
-        
+            var velocity1 = new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f);
+            var velocity2 = new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f);
+            var velocity3 = new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f);
+            var velocity4 = new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f);
+            var velocity5 = new Vector2(Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f);
+
             if (AiState == (float)ActionState.Exploding)
             {
-                Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, velocity1 * 2f, ModContent.GoreType<WalkingHiveGore1>());
-                Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, velocity2 * 2f, ModContent.GoreType<WalkingHiveGore2>());
-                Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, velocity3 * 2f, ModContent.GoreType<WalkingHiveGore3>());
-                Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, velocity4 * 2f, ModContent.GoreType<WalkingHiveGore4>());
-                Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, velocity5 * 2f, ModContent.GoreType<WalkingHiveGore5>());
+                Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, velocity1 * 2f,
+                    ModContent.GoreType<WalkingHiveGore1>());
+                Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, velocity2 * 2f,
+                    ModContent.GoreType<WalkingHiveGore2>());
+                Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, velocity3 * 2f,
+                    ModContent.GoreType<WalkingHiveGore3>());
+                Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, velocity4 * 2f,
+                    ModContent.GoreType<WalkingHiveGore4>());
+                Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, velocity5 * 2f,
+                    ModContent.GoreType<WalkingHiveGore5>());
                 //call some explosion projectile
             }
             else
             {
-                Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, velocity1, ModContent.GoreType<WalkingHiveGore1>());
-                Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, velocity2, ModContent.GoreType<WalkingHiveGore2>());
-                Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, velocity3, ModContent.GoreType<WalkingHiveGore3>());
-                Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, velocity4, ModContent.GoreType<WalkingHiveGore4>());
-                Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, velocity5, ModContent.GoreType<WalkingHiveGore5>());
+                Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, velocity1,
+                    ModContent.GoreType<WalkingHiveGore1>());
+                Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, velocity2,
+                    ModContent.GoreType<WalkingHiveGore2>());
+                Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, velocity3,
+                    ModContent.GoreType<WalkingHiveGore3>());
+                Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, velocity4,
+                    ModContent.GoreType<WalkingHiveGore4>());
+                Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, velocity5,
+                    ModContent.GoreType<WalkingHiveGore5>());
             }
         }
     }
 
-    private const int TotalWanderingFrames = 5;
     private void Wandering(Player target)
     {
         AiTimer++;
@@ -652,15 +605,16 @@ public class WalkingHive : ModdedHostileNPC
             NPC.netUpdate = true;
             AiTimer = 0;
         }
-        
-        Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY, (int)target.gravDir, default);
+
+        Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY,
+            (int)target.gravDir);
 
         if (NPC.collideX)
         {
             NPC.velocity.X *= -1f;
             SetDirection();
         }
-        
+
         if (NPC.HasValidTarget && target.Distance(NPC.Center) < AggroDistance)
         {
             AiState = (float)ActionState.Provoked;
@@ -668,14 +622,12 @@ public class WalkingHive : ModdedHostileNPC
         }
     }
 
-    private const float TotalProvokedFrames = 8;
-    private const float ProvokedDuration = 120;
     private void Provoked(Player target, in bool Hurt)
     {
         if (Hurt)
         {
             AiTimer += 3;
-            
+
             NPC.velocity.X = 0;
             if (AiTimer >= ProvokedDuration)
             {
@@ -686,12 +638,12 @@ public class WalkingHive : ModdedHostileNPC
         else
         {
             NPC.velocity.X = 0;
-            
+
             if (target.Distance(NPC.Center) < AggroDistance)
             {
                 AiTimer++;
-            
-            
+
+
                 if (AiTimer >= ProvokedDuration)
                 {
                     AiState = (float)ActionState.Hunting;
@@ -712,10 +664,6 @@ public class WalkingHive : ModdedHostileNPC
         }
     }
 
-    private const float TotalHuntingFrames = 5;
-    private const float IsExplodingStartTime = 20;
-    private const float ExplodeHuntDuration = 120;
-    private const float DeAggroDuration = 120;
     private void Hunting(Player target, bool IsExploding)
     {
         if (IsExploding)
@@ -739,17 +687,16 @@ public class WalkingHive : ModdedHostileNPC
                     NPC.velocity.X = NPC.Center.DirectionTo(target.Center).X * 8f;
                     SetDirection();
 
-                    Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY,
-                        (int)target.gravDir, default);
+                    Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed,
+                        ref NPC.gfxOffY,
+                        (int)target.gravDir);
 
-                    if (NPC.collideX && NPC.velocity.Y >= 0)
-                    {
-                        NPC.velocity.Y += -8f;
-                    }
+                    if (NPC.collideX && NPC.velocity.Y >= 0) NPC.velocity.Y += -8f;
 
                     break;
                 }
             }
+
             if (AiTimer >= ExplodeHuntDuration)
             {
                 AiState = (float)ActionState.Exploding;
@@ -758,27 +705,22 @@ public class WalkingHive : ModdedHostileNPC
         }
         else
         {
-            if (AiTimer == 0)
-            {
-                AiTimer = 1;
-            }
+            if (AiTimer == 0) AiTimer = 1;
             NPC.velocity.X = NPC.Center.DirectionTo(target.Center).X * 4f;
             SetDirection();
 
-            Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY,
-                (int)target.gravDir, default);
+            Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed,
+                ref NPC.gfxOffY,
+                (int)target.gravDir);
 
-            if (NPC.collideX && NPC.velocity.Y >= 0)
-            {
-                NPC.velocity.Y += -8f;
-            }
-            
+            if (NPC.collideX && NPC.velocity.Y >= 0) NPC.velocity.Y += -8f;
+
             if (target.Distance(NPC.Center) < PukeRange && NPC.HasValidTarget)
             {
                 AiState = (float)ActionState.Preparing;
                 AiTimer = 0;
             }
-            
+
             if (target.Distance(NPC.Center) > ChaseRange || !NPC.HasValidTarget)
             {
                 AiTimer++;
@@ -787,19 +729,18 @@ public class WalkingHive : ModdedHostileNPC
 
                 if (AiTimer >= DeAggroDuration)
                 {
-                    AiState = (float)ActionState.Provoked; //go back to just provoked and have it automatically calm down if you're far enough away
+                    AiState = (float)ActionState
+                        .Provoked; //go back to just provoked and have it automatically calm down if you're far enough away
                     AiTimer = 100;
                 }
             }
         }
     }
 
-    private const float TotalPrepFrames = 8;
-    private const float PrepDuration = 120;
     private void Preparing(Player target)
     {
         AiTimer++;
-            
+
         NPC.velocity.X = 0;
 
         if (AiTimer >= PrepDuration)
@@ -808,20 +749,16 @@ public class WalkingHive : ModdedHostileNPC
             AiTimer = 0;
         }
     }
-    private const float TotalPukeFrames = 13;
-    private const float PukeDuration = 120;
-    private const float PukeDivisor = 5;
+
     private void Puking(Player target)
     {
         AiTimer++;
-            
+
         NPC.velocity.X = 0;
-        
+
         if (AiTimer % PukeDivisor == 0 && Main.netMode != NetmodeID.MultiplayerClient)
-        {
-            Projectile.NewProjectile(Projectile.InheritSource(this.Entity), NPC.Center,
+            Projectile.NewProjectile(Projectile.InheritSource(Entity), NPC.Center,
                 NPC.Center.DirectionTo(target.Center) * 10f, ModContent.ProjectileType<WalkingHivePuke>(), 10, 5f);
-        }
 
         if (AiTimer >= PukeDuration)
         {
@@ -829,12 +766,11 @@ public class WalkingHive : ModdedHostileNPC
             AiTimer = 0;
         }
     }
-    private const float TotalTiredFrames = 8;
-    private const float TiredDuration = 120;
+
     private void Tired(Player target)
     {
         AiTimer++;
-            
+
         NPC.velocity.X = 0;
 
         if (AiTimer >= TiredDuration)
@@ -851,20 +787,18 @@ public class WalkingHive : ModdedHostileNPC
             }
         }
     }
-    private const float FleeDuration = 120;
+
     private void Fleeing(Player target)
     {
         AiTimer++;
-        
+
         NPC.velocity.X = NPC.Center.DirectionTo(target.Center).X * -3f;
         SetDirection();
-        
-        Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY, (int)target.gravDir, default);
-        
-        if (NPC.collideX && NPC.velocity.Y >= 0)
-        {
-            NPC.velocity.Y += -8f;
-        }
+
+        Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY,
+            (int)target.gravDir);
+
+        if (NPC.collideX && NPC.velocity.Y >= 0) NPC.velocity.Y += -8f;
 
         if (AiTimer >= FleeDuration)
         {
@@ -881,18 +815,13 @@ public class WalkingHive : ModdedHostileNPC
         }
     }
 
-    private const float TotalExplosionFrames = 5;
-    private const float ExplodingDuration = 60;
     private void Exploding(Player target)
     {
         AiTimer++;
-        
+
         NPC.velocity.X = 0;
 
-        if (AiTimer >= ExplodingDuration && Main.netMode != NetmodeID.MultiplayerClient)
-        {
-            NPC.StrikeInstantKill();
-        }
+        if (AiTimer >= ExplodingDuration && Main.netMode != NetmodeID.MultiplayerClient) NPC.StrikeInstantKill();
     }
 
     public override void OnKill()
@@ -900,7 +829,7 @@ public class WalkingHive : ModdedHostileNPC
         if (AiState == (float)ActionState.Exploding && Main.netMode != NetmodeID.MultiplayerClient)
         {
             Projectile.NewProjectileDirect(NPC.GetSource_Death(), NPC.Center, Vector2.Zero,
-                ModContent.ProjectileType<WalkingHiveExplosion>(), (int)BaseContactDamage * 2, 1f);
+                ModContent.ProjectileType<WalkingHiveExplosion>(), BaseContactDamage * 2, 1f);
             SoundEngine.PlaySound(SoundID.DD2_KoboldExplosion, NPC.Center);
         }
     }
@@ -909,5 +838,89 @@ public class WalkingHive : ModdedHostileNPC
     {
         NPC.direction = NPC.velocity.X > 0f ? 1 : -1;
     }
-    
+
+    private enum ActionState
+    {
+        Wandering,
+        Provoked,
+        Hunting,
+        Preparing,
+        Puking,
+        Tired,
+        Fleeing, //uses Hunting frames
+        Exploding
+    }
+
+    /// <summary>
+    ///     Notes:
+    ///     Wanders about in a random direction, until he notices the player.
+    ///     Once he notices the player, he will first turn towards them for half a second and then turn his back to the player
+    ///     for about 2 secs and prepare to puke.
+    ///     Once the prep is done, he will face the player to puke at them.
+    ///     After having puked, he will keep facing that direction for a few secs and be tired.
+    ///     If the player can't finish it off while it's tired, it'll then turn it's back to the player and try to run away for
+    ///     a few secs.
+    ///     Then, it'll go back to preparing to puke if a nearby player is still alive. Else it'll go back to wandering.
+    ///     Every time this enemy is hit in the back, it'll gain a stack and have increased defense against that hit, plus
+    ///     reflecting basic projectiles back at the player.
+    ///     If it reaches a certain number of stacks, it'll explode in a big radius around it, dealing high aoe damage and
+    ///     dying in the process.
+    ///     On death, no matter if it exploded or not, spawns 2 Swarms that are flung a decent distance to the right and left
+    ///     of it.
+    /// </summary>
+    private enum FrameState
+    {
+        Wandering1,
+        Wandering2,
+        Wandering3,
+        Wandering4,
+        Wandering5,
+        Provoked1,
+        Provoked2,
+        Provoked3,
+        Provoked4,
+        Provoked5,
+        Provoked6,
+        Provoked7,
+        Provoked8,
+        Hunting1,
+        Hunting2,
+        Hunting3,
+        Hunting4,
+        Hunting5,
+        Preparing1,
+        Preparing2,
+        Preparing3,
+        Preparing4,
+        Preparing5,
+        Preparing6,
+        Preparing7,
+        Preparing8,
+        Puking1,
+        Puking2,
+        Puking3,
+        Puking4,
+        Puking5,
+        Puking6,
+        Puking7,
+        Puking8,
+        Puking9,
+        Puking10,
+        Puking11,
+        Puking12,
+        Puking13,
+        Tired1,
+        Tired2,
+        Tired3,
+        Tired4,
+        Tired5,
+        Tired6,
+        Tired7,
+        Tired8,
+        Explode1,
+        Explode2,
+        Explode3,
+        Explode4,
+        Explode5
+    }
 }

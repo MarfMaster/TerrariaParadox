@@ -1,21 +1,20 @@
-using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TerrariaParadox.Content.Tiles.Blocks;
 using TerrariaParadox.Content.Tiles.Plants;
 
 namespace TerrariaParadox.Content.Items.Tiles.Plants;
 
-
-public class FlippedHerbSeeds : ModItem 
+public class FlippedHerbSeeds : ModItem
 {
     public override string LocalizationCategory => "Items.Tiles.Plants";
-    public override void SetStaticDefaults() 
+
+    public override void SetStaticDefaults()
     {
         ItemID.Sets.DisableAutomaticPlaceableDrop[Type] = true;
         Item.ResearchUnlockCount = 25;
     }
-    public override void SetDefaults() 
+
+    public override void SetDefaults()
     {
         Item.DefaultToPlaceableTile(ModContent.TileType<FlippedHerbTile>());
         Item.value = 20;

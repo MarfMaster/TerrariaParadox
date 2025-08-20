@@ -1,9 +1,5 @@
 using System;
-using System.Buffers;
-using System.Collections.Generic;
-using Terraria;
 using Terraria.ModLoader;
-using TerrariaParadox.Content.Tiles.Blocks;
 
 namespace TerrariaParadox;
 
@@ -14,11 +10,6 @@ public class BiomeBlockCounter : ModSystem
     public override void TileCountsAvailable(ReadOnlySpan<int> tileCounts)
     {
         InfestedBlockCount = 0;
-        foreach (var i in TerrariaParadox.InfestedBlocks)
-        {
-            InfestedBlockCount += tileCounts[i];
-        }
+        foreach (var i in TerrariaParadox.InfestedBlocks) InfestedBlockCount += tileCounts[i];
     }
-    
-    
 }

@@ -4,5 +4,5 @@ namespace TerrariaParadox.Content.Items.Tiles.Banners;
 
 public class FlatwormBanner : ModdedBannerItem
 {
-    public override int BannerStyle => (int)(ModdedBannerTile.StyleID.Flatworm);
+    public override int BannerStyle => (int)ModdedBannerTile.StyleID.Flatworm;
 }

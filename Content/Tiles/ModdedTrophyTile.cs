@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -10,6 +9,11 @@ namespace TerrariaParadox.Content.Tiles;
 
 public abstract class ModdedTrophyTile : ModTile
 {
+    /// <summary>
+    ///     Determines which vanilla tile to revert to if the mod is unloaded. Defaults to 0 for Dirt.
+    /// </summary>
+    public abstract ushort VanillaFallbackTile { get; }
+
     public override void SetStaticDefaults()
     {
         Main.tileFrameImportant[Type] = true;
@@ -23,8 +27,4 @@ public abstract class ModdedTrophyTile : ModTile
         AddMapEntry(new Color(120, 85, 60), Language.GetText("MapObject.Trophy"));
         DustType = 7;
     }
-    /// <summary>
-    /// Determines which vanilla tile to revert to if the mod is unloaded. Defaults to 0 for Dirt.
-    /// </summary>
-    public abstract ushort VanillaFallbackTile { get; }
 }

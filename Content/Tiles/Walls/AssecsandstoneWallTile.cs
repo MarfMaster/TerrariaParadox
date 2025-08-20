@@ -10,7 +10,8 @@ public class AssecsandstoneWallTile : ModdedWallTile
     public override bool PlayerPlaced => true;
     public override int OnMineDustType => ModContent.DustType<AssecsandstoneDust>();
     public override ushort VanillaFallbackTile => WallID.CorruptSandstoneEcho;
-    public override Color MapColor => new Color(25, 26, 40);
+    public override Color MapColor => new(25, 26, 40);
+
     public override void CustomSetStaticDefaults()
     {
         WallID.Sets.Conversion.Sandstone[Type] = true;

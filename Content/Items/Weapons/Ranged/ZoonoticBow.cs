@@ -21,17 +21,16 @@ public class ZoonoticBow : ModdedBasicItem
     public override int Value => PriceByRarity.fromItem(Item);
     public override SoundStyle UseSound => SoundID.Item5;
     public override bool UseTurn => false;
+
     public override void CustomSetDefaults()
     {
         Item.shoot = ProjectileID.PurificationPowder;
         Item.shootSpeed = 7f;
         Item.useAmmo = AmmoID.Arrow;
     }
+
     public override void AddRecipes()
     {
-        CreateRecipe().
-            AddIngredient(ModContent.ItemType<ChitiniteBar>(), 8).
-            AddTile(TileID.Anvils).
-            Register();
+        CreateRecipe().AddIngredient(ModContent.ItemType<ChitiniteBar>(), 8).AddTile(TileID.Anvils).Register();
     }
 }

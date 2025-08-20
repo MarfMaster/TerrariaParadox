@@ -21,11 +21,9 @@ public class LeechwoodSword : ModdedBasicItem
     public override int Value => PriceByRarity.fromItem(Item);
     public override SoundStyle UseSound => SoundID.Item1;
     public override bool UseTurn => true;
+
     public override void AddRecipes()
     {
-        CreateRecipe().
-            AddIngredient(ModContent.ItemType<Leechwood>(), 7).
-            AddTile(TileID.WorkBenches).
-            Register();
+        CreateRecipe().AddIngredient(ModContent.ItemType<Leechwood>(), 7).AddTile(TileID.WorkBenches).Register();
     }
 }

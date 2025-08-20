@@ -12,7 +12,8 @@ public abstract class ModdedTableTile : ModTile
     public const int MaterialAmount = 8;
     public abstract int OnMineDustType { get; }
     public abstract Color MapColor { get; }
-    public override void SetStaticDefaults() 
+
+    public override void SetStaticDefaults()
     {
         // Properties
         Main.tileTable[Type] = true;
@@ -21,7 +22,8 @@ public abstract class ModdedTableTile : ModTile
         Main.tileLavaDeath[Type] = true;
         Main.tileFrameImportant[Type] = true;
         TileID.Sets.DisableSmartCursor[Type] = true;
-        TileID.Sets.IgnoredByNpcStepUp[Type] = true; // This line makes NPCs not try to step up this tile during their movement. Only use this for furniture with solid tops.
+        TileID.Sets.IgnoredByNpcStepUp[Type] =
+            true; // This line makes NPCs not try to step up this tile during their movement. Only use this for furniture with solid tops.
 
         DustType = OnMineDustType;
         AdjTiles = [TileID.Tables];
@@ -38,7 +40,7 @@ public abstract class ModdedTableTile : ModTile
         AddMapEntry(MapColor, Language.GetText("MapObject.Table"));
     }
 
-    public override void NumDust(int x, int y, bool fail, ref int num) 
+    public override void NumDust(int x, int y, bool fail, ref int num)
     {
         num = fail ? 1 : 3;
     }

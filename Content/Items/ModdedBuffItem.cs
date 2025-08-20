@@ -1,7 +1,6 @@
-using Terraria.Audio;
-using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria;
+using Terraria.Audio;
+using Terraria.ModLoader;
 
 namespace TerrariaParadox.Content.Items;
 
@@ -16,7 +15,11 @@ public abstract class ModdedBuffItem : ModItem
     public abstract SoundStyle ItemUseSound { get; }
     public abstract int Rarity { get; }
     public abstract int Value { get; }
-    public virtual void CustomSetDefaults() { }
+
+    public virtual void CustomSetDefaults()
+    {
+    }
+
     public override void SetDefaults()
     {
         Item.width = Width;
