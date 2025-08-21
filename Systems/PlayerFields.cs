@@ -14,6 +14,7 @@ public partial class ParadoxPlayer : ModPlayer
     public bool FlippedGravity;
     public bool Stickled;
     public bool WeaponImbueStickling;
+    public bool HitByThorns;
 
     public override void ResetEffects()
     {

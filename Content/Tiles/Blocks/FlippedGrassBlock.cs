@@ -57,7 +57,11 @@ public class FlippedGrassBlock : ModdedBlockTile
         var above = Framing.GetTileSafely(i, j - 1);
         if (!above.HasTile && Main.tile[i, j].BlockType == BlockType.Solid)
         {
-            if (Main.rand.NextBool(ParasiticMushroomTile.ChanceToGrow))
+            if (Main.rand.NextBool(FlippedThorns.GrowChance))
+            {
+                above.ResetToType((ushort)ModContent.TileType<FlippedThorns>());
+            } 
+            else if (Main.rand.NextBool(ParasiticMushroomTile.ChanceToGrow))
             {
                 above.ResetToType((ushort)ModContent.TileType<ParasiticMushroomTile>());
             }

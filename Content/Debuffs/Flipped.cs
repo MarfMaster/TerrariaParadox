@@ -17,6 +17,6 @@ public class Flipped : ModBuff
 
     public override void Update(Player player, ref int buffIndex)
     {
-        //player.GetModPlayer<ParadoxPlayer>().FlippedGravity = true;
+        player.GetModPlayer<ParadoxPlayer>().FlippedGravity = true;
     }
 }

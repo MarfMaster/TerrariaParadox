@@ -272,8 +272,89 @@ public class FlipWeedsPass : GenPass
                         (ushort)ModContent.TileType<FlippedJungleGrassBlock>()
                     };
 
-                    if (tile.HasTile && validTiles.Contains(tile.TileType) && !aboveTile.HasTile && WorldGen.genRand.NextBool(FlippedGrassPlants.GrowChance - 1))
-                        aboveTile.ResetToType((ushort)ModContent.TileType<FlippedGrassPlants>());
+                    if (tile.HasTile && validTiles.Contains(tile.TileType) && !aboveTile.HasTile)
+                    {
+                        #region Thorns
+                        if (WorldGen.genRand.NextBool(FlippedThorns.GrowChance * 3))
+                        {
+                            aboveTile.ResetToType((ushort)ModContent.TileType<FlippedThorns>());
+                            int successX = 0;
+                            int successY = 1;
+                            if (WorldGen.genRand.NextBool(2))
+                            {
+                                for (int j = 0; j < 40; j++)
+                                {
+                                    Tile t = Main.tile[indexXCoords + successX, indexYCoordsMax - successY];
+                                    if (!t.HasTile)
+                                    {
+                                        t.ResetToType((ushort)ModContent.TileType<FlippedThorns>());
+                                        if (successX < successY)
+                                        {
+                                            successX++;
+                                        }
+                                        else
+                                        {
+                                            successY++;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (successX * -1 < successY)
+                                        {
+                                            successX--;
+                                        }
+                                        else
+                                        {
+                                            successY++;
+                                        }
+                                    }
+                                    if (successY > 4)
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                for (int j = 0; j < 40; j++)
+                                {
+                                    Tile t = Main.tile[indexXCoords - successX, indexYCoordsMax - successY];
+                                    if (!t.HasTile)
+                                    {
+                                        t.ResetToType((ushort)ModContent.TileType<FlippedThorns>());
+                                        if (successX < successY)
+                                        {
+                                            successX++;
+                                        }
+                                        else
+                                        {
+                                            successY++;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (successX * -1 < successY)
+                                        {
+                                            successX--;
+                                        }
+                                        else
+                                        {
+                                            successY++;
+                                        }
+                                    }
+                                    if (successY > 4)
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        #endregion
+                        else if (WorldGen.genRand.NextBool(FlippedGrassPlants.GrowChance - 1))
+                        {
+                            aboveTile.ResetToType((ushort)ModContent.TileType<FlippedGrassPlants>());
+                        }
+                    }
 
                     indexYCoordsMax++;
                 }
