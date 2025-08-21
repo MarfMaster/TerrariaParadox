@@ -1,5 +1,9 @@
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.GameContent.Drawing;
 using Terraria.ModLoader;
+using TerrariaParadox.Content.Tiles.Plants;
 
 namespace TerrariaParadox;
 

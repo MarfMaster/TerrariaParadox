@@ -383,15 +383,26 @@ public class FlipVinesPass : GenPass
                 while (indexYCoordsMax < indexYCoordsMin)
                 {
                     var tile = Main.tile[indexXCoords, indexYCoordsMax];
-                    var belowTile = Main.tile[indexXCoords, indexYCoordsMax + 1];
+                    var firstbelowTile = Main.tile[indexXCoords, indexYCoordsMax + 1];
                     List<ushort> validTiles = new List<ushort>()
                     {
                         (ushort)ModContent.TileType<FlippedGrassBlock>(),
                         (ushort)ModContent.TileType<FlippedJungleGrassBlock>()
                     };
+                    if (validTiles.Contains(tile.TileType) && WorldGen.genRand.NextBool(FlippedVine.GrowChance) && !firstbelowTile.HasTile)
+                    {
+                        for (int j = 0; j < WorldGen.genRand.Next(1, 11); j++)
+                        {
+                            var belowTile = Main.tile[indexXCoords, indexYCoordsMax + j];
+                            if (!belowTile.HasTile)
+                            {
+                                belowTile.ResetToType((ushort)ModContent.TileType<FlippedVine>());
+                            }
+                        }
+                    }
 
                     //if (tile.HasTile && validTiles.Contains(tile.TileType) && !aboveTile.HasTile && WorldGen.genRand.NextBool(FlippedGrassPlants.GrowChance / 2))
-                        //belowTile.TileType = (ushort)ModContent.TileType<FlippedGrassPlants>();
+                    //belowTile.TileType = (ushort)ModContent.TileType<FlippedGrassPlants>();
 
                     indexYCoordsMax++;
                 }
@@ -407,31 +418,18 @@ public class FlipCactusPalmPass : GenPass
 
     protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
     {
-        progress.Message = "Flipping Grass";
-        for (int i = 0; i < FlipsideEvilPass.FlipsideBottomEdges.Count; i++)
+        progress.Message = "Flipping Sand Blocks";
+        foreach (var p in FlipsideEvilPass.SandToBeFlipped)
         {
-            var indexYCoordsMin = FlipsideEvilPass.FlipsideBottomEdges[i] + 40.0 + FlippingGenPasses.ExtraBoundary;
-            for (var indexXCoords = FlipsideEvilPass.FlipsideWestEdges[i] - FlippingGenPasses.ExtraBoundary; indexXCoords < FlipsideEvilPass.FlipsideEastEdges[i] + FlippingGenPasses.ExtraBoundary; indexXCoords++)
+            Tile tile = Main.tile[p.X, p.Y];
+            if (tile.TileType == TileID.Sand)
             {
-                indexYCoordsMin += WorldGen.genRand.Next(-2, 3);
-                if (indexYCoordsMin < FlipsideEvilPass.FlipsideBottomEdges[i] + 30.0) indexYCoordsMin = FlipsideEvilPass.FlipsideBottomEdges[i] + 30.0;
-                if (indexYCoordsMin > FlipsideEvilPass.FlipsideBottomEdges[i] + 50.0) indexYCoordsMin = FlipsideEvilPass.FlipsideBottomEdges[i] + 50.0;
-                var indexYCoordsMax = (int)GenVars.worldSurfaceLow;
-                while (indexYCoordsMax < indexYCoordsMin)
-                {
-                    var tile = Main.tile[indexXCoords, indexYCoordsMax];
-                    var aboveTile = Main.tile[indexXCoords, indexYCoordsMax - 1];
-
-                    if (tile.HasTile && tile.TileType == ModContent.TileType<AssecsandBlockTile>() && !aboveTile.HasTile && WorldGen.genRand.NextBool(FlipsideCactus.WorldGenChance))
-                        WorldGen.GrowCactus(indexXCoords, indexYCoordsMax - 1);
-
-                    indexYCoordsMax++;
-                }
+                tile.TileType = (ushort)ModContent.TileType<AssecsandBlockTile>();
             }
         }
     }
 }
-public class FlipStalacPass : GenPass
+public class FlipStalacPass : GenPass  //this just doesn't work despite me doing everything the same as in randomupdate, where it works(they do grow naturally yes)
 {
     public FlipStalacPass(string name, float loadWeight) : base(name, loadWeight)
     {
@@ -439,7 +437,7 @@ public class FlipStalacPass : GenPass
 
     protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
     {
-        progress.Message = "Flipping Grass";
+        progress.Message = "Flipping Stalactites and Stalagmites";
         for (int i = 0; i < FlipsideEvilPass.FlipsideBottomEdges.Count; i++)
         {
             var indexYCoordsMin = FlipsideEvilPass.FlipsideBottomEdges[i] + 40.0;
@@ -451,37 +449,85 @@ public class FlipStalacPass : GenPass
                 var indexYCoordsMax = (int)GenVars.worldSurfaceLow;
                 while (indexYCoordsMax < indexYCoordsMin)
                 {
-                    var tile = Main.tile[indexXCoords, indexYCoordsMax];
-                    if (tile.TileType == TileID.Sand &&
-                        indexXCoords >= FlipsideEvilPass.FlipsideWestEdges[i] + WorldGen.genRand.Next(5) &&
-                        indexXCoords <= FlipsideEvilPass.FlipsideEastEdges[i] - WorldGen.genRand.Next(5))
-                        tile.TileType =
-                            (ushort)ModContent.TileType<AssecsandBlockTile>();
-
-                    if (indexYCoordsMax < GenVars.worldSurfaceHigh - 1.0) //&& !flag7)
+                    if (indexYCoordsMax > GenVars.worldSurfaceHigh - 1.0)
                     {
-                        if (tile.TileType == TileID.Dirt)
+                        var tile = Framing.GetTileSafely(indexXCoords, indexYCoordsMax);
+                        var oneAboveTile = Framing.GetTileSafely(indexXCoords, indexYCoordsMax - 1);
+                        var twoAboveTile = Framing.GetTileSafely(indexXCoords, indexYCoordsMax - 2);
+                        var oneBelowTile = Framing.GetTileSafely(indexXCoords, indexYCoordsMax + 1);
+                        var twoBelowTile = Framing.GetTileSafely(indexXCoords, indexYCoordsMax + 2);
+                        var stalactiS = (ushort)ModContent.TileType<AssecstoneStalactitesSmallNatural>();
+                        var stalactiM = (ushort)ModContent.TileType<AssecstoneStalactitesNatural>();
+                        var stalagmiS = (ushort)ModContent.TileType<AssecstoneStalagmitesSmallNatural>();
+                        var stalagmiM = (ushort)ModContent.TileType<AssecstoneStalagmitesNatural>();
+                        
+                        var frameX = WorldGen.genRand.Next(0, 6); //generate a random tileframe for alternate styles
+                        if (tile.TileType == (ushort)ModContent.TileType<AssecstoneBlockTile>() &&
+                            tile.BlockType == BlockType.Solid)
                         {
-                            WorldGen.grassSpread = 0;
-                            WorldGen.SpreadGrass(indexXCoords, indexYCoordsMax, TileID.Dirt,
-                                ModContent.TileType<FlippedGrassBlock>());
+                            if (!oneAboveTile.HasTile) //check for empty space and whether this block is solid
+                            {
+                                if (WorldGen.genRand.NextBool(2)) //1 in X chance
+                                {
+                                    WorldGen.KillTile(indexXCoords, indexYCoordsMax - 1);
+                                    WorldGen.Place1x1(indexXCoords, indexYCoordsMax - 1, stalagmiS); //place tile
+                                    oneAboveTile.TileFrameX = (short)(frameX * 18); //reframe it so it can show alternate styles
+                                }
+                                else if (WorldGen.genRand.NextBool(AssecstoneStalagmitesNatural.GrowChance / 20) &&
+                                         !twoAboveTile.HasTile) //1 in X chance and whether there's enough space
+                                {
+                                    WorldGen.Place1x2(indexXCoords, indexYCoordsMax - 1, (ushort)ModContent.TileType<AssecstoneStalagmitesNatural>(), 0);
+                                    oneAboveTile.TileFrameX = (short)(frameX * 18); //need to reframe both tiles to the same frame
+                                    twoAboveTile.TileFrameX = (short)(frameX * 18);
+                                }
+
+                                WorldGen.TileFrame(indexXCoords, indexYCoordsMax - 1);
+                                return;
+                            }
+
+                            //everything for hanging tiles it the same but adjusted for it hanging below instead of being grounded on top of this tile
+                            if (!oneBelowTile.HasTile)
+                            {
+                                if (WorldGen.genRand.NextBool(AssecstoneStalactitesSmallNatural.GrowChance / 20))
+                                {
+                                    oneBelowTile.ResetToType(
+                                        (ushort)ModContent
+                                            .TileType<
+                                                AssecstoneStalactitesSmallNatural>()); //using resettotype here because there is no worldgen method for hanging 1x1 rubble
+                                    oneBelowTile.TileFrameX = (short)(frameX * 18);
+                                }
+                                else if (WorldGen.genRand.NextBool(AssecstoneStalactitesNatural.GrowChance) && !twoBelowTile.HasTile)
+                                {
+                                    WorldGen.Place1x2Top(indexXCoords, indexYCoordsMax + 1, (ushort)ModContent.TileType<AssecstoneStalactitesNatural>(), 0);
+                                    oneBelowTile.TileFrameX = (short)(frameX * 18);
+                                    twoBelowTile.TileFrameX = (short)(frameX * 18);
+                                }
+
+                                WorldGen.TileFrame(indexXCoords, indexYCoordsMax + 1);
+                            }
                         }
-                        else if (tile.TileType == TileID.Mud)
+                        else if (tile.TileType == (ushort)ModContent.TileType<MurkyIceBlockTile>() &&
+                                 tile.BlockType == BlockType.Solid)
                         {
-                            WorldGen.grassSpread = 0;
-                            WorldGen.SpreadGrass(indexXCoords, indexYCoordsMax, TileID.Mud,
-                                ModContent.TileType<FlippedJungleGrassBlock>());
+                            if (!oneBelowTile.HasTile)
+                            {
+                                if (WorldGen.genRand.NextBool(MurkyIcicles1x1Natural.GrowChance / 4))
+                                {
+                                    oneBelowTile.ResetToType((ushort)ModContent.TileType<MurkyIcicles1x1Natural>());
+                                    oneBelowTile.TileFrameX = (short)(frameX * 18);
+                                }
+                                else if (WorldGen.genRand.NextBool(MurkyIcicles1x2Natural.GrowChance / 4) && !twoBelowTile.HasTile)
+                                {
+                                    WorldGen.Place1x2Top(indexXCoords, indexYCoordsMax + 1, (ushort)ModContent.TileType<MurkyIcicles1x2Natural>(), 0);
+                                    oneBelowTile.TileFrameX = (short)(frameX * 18);
+                                    twoBelowTile.TileFrameX = (short)(frameX * 18);
+                                }
+
+                                WorldGen.TileFrame(indexXCoords, indexYCoordsMax + 1);
+                            }
                         }
                     }
-
-                    if (tile.HasTile)
-                        if (ParadoxSystem.AssimilatedBlocks.TryGetValue(tile.TileType, out var tileType))
-                            tile.TileType = tileType;
-
-                    if (tile.WallType != WallID.None)
-                        if (ParadoxSystem.AssimilatedWalls.TryGetValue(tile.WallType, out var wallType))
-                            tile.WallType = wallType;
-
+                    
                     indexYCoordsMax++;
                 }
             }
@@ -500,5 +546,6 @@ public class FlippingCleanupPass : GenPass
         FlipsideEvilPass.FlipsideBottomEdges.Clear();
         FlipsideEvilPass.FlipsideWestEdges.Clear();
         FlipsideEvilPass.FlipsideEastEdges.Clear();
+        FlipsideEvilPass.SandToBeFlipped.Clear();
     }
 }

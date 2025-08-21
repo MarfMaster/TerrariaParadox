@@ -140,7 +140,7 @@ public class FlipsideEvilPass : EvilBiomeGenerationPass
         FlipsideEastEdges.Add(evilBiomePositionEastBound);
         FlipsideBottomEdges.Add(bugRectangle.Bottom);
     }
-
+    public static List<Point> SandToBeFlipped = new List<Point>();
     private void FirstFlipping(int evilBiomePosition, int evilBiomePositionWestBound, int evilBiomePositionEastBound,
         int bugBottom)
     {
@@ -150,7 +150,6 @@ public class FlipsideEvilPass : EvilBiomeGenerationPass
             indexYCoordsMin += WorldGen.genRand.Next(-2, 3);
             if (indexYCoordsMin < bugBottom + 30.0) indexYCoordsMin = bugBottom + 30.0;
             if (indexYCoordsMin > bugBottom + 50.0) indexYCoordsMin = bugBottom + 50.0;
-            //var flag7 = false;
             var indexYCoordsMax = (int)GenVars.worldSurfaceLow;
             while (indexYCoordsMax < indexYCoordsMin)
             {
@@ -158,10 +157,19 @@ public class FlipsideEvilPass : EvilBiomeGenerationPass
                 if (tile.TileType == TileID.Sand &&
                     indexXCoords >= evilBiomePositionWestBound + WorldGen.genRand.Next(5) &&
                     indexXCoords <= evilBiomePositionEastBound - WorldGen.genRand.Next(5))
-                    tile.TileType =
-                        (ushort)ModContent.TileType<AssecsandBlockTile>();
+                {
+                    Tile above =  Main.tile[indexXCoords, indexYCoordsMax - 1];
+                    if (!above.HasTile && indexYCoordsMax < GenVars.worldSurfaceHigh - 1.0)
+                    {
+                        SandToBeFlipped.Add(new Point(indexXCoords, indexYCoordsMax));
+                    }
+                    else
+                    {
+                        tile.TileType = (ushort)ModContent.TileType<AssecsandBlockTile>();
+                    }
+                }
 
-                if (indexYCoordsMax < GenVars.worldSurfaceHigh - 1.0) //&& !flag7)
+                if (indexYCoordsMax < GenVars.worldSurfaceHigh - 1.0)
                 {
                     if (tile.TileType == TileID.Dirt)
                     {
@@ -178,9 +186,12 @@ public class FlipsideEvilPass : EvilBiomeGenerationPass
                 }
 
                 if (tile.HasTile)
-                    //flag7 = true;
-                    if (ParadoxSystem.AssimilatedBlocks.TryGetValue(tile.TileType, out var tileType))
+                {
+                    if (tile.TileType != TileID.Sand && ParadoxSystem.AssimilatedBlocks.TryGetValue(tile.TileType, out var tileType))
+                    {
                         tile.TileType = tileType;
+                    }
+                }
 
                 if (tile.WallType != WallID.None)
                     if (ParadoxSystem.AssimilatedWalls.TryGetValue(tile.WallType, out var wallType))

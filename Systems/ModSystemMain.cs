@@ -28,14 +28,8 @@ public partial class ParadoxSystem : ModSystem
             { TileID.Sandstone, (ushort)ModContent.TileType<AssecsandstoneBlockTile>() },
             { TileID.Plants, (ushort)ModContent.TileType<FlippedGrassPlants>() },
             { TileID.Plants2, (ushort)ModContent.TileType<FlippedGrassPlants>() },
-            //{TileID.Vines, (ushort)ModContent.TileType<FlippedVines>()},
+            { TileID.Vines, (ushort)ModContent.TileType<FlippedVine>()},
             { TileID.JungleThorns, (ushort)ModContent.TileType<FlippedThorns>() },
-            { (ushort)ModContent.TileType<AssimilatedGrassTile>(), (ushort)ModContent.TileType<AssimilatedGrassTile>() },
-            { (ushort)ModContent.TileType<BioluminescentBulb>(), (ushort)ModContent.TileType<BioluminescentBulb>() },
-            { (ushort)ModContent.TileType<AssecstoneStalactitesSmallNatural>(), (ushort)ModContent.TileType<AssecstoneStalactitesSmallNatural>() },
-            { (ushort)ModContent.TileType<AssecstoneStalactitesNatural>(), (ushort)ModContent.TileType<AssecstoneStalactitesNatural>() },
-            { (ushort)ModContent.TileType<AssecstoneStalagmitesSmallNatural>(), (ushort)ModContent.TileType<AssecstoneStalagmitesSmallNatural>() },
-            { (ushort)ModContent.TileType<AssecstoneStalagmitesNatural>(), (ushort)ModContent.TileType<AssecstoneStalagmitesNatural>() }
         };
         AssimilatedWalls = new Dictionary<ushort, ushort>
         {
