@@ -3,13 +3,13 @@ using Terraria.ModLoader;
 
 namespace TerrariaParadox.Content.Biomes.TheFlipside;
 
-public class BiomeUndergroundDesert : ModBiome
+public class FBiomeOcean : ModBiome
 {
     public override string LocalizationCategory => "Biomes.TheFlipside";
 
     // Select all the scenery
     public override ModUndergroundBackgroundStyle UndergroundBackgroundStyle =>
-        ModContent.GetInstance<UndergroundBackgroundStyle>();
+        ModContent.GetInstance<FUndergroundBackgroundStyle>();
 
     // Select Music
     //public override int Music => MusicLoader.GetMusicSlot(Mod, "Assets/Music/MysteriousMystery");
@@ -22,7 +22,6 @@ public class BiomeUndergroundDesert : ModBiome
     // Calculate when the biome is active.
     public override bool IsBiomeActive(Player player)
     {
-        // Limit the biome height to be underground in either rock layer or dirt layer
-        return (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight) && player.InModBiome<BiomeMainSurface>();
+        return player.ZoneBeach && player.InModBiome<FBiomeMainSurface>();
     }
 }

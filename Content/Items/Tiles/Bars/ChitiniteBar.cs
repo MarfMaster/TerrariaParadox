@@ -1,3 +1,5 @@
+using MLib.Common.Items;
+using MLib.Common.Utilities;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TerrariaParadox.Content.Items.Tiles.Blocks;

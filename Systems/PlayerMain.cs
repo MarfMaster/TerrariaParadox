@@ -37,13 +37,13 @@ public partial class ParadoxPlayer : ModPlayer
             Player.AddBuff(ModContent.BuffType<Flipped>(), (int)(1f * 60f));
             HitByThorns = false;
         }
-        if (Player.InModBiome(ModContent.GetInstance<BiomeUnderground>()))
+        if (Player.InModBiome(ModContent.GetInstance<FBiomeUnderground>()))
             Player.AddBuff(ModContent.BuffType<Flipped>(), 2 * 60);
     }
 
     public override void PostUpdateBuffs()
     {
-        if (FlippedGravity) Player.forcedGravity = 2;
+        //if (FlippedGravity) Player.forcedGravity = 2;
         if (Player.forcedGravity == 1)
         {
             Player.fallStart = (int)(Player.position.Y / 16f);

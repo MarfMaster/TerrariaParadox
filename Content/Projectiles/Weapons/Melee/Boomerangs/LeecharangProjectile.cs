@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using MLib.Common.Projectiles;
 using Terraria;
 using Terraria.ModLoader;
 using TerrariaParadox.Content.Debuffs.DoT;

@@ -10,39 +10,39 @@ CommonItemTooltip: {
 
 Biomes: {
 	TheFlipside: {
-		AltBiomeMain: {
+		FAltBiomeMain: {
 			DisplayName: Flipside
 			Description: Creepy crawly parasites will assimilate your world!
 			GenPassName: Introducing nasty parasitic lifeforms
 			DryadTextDescriptor: flipped
 		}
 
-		BiomeDesert: {
+		FBiomeDesert: {
 			DisplayName: Flipped Desert
 			TownNPCDialogueName: the Flipped Desert
 		}
 
-		BiomeMainSurface: {
+		FBiomeMainSurface: {
 			DisplayName: Flipside
 			TownNPCDialogueName: the Flipside
 		}
 
-		BiomeOcean: {
+		FBiomeOcean: {
 			DisplayName: Flipped Ocean
 			TownNPCDialogueName: the Flipped Ocean
 		}
 
-		BiomeUnderground: {
+		FBiomeUnderground: {
 			DisplayName: Underground Flipside
 			TownNPCDialogueName: the Flipped Caverns
 		}
 
-		BiomeUndergroundDesert: {
+		FBiomeUndergroundDesert: {
 			DisplayName: Flipped Underground Desert
 			TownNPCDialogueName: the Flipped Underground Desert
 		}
 
-		BiomeUndergroundIce: {
+		FBiomeUndergroundIce: {
 			DisplayName: Flipped Underground Ice
 			TownNPCDialogueName: the Flipped Underground Ice
 		}
@@ -210,6 +210,11 @@ Items: {
 
 			WalkingHiveBanner: {
 				DisplayName: Walking Hive Banner
+				Tooltip: ""
+			}
+
+			AssimilatedDemonEyeBanner: {
+				DisplayName: Assimilated Demon Eye Banner
 				Tooltip: ""
 			}
 		}
@@ -417,6 +422,7 @@ NPCs: {
 
 	Swarm.DisplayName: Swarm
 	WalkingHive.DisplayName: Walking Hive
+	AssimilatedDemonEye.DisplayName: Assimilated Demon Eye
 }
 
 Tiles: {

@@ -18,7 +18,7 @@ public class FlippingGenPasses : ModSystem
     public const int ExtraBoundary = 50;
     public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight) 
     {
-        if (WorldBiomeManager.WorldEvilBiome.Type == ModContent.GetInstance<AltBiomeMain>().Type)
+        if (WorldBiomeManager.WorldEvilBiome.Type == ModContent.GetInstance<FAltBiomeMain>().Type)
         {
             var potsIndex = tasks.FindIndex(potsIndex => potsIndex.Name.Equals("Pots"));
             
@@ -389,7 +389,7 @@ public class FlipVinesPass : GenPass
                         (ushort)ModContent.TileType<FlippedGrassBlock>(),
                         (ushort)ModContent.TileType<FlippedJungleGrassBlock>()
                     };
-                    if (validTiles.Contains(tile.TileType) && WorldGen.genRand.NextBool(FlippedVine.GrowChance) && !firstbelowTile.HasTile)
+                    if (validTiles.Contains(tile.TileType) && WorldGen.genRand.NextBool(FlippedVine.GrowChance / 11) && !firstbelowTile.HasTile)
                     {
                         for (int j = 0; j < WorldGen.genRand.Next(1, 11); j++)
                         {

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using MLib.Common.Projectiles;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;

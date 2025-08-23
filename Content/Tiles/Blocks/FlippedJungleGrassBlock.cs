@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using MLib.Common.Tiles;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -77,7 +78,7 @@ public class FlippedJungleGrassBlock : ModdedBlockTile
 
             WorldGen.TileFrame(i, j - 1);
         }
-        var below = Framing.GetTileSafely(i, j + 1);
+        /*var below = Framing.GetTileSafely(i, j + 1); already got something similar in TileMain
         if (!below.HasTile && Main.tile[i, j].BlockType == BlockType.Solid)
         {
             if (Main.rand.NextBool(FlippedVine.GrowChance))
@@ -85,7 +86,7 @@ public class FlippedJungleGrassBlock : ModdedBlockTile
                 below.ResetToType((ushort)ModContent.TileType<FlippedVine>());
             } 
             WorldGen.TileFrame(i, j + 1);
-        }
+        }*/
     }
 
     public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)

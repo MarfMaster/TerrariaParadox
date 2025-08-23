@@ -8,7 +8,7 @@ namespace TerrariaParadox.Content.Biomes.TheFlipside;
 /// <summary>
 ///     This is the main file of the biome, use this to combine it with any variations. It's also the surface variation.
 /// </summary>
-public class BiomeMainSurface : ModBiome
+public class FBiomeMainSurface : ModBiome
 {
     public override string LocalizationCategory => "Biomes.TheFlipside";
 
@@ -17,10 +17,10 @@ public class BiomeMainSurface : ModBiome
         base.WaterStyle; //ModContent.GetInstance<ExampleWaterStyle>(); // Sets a water style for when inside this biome
 
     public override ModSurfaceBackgroundStyle SurfaceBackgroundStyle =>
-        ModContent.GetInstance<SurfaceBackgroundStyle>();
+        ModContent.GetInstance<FSurfaceBackgroundStyle>();
 
     public override ModUndergroundBackgroundStyle UndergroundBackgroundStyle =>
-        ModContent.GetInstance<UndergroundBackgroundStyle>();
+        ModContent.GetInstance<FUndergroundBackgroundStyle>();
 
     public override CaptureBiome.TileColorStyle TileColorStyle => CaptureBiome.TileColorStyle.Corrupt;
 

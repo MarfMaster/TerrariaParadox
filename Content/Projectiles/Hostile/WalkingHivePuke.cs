@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using MLib.Common.Projectiles;
 using Terraria;
 using Terraria.ModLoader;
 using TerrariaParadox.Content.Dusts.Projectiles.Hostile;
@@ -11,14 +12,14 @@ public class WalkingHivePuke : ModdedHostileProjectile
     public override int AnimationDuration => 0;
     public override int Width => 20;
     public override int Height => 20;
-    public override int ProjectileLifeSpan => 180;
+    public override int LifeSpan => 180;
     public override bool PassThroughBlocks => false;
     public override int Pierce => -2;
     public override float RotationHelper => 0;
 
     public override void CustomAI()
     {
-        Projectile.velocity.Y += 0.05f;
+        Projectile.velocity.Y += 0.4f;
         Visuals();
     }
 

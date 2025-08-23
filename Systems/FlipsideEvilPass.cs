@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using AltLibrary.Core.Generation;
 using Microsoft.Xna.Framework;
+using MLib.Common.Utilities;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.WorldBuilding;
 using TerrariaParadox.Content.Tiles.Blocks;
@@ -21,7 +23,7 @@ public class FlipsideEvilPass : EvilBiomeGenerationPass
     private ushort _modStoneWall;
     private GenAction _placeStone;
     private GenAction _placeStoneWall;
-    public override string ProgressMessage => LangUtils.GetTextValue("Biomes.TheFlipside.AltBiomeMain.GenPassName");
+    public override string ProgressMessage => Language.GetTextValue("Mods.TerrariaParadox.Biomes.TheFlipside.FAltBiomeMain.GenPassName");
     public override bool CanGenerateNearDungeonOcean => true;
 
     private static Dictionary<Point, float> _bulbPoints = new Dictionary<Point, float>();

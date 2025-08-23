@@ -43,7 +43,7 @@ public class MurkySolutionProjectile : ModProjectile
         {
             var size = ShotFromTerraformer ? 3 : 2;
             var tileCenter = Projectile.Center.ToTileCoordinates();
-            ALConvert.Convert<AltBiomeMain>(tileCenter.X, tileCenter.Y, size);
+            ALConvert.Convert<FAltBiomeMain>(tileCenter.X, tileCenter.Y, size);
         }
 
         var spawnDustTreshold = 7;

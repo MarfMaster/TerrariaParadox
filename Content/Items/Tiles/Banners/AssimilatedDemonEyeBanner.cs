@@ -6,8 +6,8 @@ using TerrariaParadox.Content.Tiles.Furniture;
 
 namespace TerrariaParadox.Content.Items.Tiles.Banners;
 
-public class SwarmBanner : ModdedBannerItem
+public class AssimilatedDemonEyeBanner : ModdedBannerItem
 {
-    public override int StyleId => (int)FlipsideBanners.StyleId.Swarm;
+    public override int StyleId => (int)FlipsideBanners.StyleId.AssimilatedDemonEye;
     public override int ModBannerTileType => ModContent.TileType<FlipsideBanners>();
 }

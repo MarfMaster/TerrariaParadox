@@ -91,7 +91,7 @@ public class ParasiticPowderProjectile : ModProjectile
                     !(Projectile.position.X < vector57.X + 16f) ||
                     !(Projectile.position.Y + Projectile.height > vector57.Y) ||
                     !(Projectile.position.Y < vector57.Y + 16f) || !Main.tile[num1032, num1043].HasTile) continue;
-                ALConvert.Convert<AltBiomeMain>(num1032, num1043, 1);
+                ALConvert.Convert<FAltBiomeMain>(num1032, num1043, 1);
             }
         }
     }

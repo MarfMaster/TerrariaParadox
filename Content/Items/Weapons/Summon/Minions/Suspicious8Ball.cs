@@ -1,3 +1,5 @@
+using MLib.Common.Items;
+using MLib.Common.Utilities;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,7 +11,7 @@ namespace TerrariaParadox.Content.Items.Weapons.Summon.Minions;
 public class Suspicious8Ball : ModdedMinionItem
 {
     public const float MinionSlots = 1;
-    public const float SummonTagMult = 100;
+    public const float SummonTagMult = 99;
     public override float SlotsRequired => MinionSlots;
     public override int BaseDmg => 35;
     public override float BaseKnockback => 4f;

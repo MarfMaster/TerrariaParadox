@@ -1,3 +1,4 @@
+using MLib.Common.Items;
 using Terraria.ModLoader;
 
 namespace TerrariaParadox.Content.Items.Vanity;

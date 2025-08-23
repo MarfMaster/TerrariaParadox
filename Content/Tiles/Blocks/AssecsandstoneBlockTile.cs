@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using MLib.Common.Tiles;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;

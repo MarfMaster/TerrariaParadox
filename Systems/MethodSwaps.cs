@@ -14,7 +14,7 @@ public partial class TerrariaParadox : Mod
         On_WorldGen.KillWall_CheckFailure += (orig, fail, tileCache) =>
         {
             fail = orig(fail, tileCache);
-            if (Main.LocalPlayer.HeldItem.hammer < ParadoxSystem.WallHammerRequirement[tileCache.WallType]) fail = true;
+            if (Main.LocalPlayer.HeldItem.hammer < ParadoxSystem.MinHammer[tileCache.WallType]) fail = true;
             {
                 return fail;
             }

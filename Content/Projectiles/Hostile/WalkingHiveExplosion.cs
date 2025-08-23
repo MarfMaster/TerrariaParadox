@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using MLib.Common.Projectiles;
 using Terraria;
 using Terraria.ModLoader;
 using TerrariaParadox.Content.Dusts.Projectiles.Hostile;
@@ -11,7 +12,7 @@ public class WalkingHiveExplosion : ModdedHostileProjectile
     public override int AnimationDuration => 0;
     public override int Width => 200;
     public override int Height => 200;
-    public override int ProjectileLifeSpan => 60;
+    public override int LifeSpan => 60;
     public override bool PassThroughBlocks => true;
     public override int Pierce => -2;
     public override float RotationHelper => 0;

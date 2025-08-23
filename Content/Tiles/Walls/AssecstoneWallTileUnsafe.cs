@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using MLib.Common.Tiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -17,7 +18,7 @@ public class AssecstoneWallTileUnsafe : ModdedWallTile
     {
         WallID.Sets.Conversion.Stone[Type] = true;
         Main.wallBlend[Type] = WallID.Stone;
-        ParadoxSystem.WallHammerRequirement[Type] = 70;
+        ParadoxSystem.MinHammer[Type] = 70;
         WallID.Sets.CannotBeReplacedByWallSpread[Type] = true;
     }
 }

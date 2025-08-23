@@ -1,5 +1,6 @@
 using System.IO;
 using Microsoft.Xna.Framework;
+using MLib.Common.NPCs;
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
@@ -8,11 +9,12 @@ using Terraria.ModLoader;
 using TerrariaParadox.Content.Biomes.TheFlipside;
 using TerrariaParadox.Content.Items.Materials;
 using TerrariaParadox.Content.Items.Tiles.Banners;
+using TerrariaParadox.Content.Tiles.Blocks;
 
 namespace TerrariaParadox.Content.NPCs.Hostile.Worms;
 
 // These three class showcase usage of the WormHead, WormBody and WormTail classes from Worm.cs
-internal class Flatworm : WormHead
+internal class Flatworm : ModdedWorm
 {
     public const int Health = 125;
     public const int Value = 190; //in copper coins = 1 silver is 100 here
@@ -43,6 +45,7 @@ internal class Flatworm : WormHead
             PortraitPositionYOverride = 12f
         };
         NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
+        ParadoxSystem.FlippedBlockSpawnChance[Type] = 1f;
     }
 
     public override void SetDefaults()
@@ -67,16 +70,7 @@ internal class Flatworm : WormHead
         BannerItem = ModContent.ItemType<FlatwormBanner>();
         //ItemID.Sets.KillsToBanner[BannerItem] = 25; default 50
     }
-
-    public override float SpawnChance(NPCSpawnInfo spawnInfo)
-    {
-        var chance = 0f;
-        if (spawnInfo.Player.InModBiome(ModContent
-                .GetInstance<BiomeMainSurface>())) // && !NPC.AnyNPCs(Type))so it can spawn one at a time
-            chance = 0.33f;
-        return chance;
-    }
-
+    
     public override void ModifyNPCLoot(NPCLoot npcLoot)
     {
         npcLoot.Add(ItemDropRule.Common(ItemID.WormTooth, 1, 5, 10));
@@ -88,8 +82,8 @@ internal class Flatworm : WormHead
         // We can use AddRange instead of calling Add multiple times in order to add multiple items at once
         bestiaryEntry.Info.AddRange([
             // Sets the spawning conditions of this NPC that is listed in the bestiary.
-            ModContent.GetInstance<BiomeMainSurface>().ModBiomeBestiaryInfoElement,
-            ModContent.GetInstance<BiomeUnderground>().ModBiomeBestiaryInfoElement,
+            ModContent.GetInstance<FBiomeMainSurface>().ModBiomeBestiaryInfoElement,
+            ModContent.GetInstance<FBiomeUnderground>().ModBiomeBestiaryInfoElement,
 
             // Sets the description of this NPC that is listed in the bestiary.
             new FlavorTextBestiaryInfoElement("Mods.TerrariaParadox." + LocalizationCategory + "." + Name + ".Bestiary")
@@ -107,7 +101,7 @@ internal class Flatworm : WormHead
         CommonWormInit(this);
     }
 
-    internal static void CommonWormInit(ExampleModWorm worm)
+    internal static void CommonWormInit(ModdedWormBase worm)
     {
         // These two properties handle the movement of the worm
         worm.MoveSpeed = MovementSpeed;
@@ -152,7 +146,7 @@ internal class Flatworm : WormHead
     }
 }
 
-internal class FlatwormBody : WormBody
+internal class FlatwormBody : ModdedWormBody
 {
     public override void SetStaticDefaults()
     {
@@ -193,7 +187,7 @@ internal class FlatwormBody : WormBody
     }
 }
 
-internal class FlatwormTail : WormTail
+internal class FlatwormTail : ModdedWormTail
 {
     public override void SetStaticDefaults()
     {

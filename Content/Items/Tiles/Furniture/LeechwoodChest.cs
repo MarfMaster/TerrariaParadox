@@ -1,3 +1,5 @@
+using MLib.Common.Items;
+using MLib.Common.Tiles.Furniture;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

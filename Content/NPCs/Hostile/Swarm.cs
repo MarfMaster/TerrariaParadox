@@ -1,5 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
+using MLib.Common.NPCs;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -30,21 +31,13 @@ public class Swarm : ModdedHostileNPC
 
     public override void CustomSetStaticDefaults()
     {
+        ParadoxSystem.FlippedBlockSpawnChance[Type] = 1f;
         NPCID.Sets.SpecificDebuffImmunity[Type][ModContent.BuffType<LeecharangBleed>()] = true;
     }
 
     public override void CustomSetDefaults()
     {
         NPC.noGravity = true;
-    }
-
-    public override float SpawnChance(NPCSpawnInfo spawnInfo)
-    {
-        var chance = 0f;
-        if (spawnInfo.Player.InModBiome(ModContent
-                .GetInstance<BiomeMainSurface>())) // && !NPC.AnyNPCs(Type))so it can spawn one at a time
-            chance = 0.1f;
-        return chance;
     }
 
     public override void AI()

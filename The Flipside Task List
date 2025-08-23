@@ -39,7 +39,7 @@ Plants(misc tiles/items):
 
 Misc Tiles:
 - Ootheca Altar~~
-- Flipside Pots
+- Flipside Pots~~
 - Flipped Torch
 - Stickler Torch
 - Flipped Campfire
@@ -63,13 +63,13 @@ Weapons/Tools:
 - Host Pickaxe~~
 - Chitinite Axe
 - Leecharang~~
-- Bioluminescent Bulb Ranged Weapon(shoots bullets)
+- Parasyte~~
 - Lighter~~
-- Shadow Orb Minion
-- Crimson Heart Minion
 - Bioluminescent Bulb Minion
 - Hardmode Fish Weapon(maybe an eel as a whip? or some kinda minion, there is no summon weapon that you can fish up in vanilla)
 - Hardmode Biome Chest Melee Weapon
+- Shadow Orb Minion
+- Crimson Heart Minion
 
 Misc Items:
 - Flask of Stickling~~
@@ -79,7 +79,7 @@ Misc Items:
 - Flipped Seeds~~
 - 2 Infested Fishes as materials for Wrath/Rage/Heartreach potions
 - 2 Infested Quest Fishes, Hardmode and Pre-Hardmode
-- Flipped Meat
+- Egg Cluster~~
 - Bioluminescent Goop~~
 - Stickler~~
 - Hardmode Biome Chest Key
@@ -102,18 +102,18 @@ Misc Visuals:
 - random rubble for the biome
 
 Enemies(non-bosses need banners too):
-- Walking Hive~~
-- Assimilated Demon Eye~~
-- Swarm~~: make the swarm take damage from bug nets
-- Flatworm~~
-- Assimilated Mummy
-- Assimilated Goldfish~~
-- Assimilated Bunny~~
-- Assimilated Penguin
+- Walking Hive~~ -> needs banner
+- Assimilated Demon Eye~~ -> needs banner
+- Swarm~~: make the swarm take damage from bug nets -> needs banner
+- Flatworm~~ -> needs banner
+- Assimilated Mummy -> needs banner
+- Assimilated Goldfish~~ -> needs banner
+- Assimilated Bunny~~ -> needs banner
+- Assimilated Penguin -> needs banner
 - Nyxar(boss)
-- Assimilated Ghoul(underground desert)
-- Assimilated Sandshark(sandstorm)
-- Assimilated Mimic
+- Assimilated Ghoul(underground desert) -> needs banner
+- Assimilated Sandshark(sandstorm) -> needs banner
+- Assimilated Mimic -> needs banner
 
 Furniture: 
 - Leechwood Platform

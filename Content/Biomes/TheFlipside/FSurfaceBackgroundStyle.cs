@@ -2,7 +2,7 @@ using Terraria.ModLoader;
 
 namespace TerrariaParadox.Content.Biomes.TheFlipside;
 
-public class SurfaceBackgroundStyle : ModSurfaceBackgroundStyle
+public class FSurfaceBackgroundStyle : ModSurfaceBackgroundStyle
 {
     // Use this to keep far Backgrounds like the mountains.
     public override void ModifyFarFades(float[] fades, float transitionSpeed)

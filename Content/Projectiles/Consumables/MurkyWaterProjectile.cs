@@ -63,6 +63,6 @@ public class MurkyWaterProjectile : ModProjectile
 
         var i2 = (int)(Projectile.position.X + Projectile.width / 2) / 16;
         var j2 = (int)(Projectile.position.Y + Projectile.height / 2) / 16;
-        ALConvert.Convert<AltBiomeMain>(i2, j2);
+        ALConvert.Convert<FAltBiomeMain>(i2, j2);
     }
 }

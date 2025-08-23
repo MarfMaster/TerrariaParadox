@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using MLib.Common.Tiles;
 using Terraria.GameContent;
 using Terraria.ModLoader;
 using Terraria.ObjectData;

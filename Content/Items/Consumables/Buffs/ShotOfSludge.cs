@@ -1,3 +1,4 @@
+using MLib.Common.Items;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;

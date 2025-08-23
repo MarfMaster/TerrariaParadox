@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using MLib.Common.Tiles;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -12,7 +13,7 @@ public class ChitiniteOreTile : ModdedBlockTile
     public override bool SolidBlock => true;
     public override bool MergesWithDirt => true;
     public override int OnMineDustType => ModContent.DustType<ChitiniteOreDust>();
-    public override ushort VanillaFallbackTileAndMerge => TileID.Stone;
+    public override ushort VanillaFallbackTileAndMerge => TileID.Ebonstone;
     public override SoundStyle TileMineSound => SoundID.Tink;
     public override Color MapColor => new(46, 126, 113);
     public override int WaterfallStyleID => WaterStyleID.Corrupt;

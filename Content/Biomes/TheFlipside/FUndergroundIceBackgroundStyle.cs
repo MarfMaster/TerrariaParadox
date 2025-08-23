@@ -2,7 +2,7 @@ using Terraria.ModLoader;
 
 namespace TerrariaParadox.Content.Biomes.TheFlipside;
 
-public class UndergroundIceBackgroundStyle : ModUndergroundBackgroundStyle
+public class FUndergroundIceBackgroundStyle : ModUndergroundBackgroundStyle
 {
     public override void FillTextureArray(int[] textureSlots)
     {

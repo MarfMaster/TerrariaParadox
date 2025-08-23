@@ -17,13 +17,13 @@ using TerrariaParadox.Content.Tiles.Walls;
 
 namespace TerrariaParadox.Content.Biomes.TheFlipside;
 
-public class AltBiomeMain : AltBiome
+public class FAltBiomeMain : AltBiome
 {
     public override string WorldIcon => "TerrariaParadox/Textures/UI/World/SaveFlipsideIcon";
-    public override string IconSmall => "TerrariaParadox/Content/Biomes/TheFlipside/BiomeMainSurface_Icon";
+    public override string IconSmall => "TerrariaParadox/Content/Biomes/TheFlipside/FBiomeMainSurface_Icon";
     public override string OuterTexture => "TerrariaParadox/Textures/UI/World/GenFlipsideProgressBar";
     public override Color OuterColor => new(35, 198, 138);
-    public override IShoppingBiome Biome => ModContent.GetInstance<BiomeMainSurface>();
+    public override IShoppingBiome Biome => ModContent.GetInstance<FBiomeMainSurface>();
     public override string LocalizationCategory => "Biomes.TheFlipside";
     public override Color NameColor => OuterColor;
 

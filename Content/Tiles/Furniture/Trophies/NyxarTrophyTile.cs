@@ -1,3 +1,4 @@
+using MLib.Common.Tiles;
 using Terraria.ID;
 
 namespace TerrariaParadox.Content.Tiles.Furniture.Trophies;

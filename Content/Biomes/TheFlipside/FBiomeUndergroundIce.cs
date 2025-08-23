@@ -3,13 +3,13 @@ using Terraria.ModLoader;
 
 namespace TerrariaParadox.Content.Biomes.TheFlipside;
 
-public class BiomeUndergroundIce : ModBiome
+public class FBiomeUndergroundIce : ModBiome
 {
     public override string LocalizationCategory => "Biomes.TheFlipside";
 
     // Select all the scenery
     public override ModUndergroundBackgroundStyle UndergroundBackgroundStyle =>
-        ModContent.GetInstance<UndergroundBackgroundStyle>();
+        ModContent.GetInstance<FUndergroundBackgroundStyle>();
 
     // Select Music
     //public override int Music => MusicLoader.GetMusicSlot(Mod, "Assets/Music/MysteriousMystery");
@@ -23,6 +23,6 @@ public class BiomeUndergroundIce : ModBiome
     public override bool IsBiomeActive(Player player)
     {
         // Limit the biome height to be underground in either rock layer or dirt layer
-        return player.ZoneRockLayerHeight && player.ZoneSnow && player.InModBiome<BiomeMainSurface>();
+        return player.ZoneRockLayerHeight && player.ZoneSnow && player.InModBiome<FBiomeMainSurface>();
     }
 }

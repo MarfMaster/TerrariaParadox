@@ -1,4 +1,6 @@
 using Microsoft.Xna.Framework;
+using MLib.Common.Items;
+using MLib.Common.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;

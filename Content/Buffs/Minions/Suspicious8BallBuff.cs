@@ -1,3 +1,4 @@
+using MLib.Common.Buffs;
 using Terraria.ModLoader;
 using TerrariaParadox.Content.Projectiles.Weapons.Summon.Minions;
 

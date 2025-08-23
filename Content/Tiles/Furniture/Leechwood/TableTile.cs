@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using MLib.Common.Tiles.Furniture;
 using Terraria.ModLoader;
 using TerrariaParadox.Content.Dusts.Tiles.Blocks;
 

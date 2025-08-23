@@ -1,13 +1,17 @@
+using System;
 using System.IO;
 using Microsoft.Xna.Framework;
+using MLib.Common.NPCs;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using TerrariaParadox.Content.Biomes.TheFlipside;
 using TerrariaParadox.Content.Debuffs.DoT;
 using TerrariaParadox.Content.Gores.NPCs.Hostile.Miniboss;
+using TerrariaParadox.Content.Items.Materials;
 using TerrariaParadox.Content.Items.Tiles.Banners;
 using TerrariaParadox.Content.Projectiles.Hostile;
 
@@ -16,9 +20,15 @@ namespace TerrariaParadox.Content.NPCs.Hostile.Miniboss;
 public class WalkingHive : ModdedHostileNPC
 {
     public const int DefenseFromBack = 20;
-    private const float AggroDistance = 400f;
-    private const float PukeRange = 200f;
-    private const float ChaseRange = 800f;
+    private const float AggroRange = 450f;
+    private const float PukeRange = 400f;
+    private const float ChaseRange = 1200f;
+
+    private const float MaxWanderSpeed = 2.5f;
+    private const float ChaseSpeed = 5f;
+    private const float ChaseSpeedDesperate = 8f;
+    private const float JumpSpeed = 8f;
+    private const float JumpSpeedDesperate = 11f;
 
     private const int MaxBackShots = 10;
 
@@ -36,7 +46,7 @@ public class WalkingHive : ModdedHostileNPC
     private const float PrepDuration = 120;
     private const float TotalPukeFrames = 13;
     private const float PukeDuration = 120;
-    private const float PukeDivisor = 5;
+    private const float PukeDivisor = 2;
     private const float TotalTiredFrames = 8;
     private const float TiredDuration = 120;
     private const float FleeDuration = 120;
@@ -51,7 +61,8 @@ public class WalkingHive : ModdedHostileNPC
     public override int BaseLifePoints => 1000;
     public override int BaseDefense => 0;
     public override float BaseKnockbackReceivedMultiplier => 0.2f;
-    public override int BaseContactDamage => 15;
+    public override int BaseContactDamage => 25;
+    public const int BasePukeDamage = 30;
     public override SoundStyle OnHitSound => SoundID.NPCDeath9;
     public override SoundStyle OnDeathSound => SoundID.NPCDeath11;
     public override int Value => 100000;
@@ -61,23 +72,15 @@ public class WalkingHive : ModdedHostileNPC
 
     public override void CustomSetStaticDefaults()
     {
+        ParadoxSystem.FlippedBlockSpawnChance[Type] = 0.35f;
         NPCID.Sets.SpecificDebuffImmunity[Type][ModContent.BuffType<LeecharangBleed>()] = true;
     }
 
     public override void CustomSetDefaults()
     {
         ItemID.Sets.KillsToBanner[BannerItem] = 10;
+        NPC.rarity = 5;
     }
-
-    public override float SpawnChance(NPCSpawnInfo spawnInfo)
-    {
-        var chance = 0f;
-        if (spawnInfo.Player.InModBiome(ModContent
-                .GetInstance<BiomeMainSurface>())) // && !NPC.AnyNPCs(Type))so it can spawn one at a time
-            chance = 0.001f;
-        return chance;
-    }
-
     public override void FindFrame(int frameHeight)
     {
         FrameDuration = 10;
@@ -541,7 +544,7 @@ public class WalkingHive : ModdedHostileNPC
     public override void HitEffect(NPC.HitInfo hit)
     {
         if (Backshot(hit.HitDirection) && BackShots < MaxBackShots) BackShots++;
-        if (Backshot(hit.HitDirection) && BackShots == MaxBackShots)
+        if (Backshot(hit.HitDirection) && BackShots == MaxBackShots && !IsExploding)
         {
             IsExploding = true;
             AiState = (float)ActionState.Hunting;
@@ -600,7 +603,7 @@ public class WalkingHive : ModdedHostileNPC
 
         if (AiTimer >= 180 && Main.netMode != NetmodeID.MultiplayerClient)
         {
-            NPC.velocity.X = Main.rand.NextFloat(-2f, 2f);
+            NPC.velocity.X = Main.rand.NextFloat(-MaxWanderSpeed, MaxWanderSpeed);
             SetDirection();
             NPC.netUpdate = true;
             AiTimer = 0;
@@ -611,11 +614,11 @@ public class WalkingHive : ModdedHostileNPC
 
         if (NPC.collideX)
         {
-            NPC.velocity.X *= -1f;
+            NPC.velocity.X *= -1f; //turn back
             SetDirection();
         }
 
-        if (NPC.HasValidTarget && target.Distance(NPC.Center) < AggroDistance)
+        if (NPC.HasValidTarget && target.Distance(NPC.Center) < AggroRange)
         {
             AiState = (float)ActionState.Provoked;
             AiTimer = 0;
@@ -639,7 +642,7 @@ public class WalkingHive : ModdedHostileNPC
         {
             NPC.velocity.X = 0;
 
-            if (target.Distance(NPC.Center) < AggroDistance)
+            if (target.Distance(NPC.Center) < AggroRange)
             {
                 AiTimer++;
 
@@ -684,20 +687,20 @@ public class WalkingHive : ModdedHostileNPC
                 }
                 case float start when AiTimer > IsExplodingStartTime:
                 {
-                    NPC.velocity.X = NPC.Center.DirectionTo(target.Center).X * 8f;
+                    NPC.velocity.X = NPC.Center.DirectionTo(target.Center).X * ChaseSpeedDesperate;
                     SetDirection();
 
                     Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed,
                         ref NPC.gfxOffY,
                         (int)target.gravDir);
 
-                    if (NPC.collideX && NPC.velocity.Y >= 0) NPC.velocity.Y += -8f;
+                    if (NPC.collideX && NPC.velocity.Y >= 0) NPC.velocity.Y += -JumpSpeedDesperate;
 
                     break;
                 }
             }
 
-            if (AiTimer >= ExplodeHuntDuration)
+            if (AiTimer >= ExplodeHuntDuration && NPC.velocity.Y == 0)
             {
                 AiState = (float)ActionState.Exploding;
                 AiTimer = 0;
@@ -706,7 +709,7 @@ public class WalkingHive : ModdedHostileNPC
         else
         {
             if (AiTimer == 0) AiTimer = 1;
-            NPC.velocity.X = NPC.Center.DirectionTo(target.Center).X * 4f;
+            NPC.velocity.X = NPC.Center.DirectionTo(target.Center).X * ChaseSpeed;
             SetDirection();
 
             Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed,
@@ -757,8 +760,12 @@ public class WalkingHive : ModdedHostileNPC
         NPC.velocity.X = 0;
 
         if (AiTimer % PukeDivisor == 0 && Main.netMode != NetmodeID.MultiplayerClient)
-            Projectile.NewProjectile(Projectile.InheritSource(Entity), NPC.Center,
-                NPC.Center.DirectionTo(target.Center) * 10f, ModContent.ProjectileType<WalkingHivePuke>(), 10, 5f);
+        {
+            Vector2 MouthCenter = NPC.Center + new Vector2(NPC.direction * 22, -14);
+            Vector2 ProjVelocity = new Vector2((float)NPC.direction * Main.rand.NextFloat(8f, 12f), -1f * Main.rand.NextFloat(3f, 15f));
+            Projectile.NewProjectile(Projectile.InheritSource(Entity), MouthCenter,
+                ProjVelocity, ModContent.ProjectileType<WalkingHivePuke>(), BasePukeDamage / 2, 1f);
+        }
 
         if (AiTimer >= PukeDuration)
         {
@@ -792,13 +799,13 @@ public class WalkingHive : ModdedHostileNPC
     {
         AiTimer++;
 
-        NPC.velocity.X = NPC.Center.DirectionTo(target.Center).X * -3f;
+        NPC.velocity.X = NPC.Center.DirectionTo(target.Center).X * -ChaseSpeed;
         SetDirection();
 
         Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY,
             (int)target.gravDir);
 
-        if (NPC.collideX && NPC.velocity.Y >= 0) NPC.velocity.Y += -8f;
+        if (NPC.collideX && NPC.velocity.Y >= 0) NPC.velocity.Y += -JumpSpeed;
 
         if (AiTimer >= FleeDuration)
         {
@@ -821,17 +828,25 @@ public class WalkingHive : ModdedHostileNPC
 
         NPC.velocity.X = 0;
 
+
         if (AiTimer >= ExplodingDuration && Main.netMode != NetmodeID.MultiplayerClient) NPC.StrikeInstantKill();
     }
-
     public override void OnKill()
     {
-        if (AiState == (float)ActionState.Exploding && Main.netMode != NetmodeID.MultiplayerClient)
+        if (IsExploding && Main.netMode != NetmodeID.MultiplayerClient)
         {
+            NPC.value = 0;
             Projectile.NewProjectileDirect(NPC.GetSource_Death(), NPC.Center, Vector2.Zero,
                 ModContent.ProjectileType<WalkingHiveExplosion>(), BaseContactDamage * 2, 1f);
             SoundEngine.PlaySound(SoundID.DD2_KoboldExplosion, NPC.Center);
         }
+    }
+
+    public override void ModifyNPCLoot(NPCLoot npcLoot)
+    {
+        IItemDropRule notBlownUp = new LeadingConditionRule(new WalkingHiveExplosionDropCondition());
+        notBlownUp.OnSuccess(ItemDropRule.Common(ModContent.ItemType<EggCluster>(), 1, 2, 3));
+        npcLoot.Add(notBlownUp);
     }
 
     private void SetDirection()
@@ -839,7 +854,7 @@ public class WalkingHive : ModdedHostileNPC
         NPC.direction = NPC.velocity.X > 0f ? 1 : -1;
     }
 
-    private enum ActionState
+    public enum ActionState
     {
         Wandering,
         Provoked,
@@ -922,5 +937,24 @@ public class WalkingHive : ModdedHostileNPC
         Explode3,
         Explode4,
         Explode5
+    }
+}
+
+public class WalkingHiveExplosionDropCondition : IItemDropRuleCondition
+{
+    public bool CanDrop(DropAttemptInfo info)
+    {
+        NPC npc = info.npc;
+        return npc.ai[0] != (float)WalkingHive.ActionState.Exploding;
+    }
+
+    public bool CanShowItemDropInUI()
+    {
+        return false;
+    }
+
+    public string GetConditionDescription()
+    {
+        return String.Empty;
     }
 }

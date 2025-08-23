@@ -1,3 +1,4 @@
+using MLib.Common.Items;
 using Terraria.ID;
 
 namespace TerrariaParadox.Content.Items.Materials;

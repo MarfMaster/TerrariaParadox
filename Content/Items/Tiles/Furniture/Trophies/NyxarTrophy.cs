@@ -1,3 +1,4 @@
+using MLib.Common.Items;
 using Terraria.ModLoader;
 using TerrariaParadox.Content.Tiles.Furniture.Trophies;
 
