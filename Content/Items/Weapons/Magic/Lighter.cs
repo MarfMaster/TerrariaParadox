@@ -28,8 +28,9 @@ public class Lighter : ModdedBasicItem
     public override SoundStyle UseSound => SoundID.Item20;
     public override bool UseTurn => false;
 
-    public override void CustomSetDefaults()
+    public override void SetDefaults()
     {
+        base.SetDefaults();
         Main.RegisterItemAnimation(Type, new DrawAnimationVertical(10, 3));
         Item.mana = 5;
         Item.shoot = ModContent.ProjectileType<LighterSpark>();

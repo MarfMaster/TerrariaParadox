@@ -20,8 +20,9 @@ public class MurkyIceBlockTile : ModdedBlockTile
     public override bool MergesWithItself => true;
     public override bool NameShowsOnMapHover => false;
 
-    public override void CustomSetStaticDefaults()
+    public override void SetStaticDefaults()
     {
+        base.SetStaticDefaults();
         TileID.Sets.Conversion.Ice[Type] = true;
         TileID.Sets.Ices[Type] = true;
         TileID.Sets.IceSkateSlippery[Type] = true;

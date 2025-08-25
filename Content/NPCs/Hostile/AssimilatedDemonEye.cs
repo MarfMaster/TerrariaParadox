@@ -3,9 +3,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TerrariaParadox.Content.Biomes.TheFlipside;
 using TerrariaParadox.Content.Items.Tiles.Banners;
-using TerrariaParadox.Content.Tiles.Blocks;
 
 namespace TerrariaParadox.Content.NPCs.Hostile;
 
@@ -22,14 +20,16 @@ public class AssimilatedDemonEye : ModdedHostileNPC
     public override SoundStyle OnDeathSound => SoundID.NPCDeath11;
     public override int Value => 100;
     public override int BannerItemType => ModContent.ItemType<AssimilatedDemonEyeBanner>();
-    
-    public override void CustomSetStaticDefaults()
+
+    public override void SetStaticDefaults()
     {
+        base.SetStaticDefaults();
         ParadoxSystem.FlippedBlockSpawnChance[Type] = 1f;
     }
 
-    public override void CustomSetDefaults()
+    public override void SetDefaults()
     {
+        base.SetDefaults();
         NPC.noGravity = true;
         NPC.spriteDirection = 1;
     }
@@ -51,9 +51,10 @@ public class AssimilatedDemonEye : ModdedHostileNPC
 
             if (NPC.frame.Y >= Main.npcFrameCount[Type] * frameHeight) NPC.frame.Y = (int)Frame.First;
         }
+
         NPC.rotation = NPC.velocity.ToRotation();
     }
-    
+
     private enum ActionState
     {
         DemonEye,

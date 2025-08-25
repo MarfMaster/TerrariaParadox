@@ -21,8 +21,9 @@ public class AssecstoneBlockTile : ModdedBlockTile
     public override bool MergesWithItself => true;
     public override bool NameShowsOnMapHover => false;
 
-    public override void CustomSetStaticDefaults()
+    public override void SetStaticDefaults()
     {
+        base.SetStaticDefaults();
         MinPick = 65;
         MineResist = 2f;
         TileID.Sets.Conversion.Stone[Type] = true;

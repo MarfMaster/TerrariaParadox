@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using AltLibrary;
 using AltLibrary.Common.AltBiomes;
@@ -15,7 +14,6 @@ using TerrariaParadox.Content.Tiles.Blocks;
 using TerrariaParadox.Content.Tiles.Misc;
 using TerrariaParadox.Content.Tiles.Plants;
 using TerrariaParadox.Content.Tiles.Walls;
-using DesertBiome = Terraria.GameContent.Biomes.DesertBiome;
 
 namespace TerrariaParadox.Content.Biomes.TheFlipside;
 
@@ -95,19 +93,19 @@ public class FAltBiomeMain : AltBiome
         //BloodBunny = ModContent.NPCType<Defiled_Mite>();
         //BloodPenguin = ModContent.NPCType<Bile_Thrower>();
         //BloodGoldfish = ModContent.NPCType<Shattered_Goldfish>();
-        
+
         AddWallConversions<FlippedGrassWallTileUnsafe>
         (
             WallID.Grass,
             WallID.GrassUnsafe
-        );        
-        
+        );
+
         AddWallConversions<MurkyIceWallTileUnsafe>
         (
             WallID.IceEcho,
             WallID.IceUnsafe
         );
-        
+
         AddWallConversions<AssecstoneWallTileUnsafe>
         (
             WallID.Stone,

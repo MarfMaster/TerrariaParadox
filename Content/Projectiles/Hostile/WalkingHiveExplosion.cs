@@ -17,7 +17,7 @@ public class WalkingHiveExplosion : ModdedHostileProjectile
     public override int Pierce => -2;
     public override float RotationHelper => 0;
 
-    public override void CustomAI()
+    public override void AI()
     {
         Visuals();
     }

@@ -10,8 +10,9 @@ public class ChitiniteOre : ModdedBlockItem
 {
     public override int TileType => ModContent.TileType<ChitiniteOreTile>();
 
-    public override void CustomSetDefaults()
+    public override void SetDefaults()
     {
+        base.SetDefaults();
         Item.rare = ItemRarityID.Blue;
         Item.value = PriceByRarity.fromItem(Item) / 45;
     }

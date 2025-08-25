@@ -21,8 +21,9 @@ public class AssecsandBlockTile : ModdedSandBlockTile
     public override bool MergesWithItself => true;
     public override bool NameShowsOnMapHover => false;
 
-    public override void CustomSetStaticDefaults()
+    public override void SetStaticDefaults()
     {
+        base.SetStaticDefaults();
         MineResist *= 2f;
         Main.tileMerge[ModContent.TileType<AssecsandstoneBlockTile>()][Type] = true;
         Main.tileMerge[Type][ModContent.TileType<AssecsandstoneBlockTile>()] = true;

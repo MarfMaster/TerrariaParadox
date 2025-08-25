@@ -1,12 +1,6 @@
 using System;
-using System.Collections.Generic;
-using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TerrariaParadox.Content.Tiles.Blocks;
-using TerrariaParadox.Content.Tiles.Misc;
-using TerrariaParadox.Content.Tiles.Plants;
-using TerrariaParadox.Content.Tiles.Walls;
 
 namespace TerrariaParadox;
 

@@ -29,8 +29,9 @@ public class Leecharang : ModdedBasicItem
     public override SoundStyle UseSound => SoundID.Item7;
     public override bool UseTurn => false;
 
-    public override void CustomSetDefaults()
+    public override void SetDefaults()
     {
+        base.SetDefaults();
         Item.noUseGraphic = true;
         Item.shootSpeed = ShootSpeed;
         Item.shoot = ModContent.ProjectileType<LeecharangProjectile>();

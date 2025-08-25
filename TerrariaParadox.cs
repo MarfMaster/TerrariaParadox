@@ -1,8 +1,5 @@
 using System.Collections.Generic;
-using MLib.Common.Utilities;
-using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using TerrariaParadox.Content.NPCs.Hostile;
 using TerrariaParadox.Content.NPCs.Hostile.Miniboss;
@@ -16,8 +13,6 @@ namespace TerrariaParadox;
 // Please read https://github.com/tModLoader/tModLoader/wiki/Basic-tModLoader-Modding-Guide#mod-skeleton-contents for more information about the various files in a mod.
 public partial class TerrariaParadox : Mod
 {
-
-
     #region Load
 
     public override void Load()
@@ -35,14 +30,14 @@ public partial class TerrariaParadox : Mod
             { TileID.Sandstone, (ushort)ModContent.TileType<AssecsandstoneBlockTile>() },
             { TileID.Plants, (ushort)ModContent.TileType<FlippedGrassPlants>() },
             { TileID.Plants2, (ushort)ModContent.TileType<FlippedGrassPlants>() },
-            { TileID.Vines, (ushort)ModContent.TileType<FlippedVine>()},
-            { TileID.JungleThorns, (ushort)ModContent.TileType<FlippedThorns>() },
+            { TileID.Vines, (ushort)ModContent.TileType<FlippedVine>() },
+            { TileID.JungleThorns, (ushort)ModContent.TileType<FlippedThorns>() }
         };
         ParadoxSystem.AssimilatedWalls = new Dictionary<ushort, ushort>
         {
             { WallID.Grass, (ushort)ModContent.WallType<FlippedGrassWallTileUnsafe>() },
             { WallID.GrassUnsafe, (ushort)ModContent.WallType<FlippedGrassWallTileUnsafe>() },
-            
+
             { WallID.Stone, (ushort)ModContent.WallType<AssecstoneWallTileUnsafe>() },
 
             { WallID.Cave1Echo, (ushort)ModContent.WallType<AssecstoneWallTileUnsafe>() },
@@ -61,16 +56,16 @@ public partial class TerrariaParadox : Mod
             { WallID.Cave7Unsafe, (ushort)ModContent.WallType<AssecstoneWallTileUnsafe>() },
             { WallID.Cave8Echo, (ushort)ModContent.WallType<AssecstoneWallTileUnsafe>() },
             { WallID.Cave8Unsafe, (ushort)ModContent.WallType<AssecstoneWallTileUnsafe>() },
-            
+
             { WallID.HardenedSand, (ushort)ModContent.WallType<HardenedAssecsandWallTileUnsafe>() },
             { WallID.HardenedSandEcho, (ushort)ModContent.WallType<HardenedAssecsandWallTileUnsafe>() },
             { WallID.Sandstone, (ushort)ModContent.WallType<AssecsandstoneWallTileUnsafe>() },
             { WallID.SandstoneEcho, (ushort)ModContent.WallType<AssecsandstoneWallTileUnsafe>() },
-            
+
             { WallID.IceEcho, (ushort)ModContent.WallType<MurkyIceWallTileUnsafe>() },
             { WallID.IceUnsafe, (ushort)ModContent.WallType<MurkyIceWallTileUnsafe>() }
         };
-        ParadoxNPC.FlipsideEnemies = new List<int>()
+        ParadoxNPC.FlipsideEnemies = new List<int>
         {
             ModContent.NPCType<Swarm>(),
             ModContent.NPCType<AssimilatedDemonEye>(),
@@ -88,6 +83,7 @@ public partial class TerrariaParadox : Mod
     }
 
     #endregion
+
     #region Unload
 
     public override void Unload()

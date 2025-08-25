@@ -19,8 +19,9 @@ public class HardenedAssecsandBlockTile : ModdedBlockTile
     public override bool MergesWithItself => true;
     public override bool NameShowsOnMapHover => false;
 
-    public override void CustomSetStaticDefaults()
+    public override void SetStaticDefaults()
     {
+        base.SetStaticDefaults();
         TileID.Sets.Conversion.HardenedSand[Type] = true;
         TileID.Sets.SandBiome[Type] = 1;
         TileID.Sets.ForAdvancedCollision.ForSandshark[Type] = true;

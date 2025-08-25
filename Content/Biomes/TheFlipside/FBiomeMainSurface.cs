@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Graphics.Capture;
 using Terraria.ModLoader;
+using TerrariaParadox.Content.Items.Tiles.Furniture;
 
 namespace TerrariaParadox.Content.Biomes.TheFlipside;
 
@@ -27,7 +28,7 @@ public class FBiomeMainSurface : ModBiome
     // Select Music
     //public override int Music => MusicLoader.GetMusicSlot(Mod, "Assets/Music/MysteriousMystery");
 
-    //public override int BiomeTorchItemType => ModContent.ItemType<ExampleTorch>();
+    public override int BiomeTorchItemType => ModContent.ItemType<FlippedTorch>();
     //public override int BiomeCampfireItemType => ModContent.ItemType<ExampleCampfire>();
 
     // Populate the Bestiary Filter

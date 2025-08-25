@@ -2,7 +2,6 @@ using MLib.Common.Items;
 using MLib.Common.Tiles.Furniture;
 using Terraria.ModLoader;
 using TerrariaParadox.Content.Items.Tiles.Blocks;
-using TerrariaParadox.Content.Tiles.Furniture;
 using TerrariaParadox.Content.Tiles.Furniture.Leechwood;
 
 namespace TerrariaParadox.Content.Items.Tiles.Furniture;

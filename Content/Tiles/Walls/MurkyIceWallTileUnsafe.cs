@@ -14,8 +14,9 @@ public class MurkyIceWallTileUnsafe : ModdedWallTile
     public override ushort VanillaFallbackTile => WallID.IceUnsafe;
     public override Color MapColor => new(41, 41, 77);
 
-    public override void CustomSetStaticDefaults()
+    public override void SetStaticDefaults()
     {
+        base.SetStaticDefaults();
         WallID.Sets.Conversion.Ice[Type] = true;
         Main.wallBlend[Type] = WallID.IceUnsafe;
         WallID.Sets.CannotBeReplacedByWallSpread[Type] = true;

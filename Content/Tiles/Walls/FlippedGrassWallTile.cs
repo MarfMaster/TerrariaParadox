@@ -13,8 +13,9 @@ public class FlippedGrassWallTile : ModdedWallTile
     public override ushort VanillaFallbackTile => WallID.CorruptGrassEcho;
     public override Color MapColor => new(44, 58, 57);
 
-    public override void CustomSetStaticDefaults()
+    public override void SetStaticDefaults()
     {
+        base.SetStaticDefaults();
         WallID.Sets.Conversion.Grass[Type] = true;
     }
 }

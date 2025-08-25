@@ -13,14 +13,16 @@ public class MurkySolution : ModdedAmmo
     public override int Rarity => ItemRarityID.Orange;
     public override int Value => 1500;
 
-    public override void SetDefaults()
+    public override void SetStaticDefaults()
     {
-        Item.DefaultToSolution(ModContent.ProjectileType<MurkySolutionProjectile>());
+        base.SetStaticDefaults();
+        ItemID.Sets.SortingPriorityTerraforming[Type] = 101; // One past dirt solution
     }
 
-    public override void CustomSetStaticDefaults()
+    public override void SetDefaults()
     {
-        ItemID.Sets.SortingPriorityTerraforming[Type] = 101; // One past dirt solution
+        base.SetDefaults();
+        Item.DefaultToSolution(ModContent.ProjectileType<MurkySolutionProjectile>());
     }
 
     public override void ModifyResearchSorting(ref ContentSamples.CreativeHelper.ItemGroup itemGroup)

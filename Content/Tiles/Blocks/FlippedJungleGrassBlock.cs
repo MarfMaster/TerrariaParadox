@@ -19,8 +19,9 @@ public class FlippedJungleGrassBlock : ModdedBlockTile
     public override bool MergesWithItself => false;
     public override bool NameShowsOnMapHover => false;
 
-    public override void CustomSetStaticDefaults()
+    public override void SetStaticDefaults()
     {
+        base.SetStaticDefaults();
         Main.tileBrick[Type] = true;
         TileID.Sets.CanBeDugByShovel[Type] = true;
         TileID.Sets.CanBeClearedDuringGeneration[Type] = true;
@@ -60,7 +61,7 @@ public class FlippedJungleGrassBlock : ModdedBlockTile
             if (Main.rand.NextBool(FlippedThorns.GrowChance))
             {
                 above.ResetToType((ushort)ModContent.TileType<FlippedThorns>());
-            } 
+            }
             else if (Main.rand.NextBool(ParasiticMushroomTile.ChanceToGrow))
             {
                 above.ResetToType((ushort)ModContent.TileType<ParasiticMushroomTile>());
@@ -83,7 +84,7 @@ public class FlippedJungleGrassBlock : ModdedBlockTile
             if (Main.rand.NextBool(FlippedVine.GrowChance))
             {
                 below.ResetToType((ushort)ModContent.TileType<FlippedVine>());
-            } 
+            }
             WorldGen.TileFrame(i, j + 1);
         }*/
     }

@@ -27,8 +27,9 @@ public class HostPickaxe : ModdedBasicItem
     public override SoundStyle UseSound => SoundID.Item1;
     public override bool UseTurn => true;
 
-    public override void CustomSetDefaults()
+    public override void SetDefaults()
     {
+        base.SetDefaults();
         Item.pick = 85;
         Item.attackSpeedOnlyAffectsWeaponAnimation = true;
     }

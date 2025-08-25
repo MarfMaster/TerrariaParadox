@@ -24,8 +24,9 @@ public class LeechwoodBow : ModdedBasicItem
     public override SoundStyle UseSound => SoundID.Item5;
     public override bool UseTurn => false;
 
-    public override void CustomSetDefaults()
+    public override void SetDefaults()
     {
+        base.SetDefaults();
         Item.shoot = ProjectileID.PurificationPowder;
         Item.shootSpeed = 6.7f;
         Item.useAmmo = AmmoID.Arrow;

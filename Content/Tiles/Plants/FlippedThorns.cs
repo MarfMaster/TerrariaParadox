@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using MLib.Common.Tiles;
-using PegasusLib;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -21,8 +20,9 @@ public class FlippedThorns : ModdedBlockTile
     public override bool MergesWithItself => false;
     public override bool NameShowsOnMapHover => true;
 
-    public override void CustomSetStaticDefaults()
+    public override void SetStaticDefaults()
     {
+        base.SetStaticDefaults();
         Main.tileCut[Type] = true;
         Main.tileLavaDeath[Type] = true;
         Main.tileBlockLight[Type] = true;
@@ -36,6 +36,7 @@ public class FlippedThorns : ModdedBlockTile
     {
         return true;
     }
+
     public override void RandomUpdate(int i, int j)
     {
         if (Main.rand.NextBool(GrowChance))
@@ -106,20 +107,18 @@ public class FlippedThorns : ModdedBlockTile
                 WorldGen.TileFrame(i - 1, j);
                 WorldGen.TileFrame(i - 2, j);
             }
+
             WorldGen.TileFrame(i, j);
         }
     }
+
     public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
     {
-        Vector2 tileCoords = new Vector2(i, j).ToWorldCoordinates();
-        Rectangle tileHitbox = Utils.CenteredRectangle(tileCoords, new Vector2(20, 20));
+        var tileCoords = new Vector2(i, j).ToWorldCoordinates();
+        var tileHitbox = Utils.CenteredRectangle(tileCoords, new Vector2(20, 20));
         foreach (var player in Main.ActivePlayers)
-        {
             if (tileHitbox.Intersects(player.Hitbox))
-            {
                 player.GetModPlayer<ParadoxPlayer>().HitByThorns = true;
-            }
-        }
     }
 }
 
@@ -127,7 +126,7 @@ public class FlippedThornsEnt : ModTileEntity
 {
     public override bool IsTileValidForEntity(int x, int y)
     {
-        Tile tile = Main.tile[x, y];
+        var tile = Main.tile[x, y];
         return tile.HasTile && tile.TileType == ModContent.TileType<FlippedThorns>();
     }
 }

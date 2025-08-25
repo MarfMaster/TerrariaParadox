@@ -12,9 +12,9 @@ public partial class ParadoxPlayer : ModPlayer
 
     //Debuffs
     public bool FlippedGravity;
+    public bool HitByThorns;
     public bool Stickled;
     public bool WeaponImbueStickling;
-    public bool HitByThorns;
 
     public override void ResetEffects()
     {

@@ -18,13 +18,14 @@ public class LighterSpark : ModdedFriendlyProjectile
     public override int Pierce => 2;
     public override float RotationHelper => 0;
 
-    public override void CustomSetDefaults()
+    public override void SetDefaults()
     {
+        base.SetDefaults();
         Projectile.usesLocalNPCImmunity = true;
         Projectile.localNPCHitCooldown = -1;
     }
 
-    public override void CustomAI()
+    public override void AI()
     {
         AITimer1++;
         if (AITimer1 % 2 == 0)

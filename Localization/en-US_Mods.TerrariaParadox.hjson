@@ -415,16 +415,17 @@ Debuffs: {
 }
 
 NPCs: {
-	Flatworm: {
-		DisplayName: Flatworm
-		Bestiary: Very aggressive worm very scary
-		FlatwormBody.DisplayName: Flatworm Body
-		FlatwormTail.DisplayName: Flatworm Tail
-	}
-
+	AssimilatedDemonEye.DisplayName: Assimilated Demon Eye
 	Swarm.DisplayName: Swarm
 	WalkingHive.DisplayName: Walking Hive
-	AssimilatedDemonEye.DisplayName: Assimilated Demon Eye
+
+	Worms: {
+		Flatworm: {
+			DisplayName: Flatworm
+			FlatwormBody.DisplayName: Flatworm Body
+			FlatwormTail.DisplayName: Flatworm Tail
+		}
+	}
 }
 
 Tiles: {
@@ -446,9 +447,6 @@ Projectiles: {
 	MurkySolutionProjectile.DisplayName: Murky Solution Projectile
 	MurkyWaterProjectile.DisplayName: Murky Water Projectile
 	ParasiticPowderProjectile.DisplayName: Parasitic Powder Projectile
-	ParasyteArmHeld.DisplayName: Parasyte Arm Held
-	ParasyteLowerArm.DisplayName: Parasyte Lower Arm
-	ParasyteUpperArm.DisplayName: Parasyte Upper Arm
 	WalkingHivePuke.DisplayName: Walking Hive Puke
 	WalkingHiveExplosion.DisplayName: Walking Hive Explosion
 	ParasyteHeldProjectile.DisplayName: Parasyte Held Projectile

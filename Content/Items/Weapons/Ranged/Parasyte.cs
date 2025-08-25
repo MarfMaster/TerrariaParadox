@@ -31,8 +31,9 @@ public class Parasyte : ModdedBasicItem
     {
     }
 
-    public override void CustomSetDefaults()
+    public override void SetDefaults()
     {
+        base.SetDefaults();
         Item.crit = 30;
         Item.shoot = ProjectileID.PurificationPowder;
         Item.shootSpeed = 10f;

@@ -13,8 +13,9 @@ public class MurkyIceWallTile : ModdedWallTile
     public override ushort VanillaFallbackTile => WallID.IceEcho;
     public override Color MapColor => new(41, 41, 77);
 
-    public override void CustomSetStaticDefaults()
+    public override void SetStaticDefaults()
     {
+        base.SetStaticDefaults();
         WallID.Sets.Conversion.Ice[Type] = true;
     }
 }

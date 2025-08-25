@@ -4,14 +4,14 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TerrariaParadox.Content.Dusts.Tiles.Blocks;
-using TerrariaParadox.Content.Dusts.Tiles.Misc;
 
 namespace TerrariaParadox.Content.Tiles.Plants;
 
 public class FlippedVine : ModTile
 {
     public const int GrowChance = 70;
-    public override void SetStaticDefaults() 
+
+    public override void SetStaticDefaults()
     {
         Main.tileCut[Type] = true;
         Main.tileBlockLight[Type] = true;
@@ -29,7 +29,7 @@ public class FlippedVine : ModTile
         HitSound = SoundID.Grass;
     }
 
-    public override bool PreDraw(int i, int j, SpriteBatch spriteBatch) 
+    public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
     {
         // This method is used to make a vine tile draw in the wind. Note that i and j are reversed for this method, this is not a typo.
         Main.instance.TilesRenderer.CrawlToTopOfVineAndAddSpecialPoint(j, i);
@@ -38,16 +38,14 @@ public class FlippedVine : ModTile
         return false;
     }
 
-    public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY) 
+    public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height,
+        ref short tileFrameX, ref short tileFrameY)
     {
         offsetY = -2;
     }
 
-    public override void SetSpriteEffects(int i, int j, ref SpriteEffects spriteEffects) 
+    public override void SetSpriteEffects(int i, int j, ref SpriteEffects spriteEffects)
     {
-        if (i % 2 == 0) 
-        {
-            spriteEffects = SpriteEffects.FlipHorizontally;
-        }
+        if (i % 2 == 0) spriteEffects = SpriteEffects.FlipHorizontally;
     }
 }

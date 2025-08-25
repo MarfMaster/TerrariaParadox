@@ -21,20 +21,23 @@ public class CustomDrillProj : ModdedFriendlyProjectile
     public override int Pierce => -2;
     public override float RotationHelper => 0;
 
-    public override void CustomSetStaticDefaults()
+    public override void SetStaticDefaults()
     {
+        base.SetStaticDefaults();
         ProjectileID.Sets.HeldProjDoesNotUsePlayerGfxOffY[Type] = true;
     }
 
-    public override void CustomSetDefaults()
+    public override void SetDefaults()
     {
+        base.SetDefaults();
         Projectile.ownerHitCheck = true;
         Projectile.hide =
             true; // Hides the projectile, so it will draw in the player's hand when we set the player's heldProj to this one.
     }
 
-    public override void CustomAI()
+    public override void AI()
     {
+        base.AI();
         var player = Main.player[Projectile.owner];
 
         Projectile.timeLeft = 60;

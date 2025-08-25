@@ -19,8 +19,9 @@ public class ChitiniteOreTile : ModdedBlockTile
     public override bool MergesWithItself => true;
     public override bool NameShowsOnMapHover => true;
 
-    public override void CustomSetStaticDefaults()
+    public override void SetStaticDefaults()
     {
+        base.SetStaticDefaults();
         Main.tileLighted[Type] = true;
         Main.tileMerge[ModContent.TileType<AssecstoneBlockTile>()][Type] = true;
         Main.tileMerge[Type][ModContent.TileType<AssecstoneBlockTile>()] = true;

@@ -13,8 +13,9 @@ public class AssecsandstoneWallTile : ModdedWallTile
     public override ushort VanillaFallbackTile => WallID.CorruptSandstoneEcho;
     public override Color MapColor => new(25, 26, 40);
 
-    public override void CustomSetStaticDefaults()
+    public override void SetStaticDefaults()
     {
+        base.SetStaticDefaults();
         WallID.Sets.Conversion.Sandstone[Type] = true;
         WallID.Sets.CannotBeReplacedByWallSpread[Type] = true;
     }

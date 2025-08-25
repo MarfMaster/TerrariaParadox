@@ -22,13 +22,10 @@ public class ParasyteHeldProjectile : ModdedFriendlyProjectile
     public override int Pierce => -2;
     public override float RotationHelper => 0;
 
-    public override void CustomSetStaticDefaults()
+    public override void SetStaticDefaults()
     {
+        base.SetStaticDefaults();
         ProjectileID.Sets.HeldProjDoesNotUsePlayerGfxOffY[Type] = true;
-    }
-
-    public override void CustomSetDefaults()
-    {
     }
 
     public override void OnSpawn(IEntitySource source)

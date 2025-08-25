@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using AltLibrary.Core.Generation;
 using Microsoft.Xna.Framework;
-using MLib.Common.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -15,22 +14,26 @@ namespace TerrariaParadox;
 
 public class FlipsideEvilPass : EvilBiomeGenerationPass
 {
+    private static readonly Dictionary<Point, float> _bulbPoints = new();
+
+    public static List<int> FlipsideWestEdges = new();
+    public static List<int> FlipsideEastEdges = new();
+    public static List<int> FlipsideBottomEdges = new();
+    public static List<Point> SandToBeFlipped = new();
     private ushort _bulbTile;
-    private ushort _modAltar;
 
     private GenAction _clearTiles;
+    private ushort _modAltar;
     private ushort _modStone;
     private ushort _modStoneWall;
     private GenAction _placeStone;
     private GenAction _placeStoneWall;
-    public override string ProgressMessage => Language.GetTextValue("Mods.TerrariaParadox.Biomes.TheFlipside.FAltBiomeMain.GenPassName");
+
+    public override string ProgressMessage =>
+        Language.GetTextValue("Mods.TerrariaParadox.Biomes.TheFlipside.FAltBiomeMain.GenPassName");
+
     public override bool CanGenerateNearDungeonOcean => true;
 
-    private static Dictionary<Point, float> _bulbPoints = new Dictionary<Point, float>();
-    
-    public static List<int> FlipsideWestEdges = new List<int>();
-    public static List<int> FlipsideEastEdges = new List<int>();
-    public static List<int> FlipsideBottomEdges = new List<int>();
     public override void GenerateEvil(int evilBiomePosition, int evilBiomePositionWestBound,
         int evilBiomePositionEastBound)
     {
@@ -85,14 +88,8 @@ public class FlipsideEvilPass : EvilBiomeGenerationPass
             (int)bugBodyLength * 2);
         GenVars.structures.AddProtectedStructure(bugRectangle);
 
-        if (bugRectangle.Right > evilBiomePositionEastBound)
-        {
-            evilBiomePositionEastBound = bugRectangle.Right;
-        }
-        if (bugRectangle.Left < evilBiomePositionWestBound)
-        {
-            evilBiomePositionWestBound = bugRectangle.Left;
-        }
+        if (bugRectangle.Right > evilBiomePositionEastBound) evilBiomePositionEastBound = bugRectangle.Right;
+        if (bugRectangle.Left < evilBiomePositionWestBound) evilBiomePositionWestBound = bugRectangle.Left;
 
 
         FirstFlipping(evilBiomePosition, evilBiomePositionWestBound, evilBiomePositionEastBound, bugRectangle.Bottom);
@@ -122,14 +119,15 @@ public class FlipsideEvilPass : EvilBiomeGenerationPass
         WorldUtils.Gen(bugCenterPoint, hollowBugBody, _clearTiles);
 
         GenShape bugSpots = new Shapes.Mound((int)(12f * worldSizeMultiplier), (int)(6f * worldSizeMultiplier));
-        for (int i = 0; i < 5; i++)
+        for (var i = 0; i < 5; i++)
         {
-            Point bugSpotPoint = new Point(bugCenterPoint.X + WorldGen.genRand.Next(-8, 8 + 1), bugCenterPoint.Y + (int)((bugBodyHollowHeight / 3f) * (2 - i)));
+            var bugSpotPoint = new Point(bugCenterPoint.X + WorldGen.genRand.Next(-8, 8 + 1),
+                bugCenterPoint.Y + (int)(bugBodyHollowHeight / 3f * (2 - i)));
             WorldUtils.Gen(bugSpotPoint, bugSpots, _placeStone);
-            for (int j = 0; j < 100; j++)
+            for (var j = 0; j < 100; j++)
             {
-                Point bugSpotTopCenterPoint = new Point(bugSpotPoint.X, bugSpotPoint.Y - j);
-                Tile bugSpotCenterTopTile = Main.tile[bugSpotTopCenterPoint.X, bugSpotTopCenterPoint.Y];
+                var bugSpotTopCenterPoint = new Point(bugSpotPoint.X, bugSpotPoint.Y - j);
+                var bugSpotCenterTopTile = Main.tile[bugSpotTopCenterPoint.X, bugSpotTopCenterPoint.Y];
                 if (!bugSpotCenterTopTile.HasTile)
                 {
                     WorldGen.Place3x2(bugSpotTopCenterPoint.X, bugSpotTopCenterPoint.Y, _modAltar);
@@ -137,12 +135,12 @@ public class FlipsideEvilPass : EvilBiomeGenerationPass
                 }
             }
         }
-        
+
         FlipsideWestEdges.Add(evilBiomePositionWestBound);
         FlipsideEastEdges.Add(evilBiomePositionEastBound);
         FlipsideBottomEdges.Add(bugRectangle.Bottom);
     }
-    public static List<Point> SandToBeFlipped = new List<Point>();
+
     private void FirstFlipping(int evilBiomePosition, int evilBiomePositionWestBound, int evilBiomePositionEastBound,
         int bugBottom)
     {
@@ -160,15 +158,11 @@ public class FlipsideEvilPass : EvilBiomeGenerationPass
                     indexXCoords >= evilBiomePositionWestBound + WorldGen.genRand.Next(5) &&
                     indexXCoords <= evilBiomePositionEastBound - WorldGen.genRand.Next(5))
                 {
-                    Tile above =  Main.tile[indexXCoords, indexYCoordsMax - 1];
+                    var above = Main.tile[indexXCoords, indexYCoordsMax - 1];
                     if (!above.HasTile && indexYCoordsMax < GenVars.worldSurfaceHigh - 1.0)
-                    {
                         SandToBeFlipped.Add(new Point(indexXCoords, indexYCoordsMax));
-                    }
                     else
-                    {
                         tile.TileType = (ushort)ModContent.TileType<AssecsandBlockTile>();
-                    }
                 }
 
                 if (indexYCoordsMax < GenVars.worldSurfaceHigh - 1.0)
@@ -188,12 +182,9 @@ public class FlipsideEvilPass : EvilBiomeGenerationPass
                 }
 
                 if (tile.HasTile)
-                {
-                    if (tile.TileType != TileID.Sand && ParadoxSystem.AssimilatedBlocks.TryGetValue(tile.TileType, out var tileType))
-                    {
+                    if (tile.TileType != TileID.Sand &&
+                        ParadoxSystem.AssimilatedBlocks.TryGetValue(tile.TileType, out var tileType))
                         tile.TileType = tileType;
-                    }
-                }
 
                 if (tile.WallType != WallID.None)
                     if (ParadoxSystem.AssimilatedWalls.TryGetValue(tile.WallType, out var wallType))
@@ -266,29 +257,29 @@ public class FlipsideEvilPass : EvilBiomeGenerationPass
     private void PrepareBulbs(Point bugCenterPoint, Point bulbOffset1, Point bulbOffset2, float bulbContainerSize,
         float worldSizeMultiplier)
     {
-        List<Point> bulbPointList = new List<Point>();
-        
+        var bulbPointList = new List<Point>();
+
         var bulbCenterPoint1 = bugCenterPoint + bulbOffset1;
         bulbPointList.Add(bulbCenterPoint1);
-        
+
         var bulbCenterPoint2 = bugCenterPoint - bulbOffset1;
         bulbPointList.Add(bulbCenterPoint2);
-        
+
         var bulbCenterPoint3 = bugCenterPoint + new Point(-bulbOffset1.X, bulbOffset1.Y);
         bulbPointList.Add(bulbCenterPoint3);
-        
+
         var bulbCenterPoint4 = bugCenterPoint + new Point(bulbOffset1.X, -bulbOffset1.Y);
         bulbPointList.Add(bulbCenterPoint4);
 
         var bulbCenterPoint5 = bugCenterPoint + new Point(bulbOffset2.X, bulbOffset1.Y / 3);
         bulbPointList.Add(bulbCenterPoint5);
-        
+
         var bulbCenterPoint6 = bugCenterPoint + new Point(-bulbOffset2.X, bulbOffset1.Y / -3);
         bulbPointList.Add(bulbCenterPoint6);
-        
+
         var bulbCenterPoint7 = bugCenterPoint + new Point(bulbOffset2.X, bulbOffset1.Y / -3);
         bulbPointList.Add(bulbCenterPoint7);
-        
+
         var bulbCenterPoint8 = bugCenterPoint + new Point(-bulbOffset2.X, bulbOffset1.Y / 3);
         bulbPointList.Add(bulbCenterPoint8);
 
@@ -343,19 +334,21 @@ public class FlipsideEvilPass : EvilBiomeGenerationPass
             _bulbPoints.Add(p, bulbContainerSize);
         }
     }
+
     private void PlaceBulbs()
     {
         foreach (var p in _bulbPoints.Keys)
         {
             GenShape outerBulbContainer = new Shapes.Circle((int)(_bulbPoints[p] * 1.75f));
             GenShape bulbContainer = new Shapes.Circle((int)_bulbPoints[p]);
-            
+
             WorldUtils.Gen(p, outerBulbContainer, _placeStone);
             WorldUtils.Gen(p, outerBulbContainer, _placeStoneWall);
             WorldUtils.Gen(p, bulbContainer, _clearTiles);
             WorldGen.PlaceSign(p.X, p.Y, _bulbTile);
         }
     }
+
     public override void PostGenerateEvil()
     {
         PlaceBulbs();

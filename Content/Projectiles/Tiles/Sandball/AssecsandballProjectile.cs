@@ -8,8 +8,9 @@ namespace TerrariaParadox.Content.Projectiles.Tiles.Sandball;
 
 public class AssecsandballProjectile : ModdedSandballProjectile
 {
-    public override void CustomSetStaticDefaults()
+    public override void SetStaticDefaults()
     {
+        base.SetStaticDefaults();
         ProjectileID.Sets.FallingBlockTileItem[Type] =
             new ProjectileID.Sets.FallingBlockTileItemInfo(ModContent.TileType<AssecsandBlockTile>(),
                 ModContent.ItemType<AssecsandBlock>());
@@ -26,8 +27,9 @@ public class AssecsandballGunProj : ModdedSandballProjectile
 {
     public override string Texture => "TerrariaParadox/Content/Projectiles/Tiles/Sandball/AssecsandballProjectile";
 
-    public override void CustomSetStaticDefaults()
+    public override void SetStaticDefaults()
     {
+        base.SetStaticDefaults();
         ProjectileID.Sets.FallingBlockTileItem[Type] =
             new ProjectileID.Sets.FallingBlockTileItemInfo(ModContent.TileType<AssecsandBlockTile>());
     }

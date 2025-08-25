@@ -19,8 +19,9 @@ public class AssecsandstoneBlockTile : ModdedBlockTile
     public override bool MergesWithItself => true;
     public override bool NameShowsOnMapHover => false;
 
-    public override void CustomSetStaticDefaults()
+    public override void SetStaticDefaults()
     {
+        base.SetStaticDefaults();
         TileID.Sets.Conversion.Sandstone[Type] = true;
         TileID.Sets.isDesertBiomeSand[Type] = true;
         TileID.Sets.ForAdvancedCollision.ForSandshark[Type] = true;

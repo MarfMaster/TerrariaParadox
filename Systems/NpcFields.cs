@@ -7,7 +7,7 @@ namespace TerrariaParadox;
 public partial class ParadoxNPC : GlobalNPC
 {
     public static List<int> FlipsideEnemies;
-    
+
     public bool LeecharangBleed;
 
     public int LeecharangBleedStacks = 0; //gets reset in the buff once it runs out

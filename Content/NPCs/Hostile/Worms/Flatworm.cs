@@ -9,7 +9,6 @@ using Terraria.ModLoader;
 using TerrariaParadox.Content.Biomes.TheFlipside;
 using TerrariaParadox.Content.Items.Materials;
 using TerrariaParadox.Content.Items.Tiles.Banners;
-using TerrariaParadox.Content.Tiles.Blocks;
 
 namespace TerrariaParadox.Content.NPCs.Hostile.Worms;
 
@@ -70,7 +69,7 @@ internal class Flatworm : ModdedWorm
         BannerItem = ModContent.ItemType<FlatwormBanner>();
         //ItemID.Sets.KillsToBanner[BannerItem] = 25; default 50
     }
-    
+
     public override void ModifyNPCLoot(NPCLoot npcLoot)
     {
         npcLoot.Add(ItemDropRule.Common(ItemID.WormTooth, 1, 5, 10));
@@ -158,7 +157,7 @@ internal class FlatwormBody : ModdedWormBody
         NPCID.Sets.RespawnEnemyID[NPC.type] = ModContent.NPCType<Flatworm>();
     }
 
-    public override void CustomSetDefaults()
+    public override void SetDefaults()
     {
         NPC.width = 14;
         NPC.height = 22;
@@ -199,7 +198,7 @@ internal class FlatwormTail : ModdedWormTail
         NPCID.Sets.RespawnEnemyID[NPC.type] = ModContent.NPCType<Flatworm>();
     }
 
-    public override void CustomSetDefaults()
+    public override void SetDefaults()
     {
         NPC.width = 14;
         NPC.height = 32;

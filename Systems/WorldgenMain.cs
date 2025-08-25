@@ -1,16 +1,8 @@
 using System;
-using System.Collections.Generic;
-using AltLibrary.Common.AltBiomes;
-using AltLibrary.Common.Systems;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
-using Terraria.IO;
 using Terraria.ModLoader;
 using Terraria.WorldBuilding;
-using TerrariaParadox.Content.Biomes.TheFlipside;
-using TerrariaParadox.Content.Tiles.Blocks;
-using TerrariaParadox.Content.Tiles.Misc;
 
 namespace TerrariaParadox;
 

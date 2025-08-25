@@ -16,7 +16,7 @@ public class ChitiniteGreaves : ModdedGreaves
     public override int Rarity => ItemRarityID.Blue;
     public override int Value => PriceByRarity.fromItem(Item);
 
-    public override void EquipEffects(Player player)
+    public override void UpdateEquip(Player player)
     {
         player.GetAttackSpeed(DamageClass.Generic) += AttackSpeed / 100f;
     }

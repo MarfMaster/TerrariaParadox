@@ -1,11 +1,8 @@
-using System;
 using System.Collections.Generic;
 using MLib.Common.Utilities;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
-using TerrariaParadox.Content.Items.Weapons.Melee;
 using TerrariaParadox.Content.NPCs.Hostile;
 
 namespace TerrariaParadox;
@@ -14,7 +11,7 @@ public partial class ParadoxItem : GlobalItem
 {
     public override void SetStaticDefaults()
     {
-        ItemsWithExtraTooltips = new List<int>()
+        ItemsWithExtraTooltips = new List<int>
         {
             ItemID.HotlineFishingHook
         };
@@ -50,13 +47,11 @@ public partial class ParadoxItem : GlobalItem
         if (item.type == ItemID.BugNet)
             base.ModifyWeaponDamage(item, player, ref damage);
     }
-    
+
 
     public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
     {
         foreach (var KeyAndValue in ExtraTooltipsWithKeys1)
-        {
             TooltipHelper.SimpleTooltip(KeyAndValue.Key, item, Mod, tooltips, ExtraTooltipsWithKeys1[KeyAndValue.Key]);
-        }
     }
 }

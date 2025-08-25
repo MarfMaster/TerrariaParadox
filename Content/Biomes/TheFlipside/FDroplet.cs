@@ -6,7 +6,7 @@ namespace TerrariaParadox.Content.Biomes.TheFlipside;
 
 public class FDroplet : ModGore
 {
-    public override void SetStaticDefaults() 
+    public override void SetStaticDefaults()
     {
         ChildSafety.SafeGore[Type] = true;
         GoreID.Sets.LiquidDroplet[Type] = true;

@@ -14,8 +14,9 @@ public class HardenedAssecsandWallTileUnsafe : ModdedWallTile
     public override ushort VanillaFallbackTile => WallID.CorruptHardenedSand;
     public override Color MapColor => new(55, 62, 71);
 
-    public override void CustomSetStaticDefaults()
+    public override void SetStaticDefaults()
     {
+        base.SetStaticDefaults();
         WallID.Sets.Conversion.Grass[Type] = true;
         Main.wallBlend[Type] = WallID.GrassUnsafe;
         WallID.Sets.CannotBeReplacedByWallSpread[Type] = true;

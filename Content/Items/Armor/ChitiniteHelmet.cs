@@ -24,13 +24,14 @@ public class ChitiniteHelmet : ModdedHelmet
     public override float SetBonusStat2 { get; }
     public override float SetBonusStat3 { get; }
 
-    public override void EquipEffects(Player player)
+    public override void UpdateEquip(Player player)
     {
         player.GetAttackSpeed(DamageClass.Generic) += AttackSpeed / 100f;
     }
 
-    public override void ArmorSetBonus(Player player)
+    public override void UpdateArmorSet(Player player)
     {
+        base.UpdateArmorSet(player);
         player.statDefense += SetBonusDefense;
         player.GetModPlayer<ParadoxPlayer>().ChitiniteFlip = true;
     }

@@ -5,7 +5,6 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TerrariaParadox.Content.Biomes.TheFlipside;
 using TerrariaParadox.Content.Debuffs.DoT;
 using TerrariaParadox.Content.Items.Tiles.Banners;
 
@@ -29,14 +28,16 @@ public class Swarm : ModdedHostileNPC
 
     private ref float DashTimer => ref AiTimer2;
 
-    public override void CustomSetStaticDefaults()
+    public override void SetStaticDefaults()
     {
+        base.SetStaticDefaults();
         ParadoxSystem.FlippedBlockSpawnChance[Type] = 1f;
         NPCID.Sets.SpecificDebuffImmunity[Type][ModContent.BuffType<LeecharangBleed>()] = true;
     }
 
-    public override void CustomSetDefaults()
+    public override void SetDefaults()
     {
+        base.SetDefaults();
         NPC.noGravity = true;
     }
 

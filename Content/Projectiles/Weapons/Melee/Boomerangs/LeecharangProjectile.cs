@@ -22,8 +22,9 @@ public class LeecharangProjectile : ModdedFriendlyProjectile
     public override int Pierce => 1; //so it can return after having hit an enemy
     public override float RotationHelper => 0;
 
-    public override void CustomAI()
+    public override void AI()
     {
+        base.AI();
         var player = Main.player[Projectile.owner];
 
         AITimer1++;

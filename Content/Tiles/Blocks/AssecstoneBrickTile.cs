@@ -19,8 +19,9 @@ public class AssecstoneBrickTile : ModdedBlockTile
     public override bool MergesWithItself => false;
     public override bool NameShowsOnMapHover => false;
 
-    public override void CustomSetStaticDefaults()
+    public override void SetStaticDefaults()
     {
+        base.SetStaticDefaults();
         Main.tileBrick[Type] = true;
     }
 }

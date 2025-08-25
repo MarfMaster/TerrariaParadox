@@ -14,8 +14,9 @@ public class AssecstoneWallTileUnsafe : ModdedWallTile
     public override ushort VanillaFallbackTile => WallID.EbonstoneUnsafe;
     public override Color MapColor => new(31, 36, 48);
 
-    public override void CustomSetStaticDefaults()
+    public override void SetStaticDefaults()
     {
+        base.SetStaticDefaults();
         WallID.Sets.Conversion.Stone[Type] = true;
         Main.wallBlend[Type] = WallID.Stone;
         ParadoxSystem.MinHammer[Type] = 70;

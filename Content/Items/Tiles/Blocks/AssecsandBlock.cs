@@ -10,14 +10,16 @@ public class AssecsandBlock : ModdedBlockItem
 {
     public override int TileType => ModContent.TileType<AssecsandBlockTile>();
 
-    public override void CustomSetStaticDefaults()
+    public override void SetStaticDefaults()
     {
+        base.SetStaticDefaults();
         ItemID.Sets.SandgunAmmoProjectileData[Type] =
             new ItemID.Sets.SandgunAmmoInfo(ModContent.ProjectileType<AssecsandballGunProj>(), 10);
     }
 
-    public override void CustomSetDefaults()
+    public override void SetDefaults()
     {
+        base.SetDefaults();
         Item.ammo = AmmoID.Sand;
         Item.notAmmo = true;
     }
