@@ -62,6 +62,7 @@ public class WalkingHive : ModdedHostileNPC
     public override int BaseDefense => 0;
     public override float BaseKnockbackReceivedMultiplier => 0.2f;
     public override int BaseContactDamage => 25;
+    public const float ExplosionContactDamageMultiplier = 2f;
     public const int BasePukeDamage = 30;
     public override SoundStyle OnHitSound => SoundID.NPCDeath9;
     public override SoundStyle OnDeathSound => SoundID.NPCDeath11;
@@ -469,12 +470,6 @@ public class WalkingHive : ModdedHostileNPC
                 break;
             }
         }
-
-        NPC.reflectsProjectiles = false;
-        if (Main.GameUpdateCount % 30 == 0)
-        {
-            //Main.NewText(AiState);
-        }
     }
 
     private bool Backshot(int hitDirection)
@@ -572,7 +567,6 @@ public class WalkingHive : ModdedHostileNPC
                     ModContent.GoreType<WalkingHiveGore4>());
                 Gore.NewGoreDirect(NPC.GetSource_Death(), NPC.Center, velocity5 * 2f,
                     ModContent.GoreType<WalkingHiveGore5>());
-                //call some explosion projectile
             }
             else
             {
@@ -827,17 +821,18 @@ public class WalkingHive : ModdedHostileNPC
         AiTimer++;
 
         NPC.velocity.X = 0;
+        
 
 
         if (AiTimer >= ExplodingDuration && Main.netMode != NetmodeID.MultiplayerClient) NPC.StrikeInstantKill();
     }
     public override void OnKill()
     {
-        if (IsExploding && Main.netMode != NetmodeID.MultiplayerClient)
+        if (IsExploding)
         {
             NPC.value = 0;
             Projectile.NewProjectileDirect(NPC.GetSource_Death(), NPC.Center, Vector2.Zero,
-                ModContent.ProjectileType<WalkingHiveExplosion>(), BaseContactDamage * 2, 1f);
+                ModContent.ProjectileType<WalkingHiveExplosion>(), (int)((float)BaseContactDamage * ExplosionContactDamageMultiplier), 1f);
             SoundEngine.PlaySound(SoundID.DD2_KoboldExplosion, NPC.Center);
         }
     }

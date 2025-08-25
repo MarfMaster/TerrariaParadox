@@ -18,7 +18,6 @@ public class FlippedThorns : ModdedBlockTile
     public override ushort VanillaFallbackTileAndMerge => TileID.CorruptThorns;
     public override SoundStyle TileMineSound => SoundID.Grass;
     public override Color MapColor => new(57, 63, 75);
-    public override int WaterfallStyleID => WaterStyleID.Corrupt;
     public override bool MergesWithItself => false;
     public override bool NameShowsOnMapHover => true;
 

@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 using TerrariaParadox.Content.Biomes.TheFlipside;
 using TerrariaParadox.Content.Debuffs;
@@ -25,6 +27,59 @@ public partial class ParadoxPlayer : ModPlayer
     {
         if (DebugNoDamageSpread) modifiers.DamageVariationScale *= 0;
     }
+    
+
+		public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition) 
+		{
+			bool inWater = !attempt.inLava && !attempt.inHoney;
+			bool inLava = attempt.inLava;
+			bool inHoney = attempt.inHoney;
+			int FlipsideQuestFish = ItemID.Ichorfish; //for now
+			bool inFlipside = Player.InModBiome<FBiomeMainSurface>();
+			if (inWater && inFlipside) 
+			{
+				if (attempt.questFish == FlipsideQuestFish && attempt.uncommon)
+				{
+					itemDrop = FlipsideQuestFish;
+					return;
+				}
+				if (attempt.common)
+				{
+					itemDrop = ItemID.Ebonkoi; //for now
+					return;
+				}
+
+				if (attempt.rare && attempt.crate)
+				{
+					itemDrop = ItemID.CrimsonFishingCrateHard;//for now
+					return;
+				}
+				
+			}
+		}
+
+		public override bool? CanConsumeBait(Item bait) 
+		{
+			// during CanConsumeBait, Player.GetFishingConditions() == attempt.playerFishingConditions from CatchFish.
+			PlayerFishingConditions conditions = Player.GetFishingConditions();
+
+			if (conditions.Pole.type == ItemID.HotlineFishingHook) 
+			{
+				return false;
+			}
+
+			return null; // Let the default logic run
+		}
+
+		// If fishing with ladybug, we will receive multiple "fish" per bobber. Does not apply to quest fish
+		/*
+		public override void ModifyCaughtFish(Item fish) 
+		{
+			// In this example, we make sure that we got a Ladybug as bait, and later on use that to determine what we catch
+			if (Player.GetFishingConditions().BaitItemType == ItemID.LadyBug && fish.rare != ItemRarityID.Quest) {
+				fish.stack += Main.rand.Next(1, 4);
+			}
+		}*/
 
     public override void PreUpdate()
     {

@@ -17,7 +17,6 @@ public class MurkyIceBlockTile : ModdedBlockTile
     public override ushort VanillaFallbackTileAndMerge => TileID.IceBlock;
     public override SoundStyle TileMineSound => SoundID.Item50; //Ice Block mine sound
     public override Color MapColor => new(42, 42, 79);
-    public override int WaterfallStyleID => WaterStyleID.Corrupt;
     public override bool MergesWithItself => true;
     public override bool NameShowsOnMapHover => false;
 

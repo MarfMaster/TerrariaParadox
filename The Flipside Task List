@@ -140,13 +140,10 @@ Furniture:
 Code Tasks:
 - Add "flip" ability to Chitinite armor set
 - Add visuals to Flask of Stickling and Stickled Debuff, need dust for this
-- Add flipped vines to flipped grass blocks, need dust too
+- Add flipped vines dust too
 - Add IsFood set to food items and ask for 2 extra sprites for each(see examplefooditem)
 - Add dust for murky solution and need projectile sprite
 - Add dust for flipped grass wall, murky solution, murky water, parasitic powder
-- Add flipped vines
-- Add murky ice wall
-- Add flipped thorns growth
 - Add flipped planter box
 - Add assimilated demon eye
 - Add Flipped Torch
@@ -154,7 +151,7 @@ Code Tasks:
 - Add Nyxar(prolly after having designed the worldgenned biome though)
 
 Worldgen:
-- Add flipped vines, thorns, cacti, palm trees and stalacs to worldgen
+- Add stalacs to worldgen
 - Add chat message to breaking Bulbs, add boss spawning progress counter(nyxar should spawn every 4th bulb)
 - Give Flipped Pots the correct loot xd
 - Dont Dig Up seed crash

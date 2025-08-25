@@ -14,7 +14,7 @@ public class FBiomeMainSurface : ModBiome
 
     // Select all the scenery
     public override ModWaterStyle WaterStyle =>
-        base.WaterStyle; //ModContent.GetInstance<ExampleWaterStyle>(); // Sets a water style for when inside this biome
+        ModContent.GetInstance<FWaterStyle>(); // Sets a water style for when inside this biome
 
     public override ModSurfaceBackgroundStyle SurfaceBackgroundStyle =>
         ModContent.GetInstance<FSurfaceBackgroundStyle>();

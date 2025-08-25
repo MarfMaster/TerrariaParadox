@@ -379,6 +379,8 @@ Items: {
 			Tooltip: Disables damage spread
 		}
 	}
+
+	Vanilla.HotlineFishingHook.One: Won't consume bait.
 }
 
 Buffs: {

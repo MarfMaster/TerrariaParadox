@@ -16,7 +16,6 @@ public class HardenedAssecsandBlockTile : ModdedBlockTile
     public override ushort VanillaFallbackTileAndMerge => TileID.HardenedSand;
     public override SoundStyle TileMineSound => SoundID.Dig;
     public override Color MapColor => new(38, 41, 72);
-    public override int WaterfallStyleID => WaterStyleID.Corrupt;
     public override bool MergesWithItself => true;
     public override bool NameShowsOnMapHover => false;
 

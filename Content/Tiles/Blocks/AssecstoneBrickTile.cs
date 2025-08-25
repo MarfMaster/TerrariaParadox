@@ -16,7 +16,6 @@ public class AssecstoneBrickTile : ModdedBlockTile
     public override ushort VanillaFallbackTileAndMerge => TileID.GrayBrick;
     public override SoundStyle TileMineSound => SoundID.Tink;
     public override Color MapColor => new(69, 79, 101);
-    public override int WaterfallStyleID => WaterStyleID.Corrupt;
     public override bool MergesWithItself => false;
     public override bool NameShowsOnMapHover => false;
 
