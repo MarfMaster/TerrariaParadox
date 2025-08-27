@@ -11,7 +11,7 @@ namespace TerrariaParadox.Content.Items.Tiles.Furniture;
 public class FlippedTorch : ModdedTorchItem
 {
     public override int TorchTileType => ModContent.TileType<FlippedTorchTile>();
-    public override Color LightColor => new Color(0.0028f, 0.0198f, 0.0135f) * 0.5f;
+    public override Color LightColor => new Color(0.28f, 1.98f, 1.135f);
     public override int TorchCraftAmount => 5;
     public override int MaterialItemType => ModContent.ItemType<AssecstoneBlock>();
     public override int SparkleDustType => ModContent.DustType<BioluminescentBulbDust>();
