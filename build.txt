@@ -1,5 +1,5 @@
 displayName = Terraria: Paradox
 author = MarfMaster, KOMSMATIK
-version = 0.4.9
+version = 0.4.9.9
 modReferences = MLib, AltLibrary, PegasusLib
 homepage = https://github.com/MarfMaster/TerrariaParadox

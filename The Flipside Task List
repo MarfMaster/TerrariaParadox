@@ -24,6 +24,7 @@ Background walls:
 - Infested Tendril/Teeth Wall
 - Assecsandstone Wall~~
 - Hardened Assecsand Wall~~
+- Murky Ice Wall~~
 
 Plants(misc tiles/items):
 - Leechwood Tree(special tile)~~
@@ -40,7 +41,7 @@ Plants(misc tiles/items):
 Misc Tiles:
 - Ootheca Altar~~
 - Flipside Pots~~
-- Flipped Torch
+- Flipped Torch~~
 - Stickler Torch
 - Flipped Campfire
 - 2 Flipped Crates(hardmode and pre-hardmode)
@@ -95,14 +96,14 @@ Equipment like armor and accessories:
 - Nyxar Master Mode Pet/Mount/Light Pet
 
 Misc Visuals:
-- Infested Water Style
+- Infested Water Style~~
 - Surface Backgrounds
 - Underground Backgrounds
-- Flipped Grass grasses
+- Flipped Grass grasses~~
 - random rubble for the biome
 
 Enemies(non-bosses need banners too):
-- Walking Hive~~ -> needs banner
+- Walking Hive~~
 - Assimilated Demon Eye~~ -> needs banner
 - Swarm~~: make the swarm take damage from bug nets -> needs banner
 - Flatworm~~ -> needs banner
@@ -130,7 +131,7 @@ Furniture:
 - Leechwood Candelabra
 - Leechwood Candle
 - Leechwood Chair~~
-- Leechwood Chest
+- Leechwood Chest~~
 - Leechwood Door~~
 - Leechwood Lamp
 - Leechwood Lantern
@@ -146,12 +147,12 @@ Code Tasks:
 - Add dust for flipped grass wall, murky solution, murky water, parasitic powder
 - Add flipped planter box
 - Add assimilated demon eye
-- Add Flipped Torch
 - Add Flipped Campfire
 - Add Nyxar(prolly after having designed the worldgenned biome though)
+- Make bug nets deal damage to Swarms
 
 Worldgen:
-- Add stalacs to worldgen
+- Add stalacs to worldgen(maybe just give each placement attempt a thousand tries until it succeeds?
 - Add chat message to breaking Bulbs, add boss spawning progress counter(nyxar should spawn every 4th bulb)
 - Give Flipped Pots the correct loot xd
 - Dont Dig Up seed crash
